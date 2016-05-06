@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  6 MAY 2016 15:14
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  6 MAY 2016 15:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -737,12 +737,12 @@ Making ToC Page
 ] (./thesis.toc [6
 
 ]
-LaTeX Info: Redefining \bond on input line 29.
-LaTeX Info: Redefining \dbond on input line 29.
-LaTeX Info: Redefining \tbond on input line 29.
-LaTeX Info: Redefining \bond on input line 36.
-LaTeX Info: Redefining \dbond on input line 36.
-LaTeX Info: Redefining \tbond on input line 36.
+LaTeX Info: Redefining \bond on input line 31.
+LaTeX Info: Redefining \dbond on input line 31.
+LaTeX Info: Redefining \tbond on input line 31.
+LaTeX Info: Redefining \bond on input line 38.
+LaTeX Info: Redefining \dbond on input line 38.
+LaTeX Info: Redefining \tbond on input line 38.
 ) [7]
 Making LoT
 (./thesis.lot) [8
@@ -778,18 +778,18 @@ Making LoF
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.28> on input line 210.
+(Font)              <17.28> on input line 209.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 210.
-LaTeX Info: Redefining \bond on input line 210.
-LaTeX Info: Redefining \dbond on input line 210.
-LaTeX Info: Redefining \tbond on input line 210.
+(Font)              <10> on input line 209.
+LaTeX Info: Redefining \bond on input line 209.
+LaTeX Info: Redefining \dbond on input line 209.
+LaTeX Info: Redefining \tbond on input line 209.
  [6
 
 ]
-LaTeX Info: Redefining \bond on input line 218.
-LaTeX Info: Redefining \dbond on input line 218.
-LaTeX Info: Redefining \tbond on input line 218.
+LaTeX Info: Redefining \bond on input line 217.
+LaTeX Info: Redefining \dbond on input line 217.
+LaTeX Info: Redefining \tbond on input line 217.
  [7
 
 ] [8
@@ -812,13 +812,13 @@ Here is how much of TeX's memory you used:
  9941 multiletter control sequences out of 15000+200000
  65419 words of font info for 59 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 42i,13n,42p,259b,299s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,13n,42p,259b,327s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{
 /usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1
 /public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr
 /share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/publ
 ic/lm/lmsy10.pfb>
-Output written on thesis.pdf (17 pages, 96769 bytes).
+Output written on thesis.pdf (17 pages, 97096 bytes).
 PDF statistics:
  77 PDF objects out of 1000 (max. 8388607)
  53 compressed objects within 1 object stream
