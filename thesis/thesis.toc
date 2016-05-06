@@ -1,0 +1,17 @@
+\contentsline {chapter}{Dedication}{iii}
+\contentsline {chapter}{Acknowledgments}{iv}
+\contentsline {chapter}{Abstract}{v}
+\contentsline {chapter}{List of Tables\vspace {\baselineskip }}{vii}
+\contentsline {chapter}{List of Figures\vspace {\baselineskip }}{viii}
+\contentsline {chapter}{\chapternumberline {1}The importance of atomistic structure}{2}
+\contentsline {section}{\numberline {1.1}Atomic Structure Experiments}{3}
+\contentsline {subsection}{TEM/STEM}{3}
+\contentsline {subsubsection}{In-Situ Experiments}{3}
+\contentsline {subsection}{X-ray Total Scattering}{3}
+\contentsline {subsubsection}{In-Situ Experiments}{3}
+\contentsline {section}{\numberline {1.2}Computationally Extracting Structure from Measurements}{3}
+\contentsline {subsection}{Small box}{3}
+\contentsline {subsection}{Large box}{3}
+\contentsline {subsection}{Exotic Simulations}{3}
+\contentsline {chapter}{\chapternumberline {2}Statistical Mechanical Potential Energy Surface Minima Search}{4}
+\contentsline {chapter}{\chapternumberline {3}Potential Energy Surfaces}{5}

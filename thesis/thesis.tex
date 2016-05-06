@@ -11,6 +11,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  LaTeX Preamble
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[version=3]{mhchem} % Formula subscripts using \ce{}
 
 
 
@@ -21,7 +24,7 @@
 %% with this documentclass.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[style=uscauthoryear]{biblatex}
+\usepackage[style=uscauthoryear, backend=biber]{biblatex}
 \bibliography{references}
 
 
@@ -59,12 +62,14 @@
 \newtheorem{ex}[thm]{Example}
 \theoremstyle{plain}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  These are just a few sample lines. Put here any 
 %%  commands of your own devising that you want to use.
 %%  If these examples are no use to you, omit them.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\grad}[1]{\vec{\nabla} #1} % for gradient
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%             The Front Matter
@@ -75,12 +80,12 @@
 %%  Some of it is required.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{A Proof That Really Fits in the Margin}
+\title{Solving Atomic Structure using Statistical Mechanical Searches on X-ray scattering derived Potential Energy Surfaces}
 
 \author{Christopher James}{Wright}    %% First Name then 
                                  %% Last Name
 
-\date{20??}                      %% The year of graduation
+\date{2016}                      %% The year of graduation
 
 \otherdegrees{
 Bachelor of Science\\
@@ -88,7 +93,7 @@ Brown University 2014\\ [\baselineskip]
 %% The \\ on this line is 
 }                                %% ESSENTIAL!
 
-\degree{Doctor of Philosophy}     %% The Graduate School provides 
+\degree{Masters of Science}     %% The Graduate School provides 
                                  %% a list of official degrees.
 \field{Chemical Engineering}              %% Fields also provided by the 
                                  %% Graduate School.
@@ -97,7 +102,7 @@ Brown University 2014\\ [\baselineskip]
 \advisor {Dr.}{Xiao-Dong Zhou}{Major Professor}  %%% Be sure the 
 \readera{Dr.}{Thomas Vogt}{Committee Member}     %%% third field is 
 \readerb{Dr.}{Mark Uline}{Committee Member}          %%% the one used in 
-\readerc{Dr.}{Donna Chen}{Committee Member} %%% your department.
+\readerc{Dr.}{Jochen Lauterbach}{Committee Member} %%% your department.
 %%% If you have just two readers, for example, leave out \readerc and
 %%% \readerd
 %%%
@@ -106,7 +111,7 @@ Brown University 2014\\ [\baselineskip]
 %%% are not used under the honors option.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\dean{Plato}   %% The Dean of the Graduate School
+\dean{Lacy Ford}   %% The Dean of the Graduate School
                    %% BE SURE TO CHECK THE NAME OF THE
                    %%PERSON CURRENTLY HOLDING THIS POSITION
                      %% For Honors College theses use
@@ -159,7 +164,7 @@ Brown University 2014\\ [\baselineskip]
 
 \begin{document}
 
-\include{Introduction}    %% Calls Introduction.tex
+\include{Intro}    %% Calls Introduction.tex
                           %% Honors theses are required to 
                           %% have an Introduction.  For
                           %% Honors theses, the file 
@@ -170,28 +175,21 @@ Brown University 2014\\ [\baselineskip]
                           %% introduction.
 
 
-\include{Squares}         %% The three sections of Chapter 1 
-\include{Cube}             %% are in the files Squares.tex,  
-\include{Hypercubes}	   %% Cubes.tex and Hypercubes.tex
+\include{Structure}         %% The three sections of Chapter 1 
+\input{str_exp}             %% are in the files Squares.tex,  
+\input{str_comp}	   %% Cubes.tex and Hypercubes.tex
        
                            
-\include{1mod4}
-\include{flying}
-\include{joins}
-\include{wattage}
+\include{Ensembles}
 
-\include{3mod4}	          %% This chapter has 8 sections
-\include{bigtime}         %% You should give your sections
-\include{smalltime}       %% logical names, rather than
-\include{roadmap}         %% numbers. As you write, you might
-\include{overview}        %% decide to rearrange things. 
-\include{turnabout}       %% LaTeX can keep track of the
-\include{fairplay}        %% numbering for you.
-\include{roundup}
+\include{PES}
 
-\include{rest}
-\include{relax}
-\include{grin}
+% \include{PDF_math_comp}
+% \include{math}
+% \include{computation}
+
+% \include{Benchmarking}
+
 
 %\include{Conclusion}     %% Honors theses are required to 
                           %% have an unnumbered chapter

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  6 MAY 2016 12:00
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  6 MAY 2016 14:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -505,38 +505,156 @@ Sidefootvsep and sidefootheight: 14.5pt and 546.64995pt
 
 \c@ToCpage=\count150
 \c@th@storepage=\count151
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks34
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count152
+))
+\Gin@req@height=\dimen156
+\Gin@req@width=\dimen157
+)
+(/usr/share/texlive/texmf-dist/tex/latex/mhchem/mhchem.sty
+Package: mhchem 2011/06/03 v3.11 for typesetting chemical formulae
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2007/08/22 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count153
+\calc@Bcount=\count154
+\calc@Adimen=\dimen158
+\calc@Bdimen=\dimen159
+\calc@Askip=\skip191
+\calc@Bskip=\skip192
+LaTeX Info: Redefining \setlength on input line 76.
+LaTeX Info: Redefining \addtolength on input line 77.
+\calc@Ccount=\count155
+\calc@Cskip=\skip193
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/twoopt.sty
+Package: twoopt 2008/08/11 v1.5 Definitions with two optional arguments (HO)
+)
+\tok@mhchem@ce@iii=\toks35
+\mhchem@arrowminlength=\skip194
+\mhchem@arrows@box=\box32
+\mhchem@arrowlength@pgf=\skip195
+\mhchem@arrowminlength@pgf=\skip196
+\mhchem@bondwidth=\skip197
+\mhchem@bondheight=\skip198
+\mhchem@smallbondwidth@tmpA=\skip199
+\mhchem@smallbondwidth@tmpB=\skip200
+\mhchem@smallbondwidth=\skip201
+\mhchem@cf@result=\toks36
+\mhchem@cf@element=\toks37
+\mhchem@cf@amount=\toks38
+\mhchem@cf@sup=\toks39
+\mhchem@cf@presub=\toks40
+\mhchem@cf@presup=\toks41
+\mhchem@cf@replaceMath@result=\toks42
+\mhchem@cf@replaceMathMinusDot@result=\toks43
+\mhchem@prepostscript@tmp@i=\skip202
+\mhchem@prepostscript@tmp@ii=\skip203
+\mhchem@mathbox@tmp@i=\skip204
+\mhchem@mathbox@tmp@ii=\skip205
+\mhchem@minispace@tmp=\skip206
+\mhchem@option@minussidebearingleft=\skip207
+\mhchem@option@minussidebearingright=\skip208
 ) (./biblatex.sty
 Package: biblatex 2015/04/19 v3.0 programmable bibliographies (PK/JW/AB)
-
-
-Package biblatex Warning: No "backend" specified, using Biber backend.
-(biblatex)                To use BibTeX, load biblatex with 
-(biblatex)                the "backend=bibtex" option.
-
 )
 \bibdata{references}
 (./thesis.bbl)
-\c@thm=\count152
- (./thesis.aux (./Introduction.aux) (./Squares.aux) (./Cube.aux)
-(./Hypercubes.aux) (./1mod4.aux) (./flying.aux) (./joins.aux) (./wattage.aux)
-(./3mod4.aux) (./bigtime.aux) (./smalltime.aux) (./roadmap.aux) (./overview.aux
-) (./turnabout.aux) (./fairplay.aux) (./roundup.aux) (./rest.aux) (./relax.aux)
-(./grin.aux))
+\c@thm=\count156
+ (./thesis.aux (./Intro.aux) (./Structure.aux) (./Ensembles.aux)
+(./PES.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 165.
+LaTeX Font Info:    ... okay on input line 165.
+ (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count157
+\scratchdimen=\dimen160
+\scratchbox=\box33
+\nofMPsegments=\count158
+\nofMParguments=\count159
+\everyMPshowfont=\toks44
+\MPscratchCnt=\count160
+\MPscratchDim=\dimen161
+\MPnumerator=\count161
+\makeMPintoPDFobject=\count162
+\everyMPtoPDFconversion=\toks45
+) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
 Making Title Page
 Making Copyrightpage
 [1
@@ -544,59 +662,59 @@ Making Copyrightpage
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 160.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 165.
 
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 160.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 165.
 
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 160
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 165
 .
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 160
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 165
 .
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 160.
+(Font)              <12> on input line 165.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 160.
+(Font)              <8> on input line 165.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 160.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 160.
+(Font)              <6> on input line 165.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 165.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for U+msa on input line 160.
+LaTeX Font Info:    Try loading font information for U+msa on input line 165.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2009/06/22 v3.00 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 160.
+LaTeX Font Info:    Try loading font information for U+msb on input line 165.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 160.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 165.
 
 
 (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 160.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 165.
 
 Making Dedication
 [2
@@ -634,63 +752,38 @@ Making LoF
 -------------------Beginning Body----------------------
 
 
-\openout2 = `Introduction.aux'.
+\openout2 = `Intro.aux'.
 
-No file Introduction.tex.
-\openout2 = `Squares.aux'.
+(./Intro.tex) [1
 
-No file Squares.tex.
-\openout2 = `Cube.aux'.
 
-No file Cube.tex.
-\openout2 = `Hypercubes.aux'.
 
-No file Hypercubes.tex.
-\openout2 = `1mod4.aux'.
 
-No file 1mod4.tex.
-\openout2 = `flying.aux'.
 
-No file flying.tex.
-\openout2 = `joins.aux'.
+]
+\openout2 = `Structure.aux'.
 
-No file joins.tex.
-\openout2 = `wattage.aux'.
+ (./Structure.tex) [2
 
-No file wattage.tex.
-\openout2 = `3mod4.aux'.
 
-No file 3mod4.tex.
-\openout2 = `bigtime.aux'.
 
-No file bigtime.tex.
-\openout2 = `smalltime.aux'.
+] (./str_exp.tex) (./str_comp.tex)
+[3
 
-No file smalltime.tex.
-\openout2 = `roadmap.aux'.
+]
+\openout2 = `Ensembles.aux'.
 
-No file roadmap.tex.
-\openout2 = `overview.aux'.
+ (./Ensembles.tex) [4
 
-No file overview.tex.
-\openout2 = `turnabout.aux'.
 
-No file turnabout.tex.
-\openout2 = `fairplay.aux'.
+]
+\openout2 = `PES.aux'.
 
-No file fairplay.tex.
-\openout2 = `roundup.aux'.
+ (./PES.tex) [5
 
-No file roundup.tex.
-\openout2 = `rest.aux'.
 
-No file rest.tex.
-\openout2 = `relax.aux'.
 
-No file relax.tex.
-\openout2 = `grin.aux'.
-
-No file grin.tex.
+]
 \tf@toc=\write4
 \openout4 = `thesis.toc'.
 
@@ -700,27 +793,25 @@ No file grin.tex.
 \tf@lof=\write6
 \openout6 = `thesis.lof'.
 
-(./thesis.aux (./Introduction.aux) (./Squares.aux) (./Cube.aux)
-(./Hypercubes.aux) (./1mod4.aux) (./flying.aux) (./joins.aux) (./wattage.aux)
-(./3mod4.aux) (./bigtime.aux) (./smalltime.aux) (./roadmap.aux) (./overview.aux
-) (./turnabout.aux) (./fairplay.aux) (./roundup.aux) (./rest.aux) (./relax.aux)
-(./grin.aux)) ) 
+ (./thesis.aux (./Intro.aux)
+(./Structure.aux) (./Ensembles.aux) (./PES.aux)) ) 
 Here is how much of TeX's memory you used:
- 5365 strings out of 495059
- 68700 string characters out of 3182030
- 162965 words of memory out of 3000000
- 8401 multiletter control sequences out of 15000+200000
- 39782 words of font info for 41 fonts, out of 3000000 for 9000
+ 6906 strings out of 495059
+ 93472 string characters out of 3182030
+ 190999 words of memory out of 3000000
+ 9934 multiletter control sequences out of 15000+200000
+ 48777 words of font info for 44 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 37i,10n,26p,225b,256s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/t
-exmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmcsc
-10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/font
-s/type1/public/lm/lmsy10.pfb>
-Output written on thesis.pdf (8 pages, 61213 bytes).
+ 42i,10n,26p,348b,264s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf/fonts/enc/d
+vips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/shar
+e/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/l
+m/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/tex
+mf/fonts/type1/public/lm/lmsy10.pfb>
+Output written on thesis.pdf (13 pages, 89856 bytes).
 PDF statistics:
- 45 PDF objects out of 1000 (max. 8388607)
- 31 compressed objects within 1 object stream
+ 65 PDF objects out of 1000 (max. 8388607)
+ 45 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

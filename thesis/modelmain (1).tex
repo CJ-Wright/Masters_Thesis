@@ -77,27 +77,34 @@
 
 \title{A Proof That Really Fits in the Margin}
 
-\author{Christopher James}{Wright}    %% First Name then 
+\author{Isaac Leonard}{Gauss}    %% First Name then 
                                  %% Last Name
 
-\date{20??}                      %% The year of graduation
+\date{2035}                      %% The year of graduation
+
+%\month{December}                 %% Only for the honors option
+                                 %% where it is REQUIRED
 
 \otherdegrees{
-Bachelor of Science\\
-Brown University 2014\\ [\baselineskip]
-%% The \\ on this line is 
+Bachelor of Arts\\
+Harvard College 2028\\ [\baselineskip]
+Master of Science\\
+Savannah School of Design 2030\\ %% The \\ on this line is 
 }                                %% ESSENTIAL!
 
 \degree{Doctor of Philosophy}     %% The Graduate School provides 
                                  %% a list of official degrees.
-\field{Chemical Engineering}              %% Fields also provided by the 
+\field{Mathematics}              %% Fields also provided by the 
                                  %% Graduate School.
-\college{College of Engineering and Computing}  %%As listed by Grad School
+\college{College of Arts and Sciences}  %%As listed by Grad School
 
-\advisor {Dr.}{Xiao-Dong Zhou}{Major Professor}  %%% Be sure the 
-\readera{Dr.}{Thomas Vogt}{Committee Member}     %%% third field is 
-\readerb{Dr.}{Mark Uline}{Committee Member}          %%% the one used in 
-\readerc{Dr.}{Donna Chen}{Committee Member} %%% your department.
+\advisor {Dr.}{David Hilbert}{Major Professor}  %%% Be sure the 
+\readera{Dr.}{Karl Gauss}{Committee Member}     %%% third field is 
+\readerb{Dr.}{Charles Parker}{Jazzman}          %%% the one used in 
+\readerc{Dr.}{George Washington}{Fourth Reader} %%% your department.
+\readerd{Dr.}{Hank Plantagenet}{King}               %%% Only use as many as
+\readere{Dr.}{Pablo Picasso}{Life Coach}             %%% as you need
+\readerf{Dr.}{Albert Camus}{French Examiner}	
 %%% If you have just two readers, for example, leave out \readerc and
 %%% \readerd
 %%%
@@ -117,7 +124,7 @@ Brown University 2014\\ [\baselineskip]
                      %% copyright page that will appear 
                      %% immediately after the title page.
 
-\abstract{abstract}  %% This calls the file herkimer.tex but 
+\abstract{herkimer}  %% This calls the file herkimer.tex but 
                      %% but you might replace herkimer by 
                      %% anything you like, for example by 
                      %% abstract. Note, the Graduate School
@@ -127,6 +134,10 @@ Brown University 2014\\ [\baselineskip]
                      %% For Honors College theses use
                      %% \honorsabstract{}
 
+%\summary{precis}     %% This command calls  precis.tex
+                     %% It is only available with the honors
+                     %% option and it is REQUIRED for Honors
+                     %% theses. 
 
 \acknowledgments{thanks} %% This calls the file thanks.tex 
 %% This is optional       %% where you have put your 
@@ -135,7 +146,7 @@ Brown University 2014\\ [\baselineskip]
 \dedication{dedication}   %% Calls dedication.tex
 %%% Also optional
 
-% \preface{forward}    %% Calls forward.tex.  Optional.
+\preface{forward}    %% Calls forward.tex.  Optional.
 
 \makeLoT               %% Issue this command if your work has 
                        %% four or more tables.  A list of tables 
@@ -202,7 +213,7 @@ Brown University 2014\\ [\baselineskip]
                           %% followed by the appropriate
                           %% text.
 
-% \printbibliography %%  This is the command to use to
+\printbibliography %%  This is the command to use to
 			       %%  insert the bibliography if you are using
                            %% the biblatex.sty package.  See the 
                            %% uscthesisdoc.pdf documentation for
@@ -212,7 +223,7 @@ Brown University 2014\\ [\baselineskip]
                           %% appendix. Use \Appendices if you 
                           %% have more than one.
 	
-% \input{toolong}         %% Calls toolong.tex which contains
+\input{toolong}         %% Calls toolong.tex which contains
                           %% an appendix. After issuing the 
                         %% command \Appendix or \Appendices
                         %% you must use \input not \include

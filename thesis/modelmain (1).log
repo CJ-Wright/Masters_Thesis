@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  6 MAY 2016 12:00
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  4 DEC 2015 12:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**thesis.tex
-(./thesis.tex
+**"modelmain (1).tex"
+(./modelmain (1).tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
 aded.
@@ -513,214 +513,27 @@ Package biblatex Warning: No "backend" specified, using Biber backend.
 (biblatex)                To use BibTeX, load biblatex with 
 (biblatex)                the "backend=bibtex" option.
 
-)
-\bibdata{references}
-(./thesis.bbl)
-\c@thm=\count152
- (./thesis.aux (./Introduction.aux) (./Squares.aux) (./Cube.aux)
-(./Hypercubes.aux) (./1mod4.aux) (./flying.aux) (./joins.aux) (./wattage.aux)
-(./3mod4.aux) (./bigtime.aux) (./smalltime.aux) (./roadmap.aux) (./overview.aux
-) (./turnabout.aux) (./fairplay.aux) (./roundup.aux) (./rest.aux) (./relax.aux)
-(./grin.aux))
-\openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 160.
-LaTeX Font Info:    ... okay on input line 160.
+! LaTeX Error: File `biblatex2.sty' not found.
 
-Making Title Page
-Making Copyrightpage
-[1
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
 
+Enter file name: 
+! Emergency stop.
+<read *> 
+         
+l.89 ^^M
+        
+End of file on the terminal!
 
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 160.
-
-
-(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
-File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 160.
-
-
-(/usr/share/texmf/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 160
-.
-
-(/usr/share/texmf/tex/latex/lm/omslmsy.fd
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 160
-.
-
-(/usr/share/texmf/tex/latex/lm/omxlmex.fd
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 160.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 160.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 160.
-LaTeX Font Info:    Try loading font information for U+lasy on input line 160.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
-File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
-)
-LaTeX Font Info:    Try loading font information for U+msa on input line 160.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2009/06/22 v3.00 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 160.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2009/06/22 v3.00 AMS symbols B
-)
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 160.
-
-
-(/usr/share/texmf/tex/latex/lm/omslmr.fd
-File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 160.
-
-Making Dedication
-[2
-
-] (./dedication.tex)
-Making Acknowledgments
-[3
-
-
-] (./thanks.tex)
-Making Abstract Page
-[4
-
-
-] (./abstract.tex)
-Making ToC Page
-[5
-
-
-] (./thesis.toc) [6
-
-]
-Making LoT
-(./thesis.lot) [7
-
-
-]
-Making LoF
-(./thesis.lof) [8
-
-
-]
-
-
--------------------Beginning Body----------------------
-
-
-\openout2 = `Introduction.aux'.
-
-No file Introduction.tex.
-\openout2 = `Squares.aux'.
-
-No file Squares.tex.
-\openout2 = `Cube.aux'.
-
-No file Cube.tex.
-\openout2 = `Hypercubes.aux'.
-
-No file Hypercubes.tex.
-\openout2 = `1mod4.aux'.
-
-No file 1mod4.tex.
-\openout2 = `flying.aux'.
-
-No file flying.tex.
-\openout2 = `joins.aux'.
-
-No file joins.tex.
-\openout2 = `wattage.aux'.
-
-No file wattage.tex.
-\openout2 = `3mod4.aux'.
-
-No file 3mod4.tex.
-\openout2 = `bigtime.aux'.
-
-No file bigtime.tex.
-\openout2 = `smalltime.aux'.
-
-No file smalltime.tex.
-\openout2 = `roadmap.aux'.
-
-No file roadmap.tex.
-\openout2 = `overview.aux'.
-
-No file overview.tex.
-\openout2 = `turnabout.aux'.
-
-No file turnabout.tex.
-\openout2 = `fairplay.aux'.
-
-No file fairplay.tex.
-\openout2 = `roundup.aux'.
-
-No file roundup.tex.
-\openout2 = `rest.aux'.
-
-No file rest.tex.
-\openout2 = `relax.aux'.
-
-No file relax.tex.
-\openout2 = `grin.aux'.
-
-No file grin.tex.
-\tf@toc=\write4
-\openout4 = `thesis.toc'.
-
-\tf@lot=\write5
-\openout5 = `thesis.lot'.
-
-\tf@lof=\write6
-\openout6 = `thesis.lof'.
-
-(./thesis.aux (./Introduction.aux) (./Squares.aux) (./Cube.aux)
-(./Hypercubes.aux) (./1mod4.aux) (./flying.aux) (./joins.aux) (./wattage.aux)
-(./3mod4.aux) (./bigtime.aux) (./smalltime.aux) (./roadmap.aux) (./overview.aux
-) (./turnabout.aux) (./fairplay.aux) (./roundup.aux) (./rest.aux) (./relax.aux)
-(./grin.aux)) ) 
+ 
 Here is how much of TeX's memory you used:
- 5365 strings out of 495059
- 68700 string characters out of 3182030
- 162965 words of memory out of 3000000
- 8401 multiletter control sequences out of 15000+200000
- 39782 words of font info for 41 fonts, out of 3000000 for 9000
+ 5047 strings out of 495059
+ 64116 string characters out of 3182030
+ 148368 words of memory out of 3000000
+ 8245 multiletter control sequences out of 15000+200000
+ 12619 words of font info for 17 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 37i,10n,26p,225b,256s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/t
-exmf/fonts/enc/dvips/lm/lm-ec.enc}</usr/share/texmf/fonts/type1/public/lm/lmcsc
-10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/font
-s/type1/public/lm/lmsy10.pfb>
-Output written on thesis.pdf (8 pages, 61213 bytes).
-PDF statistics:
- 45 PDF objects out of 1000 (max. 8388607)
- 31 compressed objects within 1 object stream
- 0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 37i,1n,26p,234b,77s stack positions out of 5000i,500n,10000p,200000b,50000s
+!  ==> Fatal error occurred, no output PDF file produced!
