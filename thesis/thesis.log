@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  6 MAY 2016 15:04
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  6 MAY 2016 15:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -792,6 +792,8 @@ LaTeX Info: Redefining \dbond on input line 218.
 LaTeX Info: Redefining \tbond on input line 218.
  [7
 
+] [8
+
 ]
 \tf@toc=\write4
 \openout4 = `thesis.toc'.
@@ -816,10 +818,10 @@ Here is how much of TeX's memory you used:
 /public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr
 /share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/publ
 ic/lm/lmsy10.pfb>
-Output written on thesis.pdf (16 pages, 96043 bytes).
+Output written on thesis.pdf (17 pages, 96769 bytes).
 PDF statistics:
- 74 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 77 PDF objects out of 1000 (max. 8388607)
+ 53 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

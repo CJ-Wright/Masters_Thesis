@@ -40,3 +40,4 @@
 \contentsline {section}{\numberline {6.4}Simulation}{7}
 \contentsline {section}{\numberline {6.5}Structural Analysis}{7}
 \contentsline {section}{\numberline {6.6}Conclusions}{7}
+\contentsline {chapter}{\chapternumberline {7}Conclusion}{8}
