@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  6 MAY 2016 14:20
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2015.1.14)  6 MAY 2016 15:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -587,8 +587,7 @@ Package: biblatex 2015/04/19 v3.0 programmable bibliographies (PK/JW/AB)
 \bibdata{references}
 (./thesis.bbl)
 \c@thm=\count156
- (./thesis.aux (./Intro.aux) (./Structure.aux) (./Ensembles.aux)
-(./PES.aux))
+ (./thesis.aux (./Intro.aux))
 \openout1 = `thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 165.
@@ -603,7 +602,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 165.
 LaTeX Font Info:    ... okay on input line 165.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 165.
 LaTeX Font Info:    ... okay on input line 165.
- (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count157
 \scratchdimen=\dimen160
@@ -734,16 +734,23 @@ Making ToC Page
 [5
 
 
-] (./thesis.toc) [6
+] (./thesis.toc [6
 
 ]
+LaTeX Info: Redefining \bond on input line 29.
+LaTeX Info: Redefining \dbond on input line 29.
+LaTeX Info: Redefining \tbond on input line 29.
+LaTeX Info: Redefining \bond on input line 36.
+LaTeX Info: Redefining \dbond on input line 36.
+LaTeX Info: Redefining \tbond on input line 36.
+) [7]
 Making LoT
-(./thesis.lot) [7
+(./thesis.lot) [8
 
 
 ]
 Making LoF
-(./thesis.lof) [8
+(./thesis.lof) [9
 
 
 ]
@@ -760,28 +767,30 @@ Making LoF
 
 
 
-]
-\openout2 = `Structure.aux'.
-
- (./Structure.tex) [2
+] [2
 
 
+] [3
 
-] (./str_exp.tex) (./str_comp.tex)
-[3
+] [4
 
-]
-\openout2 = `Ensembles.aux'.
-
- (./Ensembles.tex) [4
-
+] [5
 
 ]
-\openout2 = `PES.aux'.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <17.28> on input line 210.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 210.
+LaTeX Info: Redefining \bond on input line 210.
+LaTeX Info: Redefining \dbond on input line 210.
+LaTeX Info: Redefining \tbond on input line 210.
+ [6
 
- (./PES.tex) [5
-
-
+]
+LaTeX Info: Redefining \bond on input line 218.
+LaTeX Info: Redefining \dbond on input line 218.
+LaTeX Info: Redefining \tbond on input line 218.
+ [7
 
 ]
 \tf@toc=\write4
@@ -793,25 +802,24 @@ Making LoF
 \tf@lof=\write6
 \openout6 = `thesis.lof'.
 
- (./thesis.aux (./Intro.aux)
-(./Structure.aux) (./Ensembles.aux) (./PES.aux)) ) 
+ (./thesis.aux (./Intro.aux)) ) 
 Here is how much of TeX's memory you used:
- 6906 strings out of 495059
- 93472 string characters out of 3182030
- 190999 words of memory out of 3000000
- 9934 multiletter control sequences out of 15000+200000
- 48777 words of font info for 44 fonts, out of 3000000 for 9000
+ 6889 strings out of 495059
+ 93276 string characters out of 3182030
+ 190248 words of memory out of 3000000
+ 9941 multiletter control sequences out of 15000+200000
+ 65419 words of font info for 59 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 42i,10n,26p,348b,264s stack positions out of 5000i,500n,10000p,200000b,50000s
-{/usr/share/texmf/fonts/enc/d
-vips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/shar
-e/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/l
-m/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/tex
-mf/fonts/type1/public/lm/lmsy10.pfb>
-Output written on thesis.pdf (13 pages, 89856 bytes).
+ 42i,13n,42p,259b,299s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{
+/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1
+/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmcsc10.pfb></usr
+/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/publ
+ic/lm/lmsy10.pfb>
+Output written on thesis.pdf (16 pages, 96043 bytes).
 PDF statistics:
- 65 PDF objects out of 1000 (max. 8388607)
- 45 compressed objects within 1 object stream
+ 74 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

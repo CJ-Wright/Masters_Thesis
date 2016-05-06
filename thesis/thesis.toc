@@ -1,17 +1,42 @@
 \contentsline {chapter}{Dedication}{iii}
 \contentsline {chapter}{Acknowledgments}{iv}
 \contentsline {chapter}{Abstract}{v}
-\contentsline {chapter}{List of Tables\vspace {\baselineskip }}{vii}
-\contentsline {chapter}{List of Figures\vspace {\baselineskip }}{viii}
-\contentsline {chapter}{\chapternumberline {1}The importance of atomistic structure}{2}
-\contentsline {section}{\numberline {1.1}Atomic Structure Experiments}{3}
-\contentsline {subsection}{TEM/STEM}{3}
-\contentsline {subsubsection}{In-Situ Experiments}{3}
-\contentsline {subsection}{X-ray Total Scattering}{3}
-\contentsline {subsubsection}{In-Situ Experiments}{3}
-\contentsline {section}{\numberline {1.2}Computationally Extracting Structure from Measurements}{3}
-\contentsline {subsection}{Small box}{3}
-\contentsline {subsection}{Large box}{3}
-\contentsline {subsection}{Exotic Simulations}{3}
-\contentsline {chapter}{\chapternumberline {2}Statistical Mechanical Potential Energy Surface Minima Search}{4}
-\contentsline {chapter}{\chapternumberline {3}Potential Energy Surfaces}{5}
+\contentsline {chapter}{List of Tables\vspace {\baselineskip }}{viii}
+\contentsline {chapter}{List of Figures\vspace {\baselineskip }}{ix}
+\contentsline {chapter}{\chapternumberline {1}Atomic Structure: Extraction and Application}{2}
+\contentsline {section}{\numberline {1.1}Atomistic Experiments}{2}
+\contentsline {section}{\numberline {1.2}Atomistic Simulations}{2}
+\contentsline {chapter}{\chapternumberline {2}Atomic Pair Distribution Function: \\Theory and Computation}{3}
+\contentsline {section}{\numberline {2.1}Theory}{3}
+\contentsline {subsection}{Derivation}{3}
+\contentsline {section}{\numberline {2.2}Computation}{3}
+\contentsline {subsection}{HPC and GPUs}{3}
+\contentsline {subsubsection}{GPUs and vectorization}{3}
+\contentsline {subsubsection}{Map from ij space to k space}{3}
+\contentsline {subsubsection}{Periodic Boundary Conditions}{3}
+\contentsline {section}{\numberline {2.3}Experiment}{3}
+\contentsline {section}{\numberline {2.4}Data Processing Workflow}{3}
+\contentsline {chapter}{\chapternumberline {3}Statistical Mechanical Ensembles and Potential Energy Surfaces}{4}
+\contentsline {section}{\numberline {3.1}Ensembles}{4}
+\contentsline {subsection}{Hamiltonian Monte Carlo}{4}
+\contentsline {subsubsection}{No-U-Turn-Sampling}{4}
+\contentsline {subsection}{Grand Canonical Monte Carlo}{4}
+\contentsline {subsubsection}{Configuraitonal Biasing}{4}
+\contentsline {chapter}{\chapternumberline {4}Benchmarking}{5}
+\contentsline {section}{\numberline {4.1}PDF}{5}
+\contentsline {subsection}{Au55}{5}
+\contentsline {section}{\numberline {4.2}PDF with ADPs}{5}
+\contentsline {chapter}{\chapternumberline {5}Annealing and Aggregation of 2nm \\\mhchem@ce@xiii {\noexpand A\noexpand u} Nanoparticles}{6}
+\contentsline {section}{\numberline {5.1}Experiments}{6}
+\contentsline {section}{\numberline {5.2}Data Processing}{6}
+\contentsline {section}{\numberline {5.3}Data Analysis}{6}
+\contentsline {section}{\numberline {5.4}Simulation}{6}
+\contentsline {section}{\numberline {5.5}Structural Analysis}{6}
+\contentsline {section}{\numberline {5.6}Conclusions}{6}
+\contentsline {chapter}{\chapternumberline {6}Phase Changes and Annealing Dynamics of \mhchem@ce@xiii {\noexpand P\noexpand r\noexpand 2\noexpand N\noexpand i\noexpand O\noexpand 4} and its derivatives}{7}
+\contentsline {section}{\numberline {6.1}Experiments}{7}
+\contentsline {section}{\numberline {6.2}Data Processing}{7}
+\contentsline {section}{\numberline {6.3}Data Analysis}{7}
+\contentsline {section}{\numberline {6.4}Simulation}{7}
+\contentsline {section}{\numberline {6.5}Structural Analysis}{7}
+\contentsline {section}{\numberline {6.6}Conclusions}{7}
