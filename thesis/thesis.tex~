@@ -11,6 +11,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  LaTeX Preamble
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[version=3]{mhchem} % Formula subscripts using \ce{}
 
 
 
@@ -21,7 +24,7 @@
 %% with this documentclass.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[style=uscauthoryear]{biblatex}
+\usepackage[style=uscauthoryear, backend=biber]{biblatex}
 \bibliography{references}
 
 
@@ -59,12 +62,14 @@
 \newtheorem{ex}[thm]{Example}
 \theoremstyle{plain}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  These are just a few sample lines. Put here any 
 %%  commands of your own devising that you want to use.
 %%  If these examples are no use to you, omit them.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\grad}[1]{\vec{\nabla} #1} % for gradient
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%             The Front Matter
@@ -75,7 +80,7 @@
 %%  Some of it is required.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Solving Atomic Structure using Statistical Mechanical Searches on X-ray scattering derived Potential Energy Surfaces}
+\title{Solving Atomic Structure using Statistical Mechanical Searches on X-ray Scattering Derived Potential Energy Surfaces}
 
 \author{Christopher James}{Wright}    %% First Name then 
                                  %% Last Name
@@ -159,7 +164,7 @@ Brown University 2014\\ [\baselineskip]
 
 \begin{document}
 
-\include{Introduction}    %% Calls Introduction.tex
+\include{Intro}    %% Calls Introduction.tex
                           %% Honors theses are required to 
                           %% have an Introduction.  For
                           %% Honors theses, the file 
@@ -170,29 +175,99 @@ Brown University 2014\\ [\baselineskip]
                           %% introduction.
 
 
-\include{Squares}         %% The three sections of Chapter 1 
-\include{Cube}             %% are in the files Squares.tex,  
-\include{Hypercubes}	   %% Cubes.tex and Hypercubes.tex
+\chapter{Atomic Structure: Extraction and Application}
+\section{Atomistic Goals}
+The only way to truly understand the fundamental souce of material and chemical properties is through atomic structure.
+The goal of atomistic engineering is to produce novel structures and combinations of structures to engender new properties and functions.
+This includes producing stronger materials, more durable catalysts, more energy dense batteries, and many more engineering applicatons.
+The true power of atomistic engineering has been shown in biochemistry and pharmicutical design.
+Although the production of drugs and biomeical treatments is usually considered to be rather far from the field of catalyst design and materials science, the atomistic nature of these fields can not be denied.
+The field of protiene structural analysis
+\section{Atomistic Experiments}
+\section{Atomistic Simulations}
        
-                           
-\include{1mod4}
-\include{flying}
-\include{joins}
-\include{wattage}
+How do I combine/separate the Ensemble, PES and PDF math/computation sections?
 
-\include{3mod4}	          %% This chapter has 8 sections
-\include{bigtime}         %% You should give your sections
-\include{smalltime}       %% logical names, rather than
-\include{roadmap}         %% numbers. As you write, you might
-\include{overview}        %% decide to rearrange things. 
-\include{turnabout}       %% LaTeX can keep track of the
-\include{fairplay}        %% numbering for you.
-\include{roundup}
+\chapter{Atomic Pair Distribution Function: \\Theory and Computation}
+\section{Theory}
+\subsection{Derivation}
+\section{Computation}
+\subsection{HPC and GPUs}
+\subsubsection{GPUs and vectorization}
+\subsubsection{Map from ij space to k space}
+See math whitepaper.
+\subsubsection{Periodic Boundary Conditions}
+Also see math whitepaper.
+\section{Experiment}
+\section{Data Processing Workflow}
+Processing the raw pixel intensities to the PDF is very important as we are extracting most of our interesting information out of very high $Q$ data.
+This data relies on good statistics and sound background subtraction.
+Talk about papers from Billinge Group with thin film PDF and dilute NP solutions.
+Diagram of the overall data processing workflow.
+Discuss the NSLS-II data stack.
+\subsection{MetadataStore Side Loading}
+Design of sidewinder-spec for loading the data into metadatastore.
+Most of the design considerations went into the loaders, which are different for each experiment.
+\subsection{Automated Image Azimuthal Integration}
+Mux data as needed. 
+Use pyFAI to get the radial distance array.
+Mask the image.a
+\subsubsection{Automated Mask Generation}
+Enforce azimuthal symmetry by peforming azimuthal integration and collecting ring statistics.  
+We then mask data points which are $x$ standard deviations away from the mean.
+Additionally the standard deviation theshold can be a function of the pixel distance from the center, allowing the mask generator to be more forgiving at certain points and stricter at others.
+This is particularly helpful as the small number of pixels near the point of incidence combined with the very sharp peaks causes some pixels to be inproperly masked.
+Similarly it is important to remove dead pixels at the edge of the detector as these have an outsized effect on the integration as the pixel intensity is low to begin with.
+In practice this results in the removal of almost all dead pixels and potentially the beamstop holder.
+Removal of the holder depends on its individual properties, since a holder which is more x-ray opaque will cause a larger shift in the pixel intensity distribution.
+The method was benchmarked on synthetic data, with both hot and cold pixels added.
+Additonal benchmarking was performed with synthetic beamstop holders of various x-ray transmitance.
+Anomolus corner masking most likely due to the small number of pixels out at the corners.
 
-\include{rest}
-\include{relax}
-\include{grin}
 
+
+\chapter{Statistical Mechanical Ensembles and Potential Energy Surfaces}
+\section{Ensembles}
+\subsection{Hamiltonian Monte Carlo}
+\subsubsection{No-U-Turn-Sampling}
+\subsection{Grand Canonical Monte Carlo}
+\subsubsection{Configuraitonal Biasing}
+
+\chapter{Benchmarking}
+\section{PDF}
+\subsection{Au55: surface relaxed}
+\subsection{Au55: surface disordered}
+\subsection{Au55: amorphous}
+\subsection{Au102: triple phase}
+\subsection{Au147}
+\subsection{C60}
+\section{PDF with ADPs}
+
+\chapter{Annealing and Aggregation of 2nm \\\ce{Au} Nanoparticles}
+\section{Experiments}
+\subsection{NP Synthesis}
+\subsection{X-ray Total Scattering Measurements}
+\section{Data Processing}
+\section{Data Analysis}
+\section{Simulation}
+\section{Structural Analysis}
+\section{Conclusions}
+
+\chapter{Phase Changes and Annealing Dynamics of \ce{Pr2NiO4} and its derivatives}
+\section{Experiments}
+\subsection{\ce{Pr2NiO4} Synthesis}
+\subsection{X-ray Total Scattering Measurements}
+\section{Data Processing}
+\section{Data Analysis}
+\subsection{Intra Sample Comparison}
+\subsection{Inter Sample Comparison}
+\section{Simulation}
+\subsection{Small Box}
+\subsection{Large Box}
+\section{Structural Analysis}
+\section{Conclusions}
+
+\chapter{Conclusion}
 %\include{Conclusion}     %% Honors theses are required to 
                           %% have an unnumbered chapter
                           %% for conclusions.  The file

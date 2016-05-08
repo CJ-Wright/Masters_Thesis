@@ -1,0 +1,96 @@
+\chapter{Atomic Pair Distribution Function: \\Theory and Computation}
+\section{Theory}
+To properly understand the PDF and its limitations we need to derive its mathematics.
+The following derivation has been performed numerous times but most recently and completely by Farrow and Billinge, it is reproduced here for clarity and completeness.
+\subsection{Derivation}
+Consider a wave incident on a volume of varible density...
+\subsection{Analytical Gradients}
+Many optimization algorithms and simulations methodologies, including HMC, require not only the potential energy of a given configuration but also the forces acting on that configuration.
+These forces are described by the gradient of potential energy of the system.
+
+\section{Computation}
+Simply deriving the equations for the PDF is not enough.
+The many body nature of the PDF equation make analytical solution of the structure from the PDF impossible.
+Thus, the PDF must be computed from a structural candidates and compared against experimental results to evaluate the relability of the model.
+
+\subsection{HPC and GPUs}
+To properly solve the structure of materials the PDF will need to be computed many times and checked against experimental results.
+This requires computation of the PDF, potentialy over many atoms.
+Calculating these PDFs requires a fast, highly parallized, computational framework.
+\subsubsection{GPUs and Parallelization}
+Computing the PDF is an embarrassingly parallel problem.
+The basic procedure is to calculate the reduced structure factor $F(Q)$ for each atom pair and momentum transfer vector, sum over all the atom pairs, and Fourier transform the structure to the PDF.
+The first part of this procedure is perfectly parallizable, as each atom pair is seperate from the others.
+The summation over all the atomic reduced structure factors can be parallelized via distributed summing.
+Lastly the FFT can be parallelized using existing parellel FFT algorithms.
+
+GPUs are particularly well suted to the task of computing PDFs.
+GPU chip architecture is designed to perform many task simultaniously by having potentially thousands of cores.
+
+\subsubsection{Map from ij space to k space}
+The above equations, although formally correct, are very ineffiecent. $F(Q)$ and its gradient are indexed over all the atoms twice, however there are symmetries that allow us to only compute over the atom pairs esentially mapping from an $n$x$n$ space, $ij$ space, to a $\frac{n(n-1)}{2}$ space, $k$ space.
+For $F(Q)$ we apply the following mapping
+\begin{center}
+\begin{tikzpicture}
+    \node (E) at (0,0) {$E$};
+    \node[right=of E] (F) {$E'$};
+    \node[right=of F] (Z) {$Z$};
+    \node[below=of F] (N) {$B'$};
+    \node[below=of E] (M) {$B$};
+    \draw[->] (E)--(F) node [midway,above] {$\psi$};
+    \draw[->] (F)--(Z) node [midway,above] {$\Sigma$};
+    \draw[->] (M)--(N) node [midway,below] {$\psi'$};
+    \draw[->] (E)--(M) node [midway,left] {$\phi$};
+    \draw[->] (N)--(Z) node [midway,left] {$\Sigma'$};
+\end{tikzpicture}
+\end{center}
+where $E$ denotes the atomic coordinates in $ij$ space, $E'$ denotes $F(Q)$ before the summation in $ij$ space, $B$ denotes the atomic pairs in $k$ space, $B'$ denotes $F(Q)$ in $k$ space, and $Z$ denotes the final summed $F(Q)$.  For the operators, $\phi$ denotes the mapping from $ij$ space to $k$ space $k = j + i * \frac{i - 1}{2}$, $\psi$ and $\psi'$ denote the $F(Q)$ operation in $ij$ and $k$ space, respectivly. $\Sigma$ denotes the sum over all the atoms.  
+
+To properly define $\Sigma'$ we must establish whether $F(Q)$ is an even function.  We can accomplish this by examining each of the portions of $F(Q)$, $\alpha, \beta ,\uptau, \Omega$.
+$\Omega$ is even, since $r_{ij}$ is the interatomic distance, which is the same despite a flip of indicies, $Q$ does not depend on the atomic indicies, and since $Qr_{ij}$ is even so is $\sin{Qr_{ij}}$.  Thus, $\Omega$ is even.  Providing similar analysis to $\uptau$ we can see that while $\vec{u}_{ij}$ is odd, so is the unit displacement vector between the two atoms, thus the two odds cancel out.
+Intuitivly this makes sense, since the $F(Q)$ equation is fundamentally interested in the interatomic distances which is even.  Thus, switching atom indicies does not change $F(Q)$.
+Due to the even nature of the $F(Q)$ operator the $\Sigma'$ operator sums over all the atom pairs, and multiplies by two to reflect the double counting of the $\Sigma$ operator.
+
+For the gradient a similar mapping is used:
+\begin{center}
+\begin{tikzpicture}
+    \node (E) at (0,0) {$E$};
+    \node[right=of E] (F) {$E'$};
+    \node[right=of F] (Z) {$Z$};
+    \node[below=of F] (N) {$B'$};
+    \node[below=of E] (M) {$B$};
+    \draw[->] (E)--(F) node [midway,above] {$\psi$};
+    \draw[->] (F)--(Z) node [midway,above] {$\Sigma$};
+    \draw[->] (M)--(N) node [midway,below] {$\psi'$};
+    \draw[->] (E)--(M) node [midway,left] {$\phi$};
+    \draw[->] (N)--(Z) node [midway,left] {$\tilde{\phi}\Sigma$};
+\end{tikzpicture}
+\end{center}
+In this mapping, however, we use the $\tilde{\phi}\Sigma$ operator.  This operator simultaniously performs a reverse mapping from $k$ to $ij$ space, and a summation with the correct symmetry.  In this case the $\psi$ and $\psi'$ operators, which denote the $\grad{F(Q)}$ operator in $ij$ and $k$ space, are antisymmetric.  Intuitivly this makes sense as an extension of Newton's Second Law, since each particle's interation is felt oppositely by its partner.
+\subsubsection{Periodic Boundary Conditions}
+Also see math whitepaper.
+\section{Experiment}
+\section{Data Processing Workflow}
+Processing the raw pixel intensities to the PDF is very important as we are extracting most of our interesting information out of very high $Q$ data.
+This data relies on good statistics and sound background subtraction.
+Talk about papers from Billinge Group with thin film PDF and dilute NP solutions.
+Diagram of the overall data processing workflow.
+Discuss the NSLS-II data stack.
+\subsection{MetadataStore Side Loading}
+Design of sidewinder-spec for loading the data into metadatastore.
+Most of the design considerations went into the loaders, which are different for each experiment.
+\subsection{Automated Image Azimuthal Integration}
+Mux data as needed. 
+Use pyFAI to get the radial distance array.
+Mask the image.a
+\subsubsection{Automated Mask Generation}
+Enforce azimuthal symmetry by peforming azimuthal integration and collecting ring statistics.  
+We then mask data points which are $x$ standard deviations away from the mean.
+Additionally the standard deviation theshold can be a function of the pixel distance from the center, allowing the mask generator to be more forgiving at certain points and stricter at others.
+This is particularly helpful as the small number of pixels near the point of incidence combined with the very sharp peaks causes some pixels to be inproperly masked.
+Similarly it is important to remove dead pixels at the edge of the detector as these have an outsized effect on the integration as the pixel intensity is low to begin with.
+In practice this results in the removal of almost all dead pixels and potentially the beamstop holder.
+Removal of the holder depends on its individual properties, since a holder which is more x-ray opaque will cause a larger shift in the pixel intensity distribution.
+The method was benchmarked on synthetic data, with both hot and cold pixels added.
+Additonal benchmarking was performed with synthetic beamstop holders of various x-ray transmitance.
+Anomolus corner masking most likely due to the small number of pixels out at the corners.

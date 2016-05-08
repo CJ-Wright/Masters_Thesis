@@ -80,7 +80,7 @@
 %%  Some of it is required.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Solving Atomic Structure using Statistical Mechanical Searches on X-ray scattering derived Potential Energy Surfaces}
+\title{Solving Atomic Structure using Statistical Mechanical Searches on X-ray Scattering Derived Potential Energy Surfaces}
 
 \author{Christopher James}{Wright}    %% First Name then 
                                  %% Last Name
@@ -177,37 +177,46 @@ Brown University 2014\\ [\baselineskip]
 
 \chapter{Atomic Structure: Extraction and Application}
 \section{Atomistic Goals}
+The only way to truly understand the fundamental souce of material and chemical properties is through atomic structure.
+The goal of atomistic engineering is to produce novel structures and combinations of structures to engender new properties and functions.
+This includes producing stronger materials, more durable catalysts, more energy dense batteries, and many more engineering applicatons.
+The true power of atomistic engineering has been shown in biochemistry and pharmicutical design.
+Although the production of drugs and biomeical treatments is usually considered to be rather far from the field of catalyst design and materials science, the atomistic nature of these fields can not be denied.
+The field of protiene structural analysis stands as an example of structural science, elcuidating the three dimensional coordinates of thousands of atoms.
+These structures are then used to describe how the molecular machinery of the biological world works, enabling the development of new drugs and treatments for diseases and a deeper understanding of how we evolved.
+The development of protene inhibiter drugs, which are important to so many treatments, would have not been possible without very detailed atomic structures.
+The asperation of this work is to create this level of accuracy and utility, generating structures which allow for the understanding of how materials work on a fundamental level.
 \section{Atomistic Experiments}
+\subsection{Single Crystal Diffraction}
+\subsection{Electron Microscopy}
+\subsection{X-ray Total Scattering}
+
 \section{Atomistic Simulations}
-       
-How do I combine/separate the Ensemble, PES and PDF math/computation sections?
+The goals of atomistic simulations are usually to produce atomic structures from quantum mechanical first principles, as in the case of Density Functional Theory (DFT), or classical approximations to quantum mechanics.
+\subsection{Density Functional Theory}
+\subsection{Classical Force Field}
+\subsection{Monte Carlo and Statistical Mechanics}
 
-\chapter{Atomic Pair Distribution Function: \\Theory and Computation}
-\section{Theory}
-\subsection{Derivation}
-\section{Computation}
-\subsection{HPC and GPUs}
-\subsubsection{GPUs and vectorization}
-\subsubsection{Map from ij space to k space}
-\subsubsection{Periodic Boundary Conditions}
-\section{Experiment}
-\section{Data Processing Workflow}
-\subsection{MetadataStore Side Loading}
+Maybe put the ensemble and PES work here, since it is more general than the PDF per say. Also the rational for the gradients and fast computation make much more sense knowing we are going to be very sample happy and follow the gradient of the PES.
 
-\chapter{Statistical Mechanical Ensembles and Potential Energy Surfaces}
-\section{Ensembles}
-\subsection{Hamiltonian Monte Carlo}
-\subsubsection{No-U-Turn-Sampling}
-\subsection{Grand Canonical Monte Carlo}
-\subsubsection{Configuraitonal Biasing}
+\include{pdf}
+
+\include{pes_e}
 
 \chapter{Benchmarking}
 \section{PDF}
-\subsection{Au55}
+\subsection{Au55: surface relaxed}
+\subsection{Au55: surface disordered}
+\subsection{Au55: amorphous}
+\subsection{Au102: triple phase}
+\subsection{Au147}
+\subsection{C60}
 \section{PDF with ADPs}
 
 \chapter{Annealing and Aggregation of 2nm \\\ce{Au} Nanoparticles}
 \section{Experiments}
+\subsection{NP Synthesis}
+\subsection{X-ray Total Scattering Measurements}
 \section{Data Processing}
 \section{Data Analysis}
 \section{Simulation}
@@ -216,9 +225,15 @@ How do I combine/separate the Ensemble, PES and PDF math/computation sections?
 
 \chapter{Phase Changes and Annealing Dynamics of \ce{Pr2NiO4} and its derivatives}
 \section{Experiments}
+\subsection{\ce{Pr2NiO4} Synthesis}
+\subsection{X-ray Total Scattering Measurements}
 \section{Data Processing}
 \section{Data Analysis}
+\subsection{Intra Sample Comparison}
+\subsection{Inter Sample Comparison}
 \section{Simulation}
+\subsection{Small Box}
+\subsection{Large Box}
 \section{Structural Analysis}
 \section{Conclusions}
 
