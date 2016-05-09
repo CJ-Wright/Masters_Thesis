@@ -36,6 +36,7 @@ GPU chip architecture is designed to perform many task simultaniously by having 
 \subsubsection{Map from ij space to k space}
 The above equations, although formally correct, are very ineffiecent. $F(Q)$ and its gradient are indexed over all the atoms twice, however there are symmetries that allow us to only compute over the atom pairs esentially mapping from an $n$x$n$ space, $ij$ space, to a $\frac{n(n-1)}{2}$ space, $k$ space.
 For $F(Q)$ we apply the following mapping
+\begin{figure}[h!]
 \begin{center}
 \begin{tikzpicture}
     \node (E) at (0,0) {$E$};
@@ -50,6 +51,7 @@ For $F(Q)$ we apply the following mapping
     \draw[->] (N)--(Z) node [midway,left] {$\Sigma'$};
 \end{tikzpicture}
 \end{center}
+\end{figure}
 where $E$ denotes the atomic coordinates in $ij$ space, $E'$ denotes $F(Q)$ before the summation in $ij$ space, $B$ denotes the atomic pairs in $k$ space, $B'$ denotes $F(Q)$ in $k$ space, and $Z$ denotes the final summed $F(Q)$.  For the operators, $\phi$ denotes the mapping from $ij$ space to $k$ space $k = j + i * \frac{i - 1}{2}$, $\psi$ and $\psi'$ denote the $F(Q)$ operation in $ij$ and $k$ space, respectivly. $\Sigma$ denotes the sum over all the atoms.  
 
 To properly define $\Sigma'$ we must establish whether $F(Q)$ is an even function.  
@@ -59,7 +61,8 @@ Intuitivly this makes sense, since the $F(Q)$ equation is fundamentally interest
 Due to the even nature of the $F(Q)$ operator the $\Sigma'$ operator sums over all the atom pairs, and multiplies by two to reflect the double counting of the $\Sigma$ operator.
 
 For the gradient a similar mapping is used:
-\begin{figure}
+\begin{figure}[h!]
+\begin{center}
   \begin{tikzpicture}
     \node (E) at (0,0) {$E$};
     \node[right=of E] (F) {$E'$};
@@ -72,6 +75,7 @@ For the gradient a similar mapping is used:
     \draw[->] (E)--(M) node [midway,left] {$\phi$};
     \draw[->] (N)--(Z) node [midway,left] {$\tilde{\phi}\Sigma$};
 \end{tikzpicture}
+\end{center}
 \end{figure}
 
 In this mapping, however, we use the $\tilde{\phi}\Sigma$ operator.  This operator simultaniously performs a reverse mapping from $k$ to $ij$ space, and a summation with the correct symmetry.  In this case the $\psi$ and $\psi'$ operators, which denote the $\grad{F(Q)}$ operator in $ij$ and $k$ space, are antisymmetric.  Intuitivly this makes sense as an extension of Newton's Second Law, since each particle's interation is felt oppositely by its partner.
