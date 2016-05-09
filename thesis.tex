@@ -16,6 +16,7 @@
 \usepackage[version=3]{mhchem} % Formula subscripts using \ce{}
 \usepackage{tikz}
 \usepackage{upgreek}
+\usepackage{lscape}
 
 
 
@@ -126,7 +127,7 @@ Brown University 2014\\ [\baselineskip]
                      %% copyright page that will appear 
                      %% immediately after the title page.
 
-\abstract{abstract}  %% This calls the file herkimer.tex but 
+\abstract{misc/abstract}  %% This calls the file herkimer.tex but 
                      %% but you might replace herkimer by 
                      %% anything you like, for example by 
                      %% abstract. Note, the Graduate School
@@ -137,11 +138,11 @@ Brown University 2014\\ [\baselineskip]
                      %% \honorsabstract{}
 
 
-\acknowledgments{thanks} %% This calls the file thanks.tex 
+\acknowledgments{misc/thanks} %% This calls the file thanks.tex 
 %% This is optional       %% where you have put your 
                           %%acknowledgments.
 
-\dedication{dedication}   %% Calls dedication.tex
+\dedication{misc/dedication}   %% Calls dedication.tex
 %%% Also optional
 
 % \preface{forward}    %% Calls forward.tex.  Optional.
@@ -203,9 +204,9 @@ The goals of atomistic simulations are usually to produce atomic structures from
 
 Maybe put the ensemble and PES work here, since it is more general than the PDF per say. Also the rational for the gradients and fast computation make much more sense knowing we are going to be very sample happy and follow the gradient of the PES.
 
-\include{pdf}
+\include{pes_e/pes_e}
 
-\include{pes_e}
+\include{pdf/pdf}
 
 \chapter{Benchmarking}
 \section{PDF}
