@@ -4,6 +4,7 @@
 \tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \usetikzlibrary{shapes.geometric}
 \tikzstyle{database} = [cylinder, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=yellow!30, shape border rotate=90, aspect=0.25]
+
 \chapter{Atomic Pair Distribution Function: \\Theory and Computation}
 \section{Theory}
 To properly understand the PDF and its limitations we need to derive its mathematics.
@@ -131,7 +132,13 @@ Most of the design considerations went into the loaders, which are different for
 \subsection{Automated Image Azimuthal Integration}
 Mux data as needed. 
 Use pyFAI to get the radial distance array.
-Mask the image.a
+Note that to properly mask and integrate the system we need to compute the bin edges for the pixels.
+The bin edges change as a function of $Q$, as the angle subtended by a pixel shrinks essentially giving high $Q$ pixels more resolution.
+\begin{figure}
+  \includegraphics[width=\textwidth]{res}
+\caption{$Q$ resolution as a function of $Q$.}
+\end{figure}
+Mask the image.
 \subsubsection{Automated Mask Generation}
 Enforce azimuthal symmetry by peforming azimuthal integration and collecting ring statistics.  
 We then mask data points which are $x$ standard deviations away from the mean.
@@ -142,4 +149,4 @@ In practice this results in the removal of almost all dead pixels and potentiall
 Removal of the holder depends on its individual properties, since a holder which is more x-ray opaque will cause a larger shift in the pixel intensity distribution.
 The method was benchmarked on synthetic data, with both hot and cold pixels added.
 Additonal benchmarking was performed with synthetic beamstop holders of various x-ray transmitance.
-Anomolus corner masking most likely due to the small number of pixels out at the corners.
+Anomalous corner masking most likely due to the small number of pixels out at the corners.

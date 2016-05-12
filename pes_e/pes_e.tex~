@@ -1,0 +1,69 @@
+\chapter{Statistical Mechanical Ensembles and Potential Energy Surfaces}
+\section{Introduction}
+The approach taken in this work for solving the atomic structures of materials is one of optimization.
+The positional variables of the system are optimized so as to minimize the value of a potential energy surface (PES).
+The 
+\section{Potential Energy Surfaces}
+A PES simply describes the potential energy of the system as a function of all its relevent coordinates in phase space, essentially providing a mapping $\mathbb{R}^{n} \rightarrow \mathbb{R}$.
+Usually these coordinates are the positions of the atoms $q$ and their conjugate the momenta $p$.
+Note that there could be more variables associated with the system, for instance the magnetic moments of the atoms could play a role in describing the system.
+In this magnetic system there would be positional variables for the atomwise spin vectors and their "momenta".
+Application of the term "momenta" might seem odd here, as the magnetic spin does not have a mass or a velocity.
+However, since the magnetic "position" is defined on the PES we need to describe its conjugate varible to properly formulate Hamitonian dynamics and the kinetic portion of the PES.
+
+\subsection{Experimentally Derived Potential Energy Surfaces}
+Generally PESs are obtained from purely computational experiments including: ab-initio DFT, classical approximations via the embedded atom method, or even parameter driven models with experimentally fitted parameters.
+However, one can dervive a PES from an experiment which describes how well the model reproduces the experimental data.
+In this case one needs a theoretical and computational framework mapping the atomistic variables of the simulation to the same space of the data obtained from the experiment.
+This allows the experiment to be compared directly against the predicted data via an experimentally derived PES.
+\subsubsection{Potentials}
+For an experiment which produces 1D data, like powder diffraction, EXAFS or XPS, the implemented potentials are:
+\begin{equation} \label{chi}
+\chi^{2} = 
+\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} \left(A_{_\mathrm{obs}} - \alpha A_{_\mathrm{calc}}\right)^{2}
+\end{equation}
+\begin{equation}\label{Rw}
+Rw = 
+\sqrt{\frac{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} \left(A_{_\mathrm{obs}} - \alpha A_{_\mathrm{calc}}\right)^{2}}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{obs}}^{2}}}
+\end{equation}
+\begin{equation} \label{alpha}
+\alpha  = \frac{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}}A_\mathrm{_\mathrm{obs}}A_{_\mathrm{calc}}}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}}^{2}} = \frac{\vec{A}_{_\mathrm{obs}}\cdot\vec{A}_\mathrm{calc}}{|\vec{A}_\mathrm{calc}|^{2}}
+\end{equation}
+where $A_{calc}$ and $A_{obs}$ are the calculated and observed 1D experimental data.  Note that $A_{calc}$ has a dependence on $q$, the positions of the system.
+
+\subsubsection{Forces}
+\begin{equation}
+\grad{\chi^{2}} =
+- 2 \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} (\alpha \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}} + A_{_\mathrm{calc}} \frac{\partial \alpha}{\partial q_{i, w}} ) (A_{_\mathrm{obs}} - \alpha A_{_\mathrm{calc}})
+\end{equation}
+\begin{equation}
+\grad{Rw} = 
+\frac{Rw}{\chi^{2}} \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} (\alpha \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}} + A_{_\mathrm{calc}} \frac{\partial \alpha}{\partial q_{i, w}} ) (\alpha A_{_\mathrm{calc}}  - (A_{_\mathrm{obs}}))
+\end{equation}
+\begin{equation}
+\frac{\partial \alpha}{\partial q_{i, w}}  = 
+\frac{(\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{obs}} \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}}- 2\alpha \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}} \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}})}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}}^{2}}
+\end{equation}
+INCLUDE INVERT. DISCUSS INVERT A BUNCH. ALSO COMPARE RW AND CHI**2, POTENTIALY WITH A FIGURE.
+
+\section{Ensembles}
+While PESs describe which atomic configurations are the most desirable and how the atoms would like to get there, the ensemble describes how the atoms move on the PES.
+The abstraction of the PES from the ensemble is an important one, as it allows for the reuse and exchange of both PESs and ensembles for a wide array of problems.
+Statistical mechanical ensembles can be described in two ways, analyticly and stochasticly.
+For long simulation times and fine enough numerical or analytical integration these two descriptions should be identical.
+In either case one starts by defining the Hamiltonian $\mathcal{H}$ as the total energy of the system.
+Thus, the Hamiltonian is described as the sum of the potential $U(q)$ and kinetic $K(p)$ energies, where $q$ is the positions of the atoms and $p$ is their momenta
+\begin{equation} \label{Hamiltonian}
+  \mathcal{H}(q, p) = U(q) + K(p)
+\end{equation}
+\noindent where $K(p) = \frac{1}{2}\sum_{i} \frac{p_{i}^{2}}{m_{i}}$ and $i$ denotes the $i$th particle.
+Analyticly one generally defines a partition function, which describes the sum of probabilities over all potential atomic states.
+\[
+\Xi = \sum_{i} P_{i}(q, p)
+\]
+where $P_{i}$ is the probability of the $i$th state and is a function of the total energy of that state.
+This partition function can then be used to obtain the probabilty of any specific state.
+\subsection{Hamiltonian Monte Carlo}
+\subsubsection{No-U-Turn-Sampling}
+\subsection{Grand Canonical Monte Carlo}
+\subsubsection{Configuraitonal Biasing}
