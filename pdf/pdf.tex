@@ -144,7 +144,22 @@ Mask the image.
 \subsubsection{Automated Mask Generation}
 Detector masking is an important part of any x-ray scattering workflow as dead/hot pixels, streak errors, and beamstop associated features can be averaged into the data changing the signal and its statistical significance.
 While some features, like the beamstop holder, can be easily observed and masked by hand other are much more difficult to observe even on large computer monitors.
-Additionally, while dead/hot pixels and streaks are usually 
+Additionally, while dead/hot pixels and streaks are usually static the hot pixels associated with textured or single crystal scattering or cosmic rays are not.
+Thus, coming up with an automated method for finding such erroneous pixels is important, especially as high flux diffraction beamlines can generate data very quickly.
+
+While this problem can be quite complex in the most general case, we can use the annular symmetry of the powder scattering pattern to our advantage, by comparing a pixel against pixels in the same ring.
+Since non-textured powder scattering should produce the same pixel intensity for a given ring we can mask any pixels which are $x$ standard deviations away from the mean.
+This method relies on the aforementioned pixel binning algorithm, as using miss sized bins will cause some pixels which should be in separate rings to be put together, and others which should be in the same ring to be separated.
+In that case the masking algorithm will overestimate the number of pixels to be masked due to the additional statistical variation in the sample.
+
+NEED TO INCLUDE FIGURES OF POORLY BINNED PIXELS MASK
+
+ALSO NEED ROTATED BEAMSTOP MASKS
+
+ALSO ALSO NEED TO SHOW THE EFFECT OF CHANGING ALPHA FOR THE MASKING
+
+ALSO ALSO ALSO SHOW SOME MASKS OF REAL DATA, INCLUDING DATA WITH SINGLE CRYSTAL/TEXTURE
+ 
 
 \foreach \n in {10, 30, 50, 90}{
 \begin{figure}
@@ -168,10 +183,9 @@ However, most detectors do not have that many dead pixels.
 We can run into these kinds of situations when running samples with some single crystal or textured components. 
 However, when this is the case the contrast between the affected pixels and the desired signal is very large enabling easier masking.
 
-Enforce azimuthal symmetry by performing azimuthal integration and collecting ring statistics.  
-We then mask data points which are $x$ standard deviations away from the mean.
-Additionally the standard deviation theshold can be a function of the pixel distance from the center, allowing the mask generator to be more forgiving at certain points and stricter at others.
-This is particularly helpful as the small number of pixels near the point of incidence combined with the very sharp peaks causes some pixels to be inproperly masked.
+We then mask data points 
+Additionally the standard deviation threshold can be a function of the pixel distance from the center, allowing the mask generator to be more forgiving at certain points and stricter at others.
+This is particularly helpful as the small number of pixels near the point of incidence combined with the very sharp peaks causes some pixels to be improperly masked.
 Similarly it is important to remove dead pixels at the edge of the detector as these have an outsized effect on the integration as the pixel intensity is low to begin with.
 In practice this results in the removal of almost all dead pixels and potentially the beamstop holder.
 Removal of the holder depends on its individual properties, since a holder which is more x-ray opaque will cause a larger shift in the pixel intensity distribution.
