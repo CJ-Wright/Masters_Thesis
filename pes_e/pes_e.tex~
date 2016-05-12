@@ -26,10 +26,15 @@ For an experiment which produces 1D data, like powder diffraction, EXAFS or XPS,
 Rw = 
 \sqrt{\frac{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} \left(A_{_\mathrm{obs}} - \alpha A_{_\mathrm{calc}}\right)^{2}}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{obs}}^{2}}}
 \end{equation}
+\begin{equation}\label{INVERT}
+  \chi^{2}_{\mathrm{INVERT}} = \frac{1}{N}\sum_{j}\sum_{r}[A_{obs}(r) - \alpha A_{j_\mathrm{calc}}(r)]^{2}
+\end{equation}
 \begin{equation} \label{alpha}
 \alpha  = \frac{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}}A_\mathrm{_\mathrm{obs}}A_{_\mathrm{calc}}}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}}^{2}} = \frac{\vec{A}_{_\mathrm{obs}}\cdot\vec{A}_\mathrm{calc}}{|\vec{A}_\mathrm{calc}|^{2}}
 \end{equation}
-where $A_{calc}$ and $A_{obs}$ are the calculated and observed 1D experimental data.  Note that $A_{calc}$ has a dependence on $q$, the positions of the system.
+where $A_{calc}$ and $A_{obs}$ are the calculated and observed 1D experimental data
+and $A_{calc, j}$ is the calculated data for a single atom interacting with the other atoms of the system. 
+Note that $A_{calc}$ has a dependence on $q$, the positions of the system.
 
 \subsubsection{Forces}
 \begin{equation}
@@ -44,7 +49,12 @@ where $A_{calc}$ and $A_{obs}$ are the calculated and observed 1D experimental d
 \frac{\partial \alpha}{\partial q_{i, w}}  = 
 \frac{(\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{obs}} \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}}- 2\alpha \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}} \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}})}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}}^{2}}
 \end{equation}
-INCLUDE INVERT. DISCUSS INVERT A BUNCH. ALSO COMPARE RW AND CHI**2, POTENTIALY WITH A FIGURE.
+\begin{equation}
+  \grad{\chi^{2}_{\mathrm{INVERT}}} = \frac{-2}{N} \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} \sum_{j}(\alpha \frac{\partial A_{j_\mathrm{calc}}}{\partial q_{i, w}} + A_{j_\mathrm{calc}} \frac{\partial \alpha}{\partial q_{i, w}} ) (A_{_\mathrm{obs}} - \alpha A_{j_\mathrm{calc}})
+\end{equation}
+
+
+DISCUSS INVERT A BUNCH. ALSO COMPARE RW AND CHI**2, POTENTIALY WITH A FIGURE.
 
 \section{Ensembles}
 While PESs describe which atomic configurations are the most desirable and how the atoms would like to get there, the ensemble describes how the atoms move on the PES.
@@ -65,5 +75,53 @@ where $P_{i}$ is the probability of the $i$th state and is a function of the tot
 This partition function can then be used to obtain the probabilty of any specific state.
 \subsection{Hamiltonian Monte Carlo}
 \subsubsection{No-U-Turn-Sampling}
-\subsection{Grand Canonical Monte Carlo}
-\subsubsection{Configuraitonal Biasing}
+\subsection{Grand Canonical Ensemble}
+\subsubsection{Ensemble description}
+In the Grand Canonical Ensemble (GCE) two sets of variables are allowed to change, the atomic positions and the total number of atoms and their associated identities.  
+These two variables are controlled by temperature and chemical potential.  
+The partition function is
+\begin{equation}
+  \Xi = e^{-\beta(\mathcal{H} +\mu)}
+\end{equation}
+This is translated into a Monte Carlo system, producing Grand Canonical Monte Carlo (GCMC).
+\subsubsection{Grand Canonical Monte Carlo}
+While the probabilities for atomic motion are the same as in the Canonical Ensemble, the addition or removal of an atom have their own probabilities. For the addition of an atom the probability is formally:
+\begin{equation}
+  \min[1, \frac{V}{(N+1) \Lambda(T)^{3}}e^{-\beta\Delta U + \beta \mu}]
+\end{equation}
+Similarly the removal of an atom has the probability:
+\begin{equation}
+  \min[1, \frac{(N)\Lambda(T)^{3}}{V}e^{-\beta\Delta U - \beta \mu}]
+\end{equation}
+However, both of these equations depend of the overall simulation volume and the thermal wavelength, which is undesirable as these are not really properties that we are of interest to these simulations.
+Thus, we roll them into the definition of the chemical potential, essentially setting the base chemical potential to counteract these effects.
+This makes certain that our simulation does not change if we change the overall cell volume.
+A GCMC move consists of creating a new atomic configuration, where an atom has been added or removed, and checking the above criteria.
+However, previous results have shown that this method is computationally expensive in dense liquids, and exceedingly expensive in solid materials.
+The long simulation times are due to the random nature of the atomic additions or removals which produce: over-tightly packed atoms, atoms in the middle of nowhere, or unphysical vacancies.  
+These configurations are rejected by the GCMC criteria but their probability of being sampled is much higher than configurations which are lower in energy, since the number of incorrect ways to add/remove atoms is much larger than the correct ways.
+Thus we have implemented methods for biasing the atomic addition positions and the atomic removals toward configurations which are more likely to be accepted.
+\subsubsection{GCMC biasing}
+The first method is to remove some of the excess options from the probability pool.
+Initially the insertion positions are calculated at random using a random number generator and scaled to the size of the simulation cell.
+This produces probabilities which have floating point level precision, which is effectively infinite.
+While this produces a potentially infinite number of ways to create energetically favorable configurations, the infinite ways to produce bad configurations is much larger.
+Thus we can limit this by moving to voxels.
+In this case atoms are added to the center of voxels which have a pre-set resolution, limiting our total number of valid addition points.
+While this could produce some problems with ergodicity, we avoid this by allowing the atoms to translate throughout the system.
+Each voxel has a probability of being tried:
+\begin{equation}
+  P_{i, j, k} = \frac{x y z}{a b c}
+\end{equation}
+where $x, y, z$ and $a, b, c$ are the resolutions and cell side lengths in the cardinal directions, respectively.
+While this does help to limit the total probability space it does not tell us which voxels are likely to lead to better configurations, leading to many rejected atomic additions.
+To combat this issue we can weigh the individual voxels, giving more probability to voxels which show promise and less to those with less likelihood to be accepted.
+
+The approach most likely to yield success would be to measure the change in potential energy associated with the addition of an atom at the center of the voxel where the probability of a voxel to be tried is:
+\begin{equation}
+  P_{i, j, k} = \frac{e^{\beta \Delta U_{i, j, k}}}{\sum_{i, j, k}e^{\beta \Delta U_{i, j, k}}}
+\end{equation}
+where $\Delta U_{i, j, k}$ is the change in energy.
+However, calculating $\Delta U_{i, j, k}$ can be particularly expensive, especially when calculating scattering from atomic positions.
+The computational expense can be mitigated by using a cheaper potential, if only for the evaluation of the voxel energy, as previously shown.
+Similar to previous work we can use the Lennard Jones potential to approximate the addition potential.

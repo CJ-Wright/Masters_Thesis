@@ -37,7 +37,7 @@ GPU chip architecture is designed to perform many task simultaniously by having 
 \subsubsection{Map from ij space to k space}
 The above equations, although formally correct, are very ineffiecent. $F(Q)$ and its gradient are indexed over all the atoms twice, however there are symmetries that allow us to only compute over the atom pairs esentially mapping from an $n$x$n$ space, $ij$ space, to a $\frac{n(n-1)}{2}$ space, $k$ space.
 For $F(Q)$ we apply the following mapping
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \begin{center}
 \begin{tikzpicture}
     \node (E) at (0,0) {$E$};
@@ -101,7 +101,7 @@ Diagram of the overall data processing workflow.
 Discuss the NSLS-II data stack.
 \begin{landscape}
 \begin{center}
-\begin{tikzpicture}
+\begin{tikzpicture}[thick,scale=0.6, every node/.style={scale=0.6}]
     \node (img) [startstop] at (0,0) {Image Data};
     \node [database, right=of img] (fs)  {FileStore};
     \node[startstop, below=of img] (imeta) {Image Metadata};
@@ -140,7 +140,28 @@ The bin edges change as a function of $Q$, as the angle subtended by a pixel shr
 \end{figure}
 Mask the image.
 \subsubsection{Automated Mask Generation}
-Enforce azimuthal symmetry by peforming azimuthal integration and collecting ring statistics.  
+\foreach \n in {10, 30, 50, 90}{
+\begin{figure}
+  \foreach \m in {raw, masked, missed}{
+    \includegraphics[width=.3\textwidth]{\m_\n}
+    }
+  \caption{Generated beamstop masks for a beamstop holder with $\n\%$ transmittance. From left to right: the raw image, the masked image, and the missed pixels}
+\end{figure}
+}
+
+\begin{figure}
+\foreach \n in {100, 300, 500, 1000}{
+  \foreach \m in {masked}{
+    \includegraphics[width=.49\textwidth]{dead_pixel_\m_\n}
+    }}
+\caption{Generated dead/hot pixel masks for a detector. From top left clockwise: 100, 300, 500, and 1000 dead/hot pixels.}
+\end{figure}
+Note that we do miss some pixels when the number of dead pixels grows very large.
+However, most detectors do not have that many dead pixels.
+We can run into these kinds of situations when running samples with some single crystal or textured components. 
+However, when this is the case the contrast between the affected pixels and the desired signal is very large enabling easier masking.
+
+Enforce azimuthal symmetry by performing azimuthal integration and collecting ring statistics.  
 We then mask data points which are $x$ standard deviations away from the mean.
 Additionally the standard deviation theshold can be a function of the pixel distance from the center, allowing the mask generator to be more forgiving at certain points and stricter at others.
 This is particularly helpful as the small number of pixels near the point of incidence combined with the very sharp peaks causes some pixels to be inproperly masked.
@@ -148,5 +169,5 @@ Similarly it is important to remove dead pixels at the edge of the detector as t
 In practice this results in the removal of almost all dead pixels and potentially the beamstop holder.
 Removal of the holder depends on its individual properties, since a holder which is more x-ray opaque will cause a larger shift in the pixel intensity distribution.
 The method was benchmarked on synthetic data, with both hot and cold pixels added.
-Additonal benchmarking was performed with synthetic beamstop holders of various x-ray transmitance.
+Additional benchmarking was performed with synthetic beamstop holders of various x-ray transmittance.
 Anomalous corner masking most likely due to the small number of pixels out at the corners.

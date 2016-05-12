@@ -39,20 +39,22 @@ Note that $A_{calc}$ has a dependence on $q$, the positions of the system.
 \subsubsection{Forces}
 \begin{equation}
 \grad{\chi^{2}} =
-- 2 \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} (\alpha \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}} + A_{_\mathrm{calc}} \frac{\partial \alpha}{\partial q_{i, w}} ) (A_{_\mathrm{obs}} - \alpha A_{_\mathrm{calc}})
+- 2 \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} (\alpha \frac{\partial A_{_\mathrm{calc}}}{\partial \gamma_{i, w}} + A_{_\mathrm{calc}} \frac{\partial \alpha}{\partial \gamma_{i, w}} ) (A_{_\mathrm{obs}} - \alpha A_{_\mathrm{calc}})
 \end{equation}
 \begin{equation}
 \grad{Rw} = 
-\frac{Rw}{\chi^{2}} \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} (\alpha \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}} + A_{_\mathrm{calc}} \frac{\partial \alpha}{\partial q_{i, w}} ) (\alpha A_{_\mathrm{calc}}  - (A_{_\mathrm{obs}}))
+\frac{Rw}{\chi^{2}} \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} (\alpha \frac{\partial A_{_\mathrm{calc}}}{\partial \gamma_{i, w}} + A_{_\mathrm{calc}} \frac{\partial \alpha}{\partial \gamma_{i, w}} ) (\alpha A_{_\mathrm{calc}}  - (A_{_\mathrm{obs}}))
 \end{equation}
 \begin{equation}
-\frac{\partial \alpha}{\partial q_{i, w}}  = 
-\frac{(\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{obs}} \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}}- 2\alpha \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}} \frac{\partial A_{_\mathrm{calc}}}{\partial q_{i, w}})}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}}^{2}}
+\frac{\partial \alpha}{\partial \gamma_{i, w}}  = 
+\frac{(\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{obs}} \frac{\partial A_{_\mathrm{calc}}}{\partial \gamma_{i, w}}- 2\alpha \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}} \frac{\partial A_{_\mathrm{calc}}}{\partial \gamma_{i, w}})}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}}^{2}}
 \end{equation}
 \begin{equation}
-  \grad{\chi^{2}_{\mathrm{INVERT}}} = \frac{-2}{N} \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} \sum_{j}(\alpha \frac{\partial A_{j_\mathrm{calc}}}{\partial q_{i, w}} + A_{j_\mathrm{calc}} \frac{\partial \alpha}{\partial q_{i, w}} ) (A_{_\mathrm{obs}} - \alpha A_{j_\mathrm{calc}})
+  \grad{\chi^{2}_{\mathrm{INVERT}}} = \frac{-2}{N} \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} \sum_{j}(\alpha \frac{\partial A_{j_\mathrm{calc}}}{\partial \gamma_{i, w}} + A_{j_\mathrm{calc}} \frac{\partial \alpha}{\partial \gamma_{i, w}} ) (A_{_\mathrm{obs}} - \alpha A_{j_\mathrm{calc}})
 \end{equation}
-
+where $\gamma_{i, w}$ is the $i$th arbitrary positional variable in the $w$th direction.
+The concept of an "arbitrary positional variable" might seem a bit cumbersome but it allows us to define the forces for any atomic parameter which can be represented as a vector in 3-space.
+This comes in handy when trying to define the forces acting on variables like anistropic displacement parameters or atomic magnetic spins.
 
 DISCUSS INVERT A BUNCH. ALSO COMPARE RW AND CHI**2, POTENTIALY WITH A FIGURE.
 
@@ -74,6 +76,34 @@ Analyticly one generally defines a partition function, which describes the sum o
 where $P_{i}$ is the probability of the $i$th state and is a function of the total energy of that state.
 This partition function can then be used to obtain the probabilty of any specific state.
 \subsection{Hamiltonian Monte Carlo}
+In order to model dynamics we need to describe the motion of the particles in our system, thus:
+\begin{align}
+  \frac{d q_{i}}{d t} &= \frac{\partial \mathcal{H}}{\partial p_{i}} = p_{i}\\
+  \frac{d p_{i}}{d t} &= -\frac{\partial \mathcal{H}}{\partial q_{i}} = -\grad{U}  
+\end{align}
+Using these equations we can derive the position and momentum vectors at any point in time using the leap-frog algorithm:
+\begin{align}
+  p_{i}(t + \delta t/2) &= p_{i}(t) - \frac{\delta t}{2} \frac{\partial }{\partial q_{i}}U(q(t))\\
+  q_{i}(t+\delta t)  &= q_{i}(t) + \delta t * p_{i}(t+\delta t/2)\\
+  p_{i}(t+\delta t) &=   p_{i}(t + \delta t/2)- \frac{\delta t}{2} \frac{\partial }{\partial q_{i}}U(q(t+\delta t))
+\end{align}
+Note that $\frac{\partial}{\partial q_{i}}$ is the gradient with respect to $q$ where $i$ denotes the $i$th atom being moved.
+Using this notation the gradient is
+\begin{equation} \label{grad}
+  \grad{U} = \begin{bmatrix}
+    \frac{\partial U}{\partial q_{0, x}} & \frac{\partial U}{\partial q_{0, y}} & \frac{\partial U}{\partial q_{0, z}} \\
+    \vdots & \frac{\partial U}{\partial q_{i, w}} & \vdots \\
+    \frac{\partial U}{\partial q_{n, x}} & \frac{\partial U}{\partial q_{n, y}} & \frac{\partial U}{\partial q_{n, z}} \\
+  \end{bmatrix} = 
+  \begin{bmatrix}
+    \vec{\mathcal{F}}_{0} \\
+    \vdots \\
+    \vec{\mathcal{F}}_{i} \\
+    \vdots \\
+    \vec{\mathcal{F}}_{n}\\
+  \end{bmatrix}
+\end{equation}
+where $\frac{\partial}{\partial q_{i, w}}$ is the derivative with respect to $q$ where $w$ denotes direction of the derivative ($x$, $y$, or $z$),  $n$ is the number of atoms and $U$ is the potential which depends on $q$, and $\vec{\mathcal{F}_{i}}$ is the "force" on the $i$th atom.
 \subsubsection{No-U-Turn-Sampling}
 \subsection{Grand Canonical Ensemble}
 \subsubsection{Ensemble description}
