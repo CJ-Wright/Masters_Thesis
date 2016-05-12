@@ -134,12 +134,18 @@ Mux data as needed.
 Use pyFAI to get the radial distance array.
 Note that to properly mask and integrate the system we need to compute the bin edges for the pixels.
 The bin edges change as a function of $Q$, as the angle subtended by a pixel shrinks essentially giving high $Q$ pixels more resolution.
+
 \begin{figure}
   \includegraphics[width=\textwidth]{res}
 \caption{$Q$ resolution as a function of $Q$.}
 \end{figure}
 Mask the image.
+
 \subsubsection{Automated Mask Generation}
+Detector masking is an important part of any x-ray scattering workflow as dead/hot pixels, streak errors, and beamstop associated features can be averaged into the data changing the signal and its statistical significance.
+While some features, like the beamstop holder, can be easily observed and masked by hand other are much more difficult to observe even on large computer monitors.
+Additionally, while dead/hot pixels and streaks are usually 
+
 \foreach \n in {10, 30, 50, 90}{
 \begin{figure}
   \foreach \m in {raw, masked, missed}{
@@ -156,6 +162,7 @@ Mask the image.
     }}
 \caption{Generated dead/hot pixel masks for a detector. From top left clockwise: 100, 300, 500, and 1000 dead/hot pixels.}
 \end{figure}
+
 Note that we do miss some pixels when the number of dead pixels grows very large.
 However, most detectors do not have that many dead pixels.
 We can run into these kinds of situations when running samples with some single crystal or textured components. 
