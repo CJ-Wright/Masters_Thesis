@@ -18,5 +18,6 @@
 *.png
 *.tiff
 *.tif
+*.idea
 
 !thesis.pdf
