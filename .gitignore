@@ -20,5 +20,6 @@
 *.tif
 *.idea
 *~
+.idea
 
 !thesis.pdf
