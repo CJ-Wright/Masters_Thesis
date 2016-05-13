@@ -3,12 +3,8 @@ import matplotlib.pyplot as plt
 from skbeam.core.utils import twotheta_to_q
 import matplotlib
 
-font = {'family': 'normal',
-        # 'weight': 'bold',
-        'size': 18}
+plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 
-matplotlib.rc('font', **font)
-matplotlib.rc('figure', figsize=(8, 6), dpi=80 * 3)
 save_file = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
 
 n_pixels = 1048

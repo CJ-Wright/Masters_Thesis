@@ -99,8 +99,7 @@ This data relies on good statistics and sound background subtraction.
 Talk about papers from Billinge Group with thin film PDF and dilute NP solutions.
 Diagram of the overall data processing workflow.
 Discuss the NSLS-II data stack.
-\begin{landscape}
-\begin{center}
+\begin{figure}
 \begin{tikzpicture}[thick,scale=0.6, every node/.style={scale=0.6}]
     \node (img) [startstop] at (0,0) {Image Data};
     \node [database, right=of img] (fs)  {FileStore};
@@ -110,13 +109,13 @@ Discuss the NSLS-II data stack.
     \node[startstop, below=of bmeta] (smeta) {Sample Metadata};
     \node[database, right=of emeta] (mds) {MetadataStore};
     \node[process, right=of mds] (db) {DataBroker};
-    \node[io, right=of db] (lfg) {Load Data};
-    \node[io, below=of lfg] (lbg) {Load Background};
-    \node[process, right=of lfg] (maskfg) {Mask Data};
-    \node[process, right=of lbg] (maskbg) {Mask Background};
-    \node[process, right=of maskfg] (ifg) {Azimuthally Integrate Data};
-    \node[process, right=of maskbg] (ibg) {Azimuthally Integrate Background};
-    \node[process, right=of ifg] (bgsubs) {Subtract Background};
+%     \node[io, right=of db] (lfg) {Load Data};
+%     \node[io, below=of lfg] (lbg) {Load Background};
+%     \node[process, right=of lfg] (maskfg) {Mask Data};
+%     \node[process, right=of lbg] (maskbg) {Mask Background};
+%     \node[process, right=of maskfg] (ifg) {Azimuthally Integrate Data};
+%     \node[process, right=of maskbg] (ibg) {Azimuthally Integrate Background};
+%     \node[process, right=of ifg] (bgsubs) {Subtract Background};
 
 %     \draw[->] (img) -- ++(0,1) -- ++($(fs)+(0,1)$)node[] -- (fs);
 %     \draw[->] (F)--(Z) node [midway,above] {$\Sigma$};
@@ -124,8 +123,8 @@ Discuss the NSLS-II data stack.
 %     \draw[->] (E)--(M) node [midway,left] {$\phi$};
 %     \draw[->] (N)--(Z) node [midway,left] {$\tilde{\phi}\Sigma$};
 \end{tikzpicture}
-\end{center}
-\end{landscape}
+\caption{Database Loading Workflow. Data is loaded from various sources, including images and text files, into the FileStore and MetadataStore databases. Data is then retrieved from the databases using the databroker.}
+\end{figure}
 \subsection{MetadataStore Side Loading}
 Design of sidewinder-spec for loading the data into metadatastore.
 Most of the design considerations went into the loaders, which are different for each experiment.
@@ -135,60 +134,10 @@ Use pyFAI to get the radial distance array.
 Note that to properly mask and integrate the system we need to compute the bin edges for the pixels.
 The bin edges change as a function of $Q$, as the angle subtended by a pixel shrinks essentially giving high $Q$ pixels more resolution.
 
-\begin{figure}
+\subsection{Detector $Q$ resolution}
+\begin{figure}[!h]
   \includegraphics[width=\textwidth]{res}
 \caption{$Q$ resolution as a function of $Q$.}
 \end{figure}
-Mask the image.
 
-\subsubsection{Automated Mask Generation}
-Detector masking is an important part of any x-ray scattering workflow as dead/hot pixels, streak errors, and beamstop associated features can be averaged into the data changing the signal and its statistical significance.
-While some features, like the beamstop holder, can be easily observed and masked by hand other are much more difficult to observe even on large computer monitors.
-Additionally, while dead/hot pixels and streaks are usually static the hot pixels associated with textured or single crystal scattering or cosmic rays are not.
-Thus, coming up with an automated method for finding such erroneous pixels is important, especially as high flux diffraction beamlines can generate data very quickly.
-
-While this problem can be quite complex in the most general case, we can use the annular symmetry of the powder scattering pattern to our advantage, by comparing a pixel against pixels in the same ring.
-Since non-textured powder scattering should produce the same pixel intensity for a given ring we can mask any pixels which are $x$ standard deviations away from the mean.
-This method relies on the aforementioned pixel binning algorithm, as using miss sized bins will cause some pixels which should be in separate rings to be put together, and others which should be in the same ring to be separated.
-In that case the masking algorithm will overestimate the number of pixels to be masked due to the additional statistical variation in the sample.
-
-NEED TO INCLUDE FIGURES OF POORLY BINNED PIXELS MASK
-
-ALSO NEED ROTATED BEAMSTOP MASKS
-
-ALSO ALSO NEED TO SHOW THE EFFECT OF CHANGING ALPHA FOR THE MASKING
-
-ALSO ALSO ALSO SHOW SOME MASKS OF REAL DATA, INCLUDING DATA WITH SINGLE CRYSTAL/TEXTURE
- 
-
-\foreach \n in {10, 30, 50, 90}{
-\begin{figure}
-  \foreach \m in {raw, masked, missed}{
-    \includegraphics[width=.3\textwidth]{\m_\n}
-    }
-  \caption{Generated beamstop masks for a beamstop holder with $\n\%$ transmittance. From left to right: the raw image, the masked image, and the missed pixels}
-\end{figure}
-}
-
-\begin{figure}
-\foreach \n in {100, 300, 500, 1000}{
-  \foreach \m in {masked}{
-    \includegraphics[width=.49\textwidth]{dead_pixel_\m_\n}
-    }}
-\caption{Generated dead/hot pixel masks for a detector. From top left clockwise: 100, 300, 500, and 1000 dead/hot pixels.}
-\end{figure}
-
-Note that we do miss some pixels when the number of dead pixels grows very large.
-However, most detectors do not have that many dead pixels.
-We can run into these kinds of situations when running samples with some single crystal or textured components. 
-However, when this is the case the contrast between the affected pixels and the desired signal is very large enabling easier masking.
-
-We then mask data points 
-Additionally the standard deviation threshold can be a function of the pixel distance from the center, allowing the mask generator to be more forgiving at certain points and stricter at others.
-This is particularly helpful as the small number of pixels near the point of incidence combined with the very sharp peaks causes some pixels to be improperly masked.
-Similarly it is important to remove dead pixels at the edge of the detector as these have an outsized effect on the integration as the pixel intensity is low to begin with.
-In practice this results in the removal of almost all dead pixels and potentially the beamstop holder.
-Removal of the holder depends on its individual properties, since a holder which is more x-ray opaque will cause a larger shift in the pixel intensity distribution.
-The method was benchmarked on synthetic data, with both hot and cold pixels added.
-Additional benchmarking was performed with synthetic beamstop holders of various x-ray transmittance.
-Anomalous corner masking most likely due to the small number of pixels out at the corners.
+\input{pdf/mask}

@@ -1,11 +1,13 @@
 # Fdb version 3
-["dvipdf"] 0 "pdf.dvi" "pdf.pdf" "pdf" 
-  "pdf.dvi" 0 -1 0 "latex"
-  (generated)
-  "pdf.pdf"
 ["latex"] 1463077993 "pdf.tex" "pdf.dvi" "pdf" 
   "pdf.aux" 1463077966 2835 4af969019278f417ee93ccedb352a34e ""
   "pdf.tex" 1463077993 11047 d450aa5bb1781a6ca6f9c065e1412e90 ""
   (generated)
   "pdf.dvi"
+  "pdf.log"
+["pdflatex"] 1463143168 "pdf.tex" "pdf.pdf" "pdf" 
+  "pdf.aux" 1463143160 957 d8e3558499ed7996cb07486b713fd4e7 ""
+  "pdf.tex" 1463143167 9776 723d8a4714fcbd954e1f3b4f58f540f0 ""
+  (generated)
+  "pdf.pdf"
   "pdf.log"

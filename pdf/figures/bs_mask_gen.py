@@ -5,6 +5,8 @@ from skbeam.core.utils import twotheta_to_q
 import scipy.stats as sts
 from scipy.ndimage.interpolation import rotate
 
+plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
+
 def ring_blur_mask(img, r, int_r, alpha, bins=None, mask=None):
     """
     Perform a annular mask, which checks the ring statistics and masks any
