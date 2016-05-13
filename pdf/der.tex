@@ -1,0 +1,65 @@
+\subsection{Analytical Gradients}
+Many optimization algorithms and simulations methodologies, including HMC, require not only the potential energy of a given configuration but also the forces acting on that configuration.
+These forces are described by the gradient of potential energy of the system which in turn requires the gradient of the PDF.
+As previously shown the PDF is the Fourier Transform of the Debye equation.
+Since the Fourier Transform is expressed as an integral we can exchange the order of the gradient and the integral, allowing us to calculate the analytical gradient of the Debye equation and FFT the resulting function.
+The Debye equation, with a Debye-Waller vibrational correction is
+\begin{equation}
+F(Q) = \frac{1}{N \langle f \rangle^{2}} \sum_{j\neq i} f_i^{*}(Q)f_j(Q) \exp(-\frac{1}{2}\sigma_{ij}^{2}Q^{2}) \frac{\sin(Qr_{ij})}{r_{ij}}
+\end{equation}
+where
+\begin{eqnarray}
+  \sigma_{ij}^{2} = (\vec{u}_{ij} * \hat{d}_{ij})^{2}\\
+  \vec{u}_{ij} = \vec{u}_{i} - \vec{u}_{j}\\
+  \hat{d}_{ij} = \frac{\vec{d}_{ij}}{r_{ij}}\\
+  r_{ij} = ||\vec{d}_{ij}|| \\
+  \vec{d}_{ij} =
+  \begin{bmatrix}
+    q_{ix} - q_{jx}\\
+    q_{iy} - q_{jy} \\
+    q_{iz} - q_{jz}
+  \end{bmatrix}
+\end{eqnarray}
+where $Q$ is the scatter vector, $f_i$ is atomic scattering factor of the $i$th atom, and $r_{ij}$ is the distance between atoms $i$ and $j$ and has $q$ dependence.
+For simplicities sake we will break up $F(Q)$ so that
+\begin{equation}
+F(Q) = \alpha \sum_{j\neq i} \beta_{ij} \uptau_{ij} \Omega_{ij}
+\end{equation}
+where
+\begin{eqnarray}
+  \alpha = \frac{1}{N \langle f \rangle^{2}} \\
+  \beta_{ij} = f_i^{*}(Q)f_j(Q)\\
+  \uptau_{ij} = \exp(-\frac{1}{2}\sigma_{ij}^{2}Q^{2})\\
+  \Omega_{ij} = \frac{\sin(Qr_{ij})}{r_{ij}}
+\end{eqnarray}
+
+\noindent The derivatives are as follows:
+\begin{equation}
+\frac{\partial}{\partial q_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} (\frac{\partial \uptau_{ij}}{\partial q_{i,w}}  \Omega_{ij} + \uptau_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}})
+\end{equation}
+where
+\begin{eqnarray}
+  \frac{\partial \Omega_{ij}}{\partial q_{i,w}}  = \frac{Q\cos(Qr_{ij}) - \Omega_{ij}}{r_{ij}^{2}} (q_{i,w}-q_{j,w})\\
+  \frac{\partial \uptau_{ij}}{\partial q_{i,w}} = \frac{\sigma_{ij}Q^{2} \uptau_{ij}}{r_{ij}^{3}}   ((q_{i,w} - q_{j,w}) \sigma_{ij}- ( u_{i,w} - u_{j,w})r_{ij}^{2})
+\end{eqnarray}
+
+Since $\vec{u}_{ij}$ is a variable as well, we need the derivative with respect to it as well.
+Thus
+\begin{equation}
+\frac{\partial}{\partial u_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} \frac{\partial \uptau_{ij}}{\partial u_{i,w}}  \Omega_{ij}
+\end{equation}
+
+\begin{eqnarray}
+\frac{\partial \uptau_{ij}}{\partial u_{i,w}} =
+- \frac{\sigma_{ij}Q^{2} \uptau_{ij}}{r_{ij}}  (q_{i,w} - q_{j,w})
+\end{eqnarray}
+\subsubsection{Without ADPs}
+Without ADPs the equations simplify down to
+\begin{equation}
+F(Q) = \frac{1}{N \langle f \rangle^{2}} \sum_{j\neq} f_i^{*}(Q)f_j(Q) \frac{\sin(Qr_{ij})}{r_{ij}}
+\end{equation}
+and
+ \begin{equation}
+\frac{\partial}{\partial q_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}}
+\end{equation}
+use of these equations, when ADPs are not appropriate (like at cyrogenic temperatures), greatly speeds up the computaiton.
