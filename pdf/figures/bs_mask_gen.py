@@ -6,6 +6,62 @@ import scipy.stats as sts
 from scipy.ndimage.interpolation import rotate
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
+def rbm(img, r, rsize, alpha, bins=None, mask=None):
+    """
+    Perform a annular mask, which checks the ring statistics and masks any
+    pixels which have a value greater or less than alpha * std away from the
+    mean
+    Parameters
+    ----------
+    img: 2darray
+        The  image
+    r: 2darray
+        The  array which maps pixels to radii
+    rsize: float
+        The size of the pixel
+    alpha: float or tuple or, 1darray
+        Then number of acceptable standard deviations, if tuple then we use
+        a linear distribution of alphas from alpha[0] to alpha[1], if array
+        then we just use that as the distribution of alphas
+    bins: int, optional
+        Number of bins used in the integration, if not given then max number of
+        pixels +1
+    mask: 1darray
+        A starting flattened mask
+    Returns
+    --------
+    2darray:
+        The mask
+    """
+
+    if mask is None:
+        mask = np.ones(img.shape).astype(bool)
+    int_r = np.around(r / rsize).astype(int)
+    if bins is None:
+        bins = int_r.max() + 1
+    if mask.shape != img.shape:
+        mask = mask.reshape(img.shape)
+    msk_img = img[mask]
+    msk_r = r[mask]
+
+    # integration
+    mean = sts.binned_statistic(msk_r, msk_img, bins=bins,
+                                range=[0, r.max()], statistic='mean')[0]
+    std = sts.binned_statistic(msk_r, msk_img, bins=bins,
+                               range=[0, r.max()], statistic=np.std)[0]
+    if type(alpha) is tuple:
+        alpha = np.linspace(alpha[0], alpha[1], bins)
+    threshold = alpha * std
+    lower = mean - threshold
+    upper = mean + threshold
+
+    # single out the too low and too high pixels
+    too_low = img < lower[int_r]
+    too_hi = img > upper[int_r]
+
+    mask = mask * ~too_low * ~too_hi
+    return mask.astype(bool)
+
 
 def ring_blur_mask(img, r, int_r, alpha, bins=None, mask=None):
     """
