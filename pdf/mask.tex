@@ -66,15 +66,6 @@ Two version of the masking algorithm were run for each test case, one using the 
     \label{fig:rot_bs}
 \end{figure}
 
-\begin{figure}
-    \includegraphics[width=\textwidth]{single_xtal_masked}
-    \caption{Experimental data, with single crystal peaks}
-    \label{fig:}
-\end{figure}
-%MAYBE ALSO ALSO NEED TO SHOW THE EFFECT OF CHANGING ALPHA FOR THE MASKING
-
-ALSO ALSO ALSO SHOW SOME MASKS OF REAL DATA, INCLUDING DATA WITH SINGLE CRYSTAL/TEXTURE
-
 Figures \ref{fig:dead_pixel_100}-\ref{fig:bs_90} show the results of the masking algorithm on simulated images.
 The dead/hot pixel masking shows the importance of using the $Q$ resolution based bin sizes as the even bin based mask have a tendency to over mask the image, removing pixels which contain valuble signal.
 This overmasking is caused by pixels being imporperly assocaited with one another by the even bins.
@@ -88,9 +79,43 @@ Near this point the beamstop holder becomes a statisticly signifigant part of th
 For most PDF and XRD studies this small area can be masked automaticly by masking all the pixels who's distance from the point of incidence is smaller than a given radius $r$, or can be negelected outright as the area is not used in the analysis or refinement.
 Similar results were produced for beamstop holders which were rotated away from the vericle position, as shown in figure \ref{fig:rot_bs}
 
+\begin{figure}
+    \foreach \m in {raw, masked}{
+        \subfloat[]{\includegraphics[width=.5\textwidth]{exp_\m}}
+    }
+    \caption{Masked experimental data. a) the raw image, b) the mask}
+    \label{fig:masked_exp}
+\end{figure}
+
+\begin{figure}
+    \foreach \m in {raw, masked}{
+        \subfloat[]{\includegraphics[width=.5\textwidth]{single_xtal_\m}}
+    }
+    \caption{Masked experimental data with Pt single crystal signal. a) the raw image, b) the mask}
+    \label{fig:masked_single_xtal}
+\end{figure}
+
+\begin{figure}
+    \foreach \m in {raw, masked}{
+        \subfloat[]{\includegraphics[width=.5\textwidth]{combined_\m}}
+    }
+    \caption{Masked experimental data with Pt single crystal signal using figure's \ref{fig:masked_exp} as a starting mask. a) the raw image, b) the mask}
+    \label{fig:combined}
+\end{figure}
+
+Working with actual experimental data, obtained at the Advanced Photon Source beamline 11-ID-B, shows the difficulty of masking images which have low phonon counts.
+While the masking of experimental data taken with longer exposures, consisting of 250 .2 second shots, shown in figure \ref{fig:masked_exp} provides very sharp edges to the beamstop holder, and very little extra masking beyond the occasional dead pixel, this is not the case for the single crystal data.
+The single crystal data is more problematic because of its short exposure time and low flux, with 500 frame at a .1 second exposure and having shrunk the beam size.
+The low flux is to prevent the very strong single crystal peaks from damaging the detector.
+However, this causes the image to be less statisticly viable then ideal, causing problems with the mask as seen in figure \ref{fig:masked_single_xtal}.
+This can be aleviated to some degree by using the previously generated mask as a starting mask for the single crystal image, as shown in \ref{fig:combined}.
+While the masking algorithm still produces many diffuse masked pixels, they are far fewer, this may be due to the removal of the beamstop which could have contributed to the large standard deviation in figure \ref{fig:masked_single_xtal}.
+
+
 \subsubsection{Conclusions}
 In this section the masking algorithm, which relies on both $Q$ resolution based binning and a statistical approach to azimuthal symmetry, was developed.
 The focus of this algorithm was to remove many unwanted detector features assocaited with pixel defect, beamstop holder associated scattering attenuation, and single crystal/texture peaks.
 Simulated data was used to evaluate the beamstop holder and dead/hot pixel masking capacity, while experimental data was used to check for single crystal and texture based masking.
 $Q$ resolution based binning was shown to be very important to avoid overmasking.
+The ability of the mask writer to mask images is somewhat limited by the overall statistical image quality, although some deficencies can be obtained by using previously generated masks as starting points.
 This masking algorithm is now in use in the data processing workflow and will be avaialable in scikit-beam soon.
