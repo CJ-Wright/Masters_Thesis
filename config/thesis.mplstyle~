@@ -1,0 +1,36 @@
+#Author: Christopher J. Wright
+
+lines.linewidth : 2.0
+
+patch.linewidth: 0.5
+patch.facecolor: blue
+patch.edgecolor: eeeeee
+patch.antialiased: True
+
+text.hinting_factor : 8
+
+mathtext.fontset : cm
+
+axes.facecolor: eeeeee
+axes.edgecolor: bcbcbc
+#axes.grid : True
+axes.titlesize: x-large
+axes.labelsize: large
+axes.prop_cycle: cycler('color', ['348ABD', 'A60628', '7A68A6', '467821', 'D55E00', 'CC79A7', '56B4E9', '009E73', 'F0E442', '0072B2'])
+
+grid.color: b2b2b2
+grid.linestyle: --
+grid.linewidth: 0.5
+
+legend.fancybox: True
+legend.framealpha: .3
+
+xtick.direction: in
+ytick.direction: in
+
+image.cmap: viridis
+
+font.family: normal
+font.size: 18
+figure.figsize: (8, 6)
+figure.dpi:240
