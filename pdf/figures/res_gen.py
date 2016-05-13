@@ -19,7 +19,7 @@ ttht = np.arctan(pixel_top / dist)
 dq = twotheta_to_q(ttht, .143) - twotheta_to_q(tthb, .143)
 
 plt.plot(twotheta_to_q(pixels/dist, .143), dq)
-plt.title(r'$Q$ resolution')
+# plt.title(r'$Q$ resolution')
 plt.ylabel(r'$\Delta Q (\AA^{-1}$)')
 plt.xlabel(r'$Q (\AA^{-1}$)')
 plt.tight_layout()
@@ -29,4 +29,3 @@ plt.savefig(save_file + 'res.png', bbox_inches='tight',
             transparent='True')
 plt.savefig(save_file + 'res.pdf', bbox_inches='tight',
             transparent='True')
-plt.show()

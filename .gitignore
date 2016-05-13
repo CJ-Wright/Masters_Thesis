@@ -16,5 +16,7 @@
 *.xml
 *-blx.bib
 *.png
+*.tiff
+*.tif
 
 !thesis.pdf

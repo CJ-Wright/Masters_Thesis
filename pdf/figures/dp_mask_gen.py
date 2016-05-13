@@ -119,7 +119,7 @@ for j in [100, 300, 500, 1000]:
                  ms=5)
 
     #Then plot it
-    ax2.set_title('Masked Image')
+    # ax2.set_title('Masked Image')
     ax2.imshow(Z, interpolation='none',origin='lower',
                )
     for fig, n in zip([fig2], ['masked']):
