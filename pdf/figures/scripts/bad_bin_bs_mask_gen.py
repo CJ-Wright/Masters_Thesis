@@ -4,7 +4,6 @@ from pyFAI.geometry import Geometry
 from skbeam.core.utils import twotheta_to_q
 import scipy.stats as sts
 from scipy.ndimage.interpolation import rotate
-from skbeam.core.mask import ring_blur_mask as rbm
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 
@@ -64,6 +63,62 @@ def ring_blur_mask(img, r, int_r, alpha, bins=None, mask=None):
     mask = mask * ~too_low * ~too_hi
     return mask.astype(bool)
 
+def rbm(img, r, rsize, alpha, bins=None, mask=None):
+    """
+    Perform a annular mask, which checks the ring statistics and masks any
+    pixels which have a value greater or less than alpha * std away from the
+    mean
+    Parameters
+    ----------
+    img: 2darray
+        The  image
+    r: 2darray
+        The  array which maps pixels to radii
+    rsize: float
+        The size of the pixel
+    alpha: float or tuple or, 1darray
+        Then number of acceptable standard deviations, if tuple then we use
+        a linear distribution of alphas from alpha[0] to alpha[1], if array
+        then we just use that as the distribution of alphas
+    bins: int, optional
+        Number of bins used in the integration, if not given then max number of
+        pixels +1
+    mask: 1darray
+        A starting flattened mask
+    Returns
+    --------
+    2darray:
+        The mask
+    """
+
+    if mask is None:
+        mask = np.ones(img.shape).astype(bool)
+    int_r = np.around(r / rsize).astype(int)
+    if bins is None:
+        bins = int_r.max() + 1
+    if mask.shape != img.shape:
+        mask = mask.reshape(img.shape)
+    msk_img = img[mask]
+    msk_r = r[mask]
+
+    # integration
+    mean = sts.binned_statistic(msk_r, msk_img, bins=bins,
+                                range=[0, r.max()], statistic='mean')[0]
+    std = sts.binned_statistic(msk_r, msk_img, bins=bins,
+                               range=[0, r.max()], statistic=np.std)[0]
+    if type(alpha) is tuple:
+        alpha = np.linspace(alpha[0], alpha[1], bins)
+    threshold = alpha * std
+    lower = mean - threshold
+    upper = mean + threshold
+
+    # single out the too low and too high pixels
+    too_low = img < lower[int_r]
+    too_hi = img > upper[int_r]
+
+    mask = mask * ~too_low * ~too_hi
+    return mask.astype(bool)
+
 geo = Geometry(
     detector='Perkin', pixel1=.0002, pixel2=.0002,
     dist=.23,
@@ -110,7 +165,7 @@ for trans in [10, 30, 50, 90]:
     #Then plot it
     fig1, ax1 = plt.subplots()
     # ax1.set_title('Raw data with beamstop')
-    ax1.imshow(Z,interpolation='none')
+    ax1.imshow(Z,interpolation='none', clim=(0,255))
     ax1.set_xlim(0,2048)
     ax1.set_ylim(0,2048)
 
@@ -119,7 +174,7 @@ for trans in [10, 30, 50, 90]:
     fixed_image = Z.copy()
     fixed_image[~mask] = 0.0
     ax2.imshow(fixed_image,interpolation='none',origin='lower',
-               # clim=(0,255)
+               clim=(0,255)
                )
 
     fig3, ax3 = plt.subplots()
@@ -128,7 +183,7 @@ for trans in [10, 30, 50, 90]:
     missed_pixels[~mask] = 0.0
     # ax3.set_title('Missed Pixels')
     ax3.imshow(missed_pixels, interpolation='none', origin='lower',
-               # clim=(0,255)
+               clim=(0,255)
                )
 
     for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):

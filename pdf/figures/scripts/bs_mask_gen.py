@@ -164,7 +164,7 @@ for trans in [10, 30, 50, 90]:
     #Then plot it
     fig1, ax1 = plt.subplots()
     # ax1.set_title('Raw data with beamstop')
-    ax1.imshow(Z,interpolation='none')
+    ax1.imshow(Z,interpolation='none', clim=(0,255))
     ax1.set_xlim(0,2048)
     ax1.set_ylim(0,2048)
 
@@ -173,7 +173,7 @@ for trans in [10, 30, 50, 90]:
     fixed_image = Z.copy()
     fixed_image[~mask] = 0.0
     ax2.imshow(fixed_image,interpolation='none',origin='lower',
-               # clim=(0,255)
+               clim=(0,255)
                )
 
     fig3, ax3 = plt.subplots()
@@ -182,7 +182,7 @@ for trans in [10, 30, 50, 90]:
     missed_pixels[~mask] = 0.0
     # ax3.set_title('Missed Pixels')
     ax3.imshow(missed_pixels, interpolation='none', origin='lower',
-               # clim=(0,255)
+               clim=(0,255)
                )
 
     for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):
@@ -228,7 +228,7 @@ missed_pixels[~bs] = 0.0
 missed_pixels[~mask] = 0.0
 # ax3.set_title('Missed Pixels')
 ax3.imshow(missed_pixels, interpolation='none', origin='lower',
-           # clim=(0,255)
+           clim=(0,255)
            )
 
 for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):
