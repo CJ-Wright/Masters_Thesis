@@ -9,13 +9,11 @@
 *.log
 *.lot
 *.toc
-#*.pdf
 *.ps
 *.dia~
 *.out
 *.xml
 *-blx.bib
-*.png
 *.tiff
 *.tif
 *.idea
