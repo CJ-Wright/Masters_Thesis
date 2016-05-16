@@ -1,4 +1,4 @@
-\subsection{Automated Mask Generation}
+\subsection{Automated Mask Generation} \label{subsec:mask}
 \subsubsection{Introduction}
 Detector masking is an important part of any x-ray scattering workflow as dead/hot pixels, streak errors, and beamstop associated features can be averaged into the data changing the signal and its statistical significance.
 While some features, like the beamstop holder, can be easily observed and masked by hand other are much more difficult to observe even on large computer monitors.
@@ -43,7 +43,7 @@ Two version of the masking algorithm were run for each test case, one using the 
     \subfloat[]{\includegraphics[width=.5\textwidth]{bad_bin_dead_pixel_\m_\n}}
     \subfloat[]{\includegraphics[width=.5\textwidth]{dead_pixel_\m_\n}}
     }
-\caption{Generated dead/hot pixel masks for a detector with $\n$ bad pixels. a) the poorly binned mask and b) the properly binned mask}
+\caption{Generated dead/hot pixel masks for a detector with $\n$ bad pixels. a) the standard even bin mask and b) the $Q$ resolution binned mask}
   \label{fig:dead_pixel_\n}
 \end{figure}
 }

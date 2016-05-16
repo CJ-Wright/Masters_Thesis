@@ -22,6 +22,11 @@ To properly solve the structure of materials the PDF will need to be computed ma
 This requires computation of the PDF, potentialy over many atoms.
 Calculating these PDFs requires a fast, highly parallized, computational framework.
 \subsubsection{GPUs and Parallelization}
+\begin{figure}
+    \includegraphics[width=\textwidth]{cpu-and-gpu}
+    \caption{Comparison of the CPU and GPU chip architectures}
+    \label{fig:cpu_vs_gpu}
+\end{figure}
 Computing the PDF is an embarrassingly parallel problem.
 The basic procedure is to calculate the reduced structure factor $F(Q)$ for each atom pair and momentum transfer vector, sum over all the atom pairs, and Fourier transform the structure to the PDF.
 The first part of this procedure is perfectly parallizable, as each atom pair is seperate from the others.
@@ -126,51 +131,24 @@ Discuss the NSLS-II data stack.
 \subsection{MetadataStore Side Loading}
 Design of sidewinder-spec for loading the data into metadatastore.
 Most of the design considerations went into the loaders, which are different for each experiment.
-\subsection{Automated Image Azimuthal Integration}
-Mux data as needed. 
-Use pyFAI to get the radial distance array.
-Note that to properly mask and integrate the system we need to compute the bin edges for the pixels.
-The bin edges change as a function of $Q$, as the angle subtended by a pixel shrinks essentially giving high $Q$ pixels more resolution.
 
-\subsection{Detector $Q$ resolution} \label{subsec:qres}
-To properly azimuthaly integrate the images taken from the detector the $Q$ resolution of the pixels must be calculated.
-Integrating using even bins will cause pixels which are not on the same ring to be binned together, causing the incorrect value of $I(Q)$ to be obtained and a larger standard deviation in the integrated data.
-To properly calculate the $Q$ resolution the resolution of each of the pixels in $2\theta$ must be calculated.
-\begin{figure}
-    \centering
-    \begin{tikzpicture}
-        \draw (0,0) node[anchor=north]{$A$}
-          -- (4,0) node[anchor=north]{$C$}
-          -- (4,4) node[anchor=east]{$B$}
-          -- cycle;
-        \draw (0,0) node[anchor=north]{$A$}
-          -- (4,0) node[anchor=north]{$C$}
-          -- (4,6) node[anchor=south]{$B'$}
-          -- cycle;
-    \end{tikzpicture}
-    \caption{Scattering onto a flat detector}
-    \label{fig:scattering_digram}
-\end{figure}
-Figure \ref{fig:scattering_digram} shows the scattering of x-rays onto a flat image plate detector.
-In this diagram the bottom of the $n$th pixel is $B$ while the top is $B'$.
-The resolution of this pixel in $2\theta$ is $\angle BAC - \angle B'AC$.
-Thus the resolution, calculated from the distances is
-\begin{equation}
-\Delta 2 \theta = \arctan{\frac{b}{d}} - \arctan{\frac{t}{d}}
-\end{equation}
-where d is the sample to detector distance, b is the distance to the bottom of a pixel, and t is the distance to the top of that pixel.
-Note that these distances need to have been corrected for detector tilt and rotation.
-Thus the resolution of a pixel in $Q$ is
-\begin{equation}
-\Delta Q = \frac{4\pi(\sin{\arctan{\frac{b}{d}}} - \sin{\arctan{\frac{t}{d}}})}{\lambda}
-\end{equation}
-where $\lambda$ is the x-ray wavelength.
-
-For a Perkin Elmer image plate, like the one used at the NSLS-II's XPD and the APS's 11-ID-B, the resolution function is shown in \ref{fig:res_func}
-\begin{figure}[!ht]
-  \includegraphics[width=\textwidth]{res}
-\caption{$Q$ resolution as a function of $Q$.}
-\label{fig:res_func}
-\end{figure}
+\input{pdf/res}
 
 \input{pdf/mask}
+
+\subsection{Automated Image Azimuthal Integration}
+Using the $Q$ resolution binning and masking developed in sections \ref{subsec:qres} and \ref{subsec:mask} the images can be properly integrated.
+Generally, images are integrated by taking the mean value of the pixels in a ring.
+However, other statistical measures of the average value can be used, like the median.
+
+\begin{landscape}
+\foreach \n/\o in {no_mask/with no mask, edge_mask/with only an edge mask, auto_mask/combining an edge mask combined and the automaticly generated mask}{
+    \begin{figure}
+    \centering
+    \foreach \m in {img, ave, std, high_q_ave, high_q_std}{
+        \subfloat[]{\includegraphics[width=.4\textwidth]{\n_\m}}
+        }
+    \caption{Masking, average, and \% standard deviation of an example x-ray total scattering measurement. This image was produced \o. a) the image, b) the mean and median values, c) \% standard deviation (normalized to the median), d) a closeup of the 28 \AA$^{-1}$ to 31 \AA$^{-1}$ $Q$ range for the mean and median, e) \AA$^{-1}$ to 31 \AA$^{-1}$ $Q$ range for the standard deviation}
+    \end{figure}
+}
+\end{landscape}

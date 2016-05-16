@@ -29,8 +29,12 @@ xtick.direction: in
 ytick.direction: in
 
 image.cmap: viridis
+image.interpolation : none
 
 font.family: normal
 font.size: 18
 figure.figsize: 8, 6
 figure.dpi:240
+
+savefig.bbox: tight
+savefig.transparent: True
