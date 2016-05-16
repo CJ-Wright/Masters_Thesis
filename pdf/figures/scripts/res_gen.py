@@ -47,6 +47,7 @@ plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 
 save_file = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
 
+# Run at different distances/wavelengths
 geo = Geometry(
     detector='Perkin', pixel1=.0002, pixel2=.0002,
     dist=.23,
@@ -75,6 +76,8 @@ even_bins_res = []
 for i in range(len(even_bins_bins) - 1):
     even_bins_res.append(even_bins_bins[i+1] - even_bins_bins[i])
 
+even_counts = sts.binned_statistic(q.ravel(), int_q.ravel(), bins=even_bins_bins, statistic='count')[0]
+
 plt.plot(bins[:-1], res, label=r'$Q$ resolution binning')
 plt.plot(even_bins_bins[:-1], even_bins_res, label=r'Even binning')
 plt.ylabel(r'$\Delta Q (\AA^{-1}$)')
@@ -86,9 +89,11 @@ for end in ['eps', 'png', 'pdf']:
                 transparent='True')
 
 plt.clf()
-plt.plot(bins[:-1], counts)
+plt.plot(bins[:-1], counts, label=r'$Q$ resolution binning')
+plt.plot(even_bins_bins[:-1], even_counts, label=r'Even binning')
 plt.ylabel('Number of Pixels')
 plt.xlabel(r'$Q (\AA^{-1}$)')
+plt.legend(loc='best')
 plt.tight_layout()
 for end in ['eps', 'png', 'pdf']:
     plt.savefig(save_file + 'pixels.{}'.format(end), bbox_inches='tight',

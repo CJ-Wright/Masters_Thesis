@@ -15,13 +15,14 @@ from filestore.api import retrieve
 from skbeam.diffraction import bin_edges_to_centers
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
-save=False
+save = True
 save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
 
 
-def find_nearest(array,value):
-    idx = (np.abs(array-value)).argmin()
+def find_nearest(array, value):
+    idx = (np.abs(array - value)).argmin()
     return idx
+
 
 def mask_edge(img_shape, edge_size):
     """
@@ -198,43 +199,56 @@ for name, mask in zip(
     img2[~mask] = np.nan
 
     mean = \
-    sts.binned_statistic(q[mask], img[mask], bins=bins, statistic='mean')[0]
+        sts.binned_statistic(q[mask], img[mask], bins=bins, statistic='mean')[
+            0]
     median = \
-    sts.binned_statistic(q[mask], img[mask], bins=bins, statistic='median')[0]
+        sts.binned_statistic(q[mask], img[mask], bins=bins,
+                             statistic='median')[0]
     std = \
-    sts.binned_statistic(q[mask], img[mask], bins=bins, statistic=np.std)[0]
+        sts.binned_statistic(q[mask], img[mask], bins=bins, statistic=np.std)[
+            0]
 
     fig1, ax = plt.subplots()
     ax.imshow(img2)
     plt.tight_layout()
 
     fig2, ax = plt.subplots()
-    ax.semilogy(x[:muidx], mean[:muidx], label='Mean')
-    ax.semilogy(x[:muidx], median[:muidx], label='Median')
-    ax.set_ylabel(r'$I(Q) in arbirary ')
+    ax.plot(x[:muidx], mean[:muidx], label='Mean')
+    ax.plot(x[:muidx], median[:muidx], label='Median')
+    ax.set_ylabel(r'$I(Q)$ in arbirary ')
+    ax.set_xlabel(r'$Q (\AA^{-1}$)')
     ax.legend()
     plt.tight_layout()
 
     fig3, ax = plt.subplots()
-    ax.semilogy(x[:muidx], (std/median)[:muidx], label='Standard Deviation')
+    ax.plot(x[:muidx], (std / median)[:muidx], label='Standard Deviation')
     ax.legend()
+    ax.set_ylabel('Normalized standard deviation')
+    ax.set_xlabel(r'$Q (\AA^{-1}$)')
     plt.tight_layout()
 
     fig4, ax = plt.subplots()
     ax.plot(x[lidx:uidx], mean[lidx:uidx], label='Mean')
     ax.plot(x[lidx:uidx], median[lidx:uidx], label='Median')
+    ax.set_ylabel(r'$I(Q)$ in arbirary ')
+    ax.set_xlabel(r'$Q (\AA^{-1}$)')
     ax.legend()
     plt.tight_layout()
 
     fig5, ax = plt.subplots()
-    ax.plot(x[lidx:uidx], (std/median)[lidx:uidx], label='Standard Deviation')
+    ax.plot(x[lidx:uidx], (std / median)[lidx:uidx],
+            label='Standard Deviation')
+    ax.set_ylabel(r'Normalized standard deviation')
+    ax.set_xlabel(r'$Q (\AA^{-1}$)')
     ax.legend()
     plt.tight_layout()
     if save:
         for plot_name, fig in zip(['img', 'ave', 'std', 'high_q_ave',
-                                   'high_q_std'], [fig1, fig2, fig3, fig4, fig5]):
+                                   'high_q_std'],
+                                  [fig1, fig2, fig3, fig4, fig5]):
             for end in ['png', 'pdf']:
-                fig.savefig(save_stem + '{}_{}.{}'.format(name, plot_name, end))
+                fig.savefig(
+                    save_stem + '{}_{}.{}'.format(name, plot_name, end))
     else:
         plt.show()
 exit()

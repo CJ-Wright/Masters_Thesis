@@ -35,7 +35,6 @@ The beamstop was calculated to attenuate the x-ray scattering signal at various 
 Two version of the masking algorithm were run for each test case, one using the standard even bin sizes for the integration step, and one where the bin sizes are tuned to the pixel $Q$ resolution as discussed in \ref{subsec:qres}.
 
 \subsubsection{Results and Discussion}
-
 \foreach \n in {100, 300, 500, 1000}{
 \begin{figure}
   \centering
@@ -43,7 +42,7 @@ Two version of the masking algorithm were run for each test case, one using the 
     \subfloat[]{\includegraphics[width=.5\textwidth]{bad_bin_dead_pixel_\m_\n}}
     \subfloat[]{\includegraphics[width=.5\textwidth]{dead_pixel_\m_\n}}
     }
-\caption{Generated dead/hot pixel masks for a detector with $\n$ bad pixels. a) the standard even bin mask and b) the $Q$ resolution binned mask}
+\caption{Generated dead/hot pixel masks for a detector with $\n$ bad pixels. a) the standard even bin mask and b) the $Q$ resolution binned mask. The bad pixels are noted with open cicles, masked pixels are noted with closed circles.}
   \label{fig:dead_pixel_\n}
 \end{figure}
 }

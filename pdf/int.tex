@@ -3,6 +3,18 @@ Using the $Q$ resolution binning and masking developed in sections \ref{subsec:q
 Generally, images are integrated by taking the mean value of the pixels in a ring.
 However, other statistical measures of the average value can be used, like the median.
 
+Figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask} show the importance of masking and the choice of average function.
+All the figures were produced using the same dataset, 50 \si{\degree}C \ce{Pr2NiO4} taken at the APS's 11-ID-B on a Perkin Elmer area detector.
+The automatic masking alpha was $3$ standard deviations from the mean.
+While it is difficult to observe the changes the mask causes in the full $I(Q)$ plot (subfigures a) and b)), the standard deviation plots show the effect of bad pixels on the data (subfigure c)).
+Subfigure c) for figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask} shows that removal of the beamstop holder lowers the low $Q$ standard deviation from around .1 to almost .01 out to 15 \iA.
+The high $Q$ subfigures d) and f) in figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask} show the ``kink'' effect of the detector edge and beamstop holder, where there is a dip in the $I(Q)$ scattering when the rings include the edge of the detector.
+This effect seems to be due to both errors in the edge pixel intensity and the beamstop holder as masking of the edges only seems to provide only partial removal of the issue.
+It is important to note that while integration using the mean of the ring has issues with only the edge mask, as evidenced by the change in slope in \ref{fig:workflow_edge_mask} d) around 29.5 \iA, the median integration does not include this error.
+Idealy the detector would have a normal distribution of pixel intensity for a given ring, which would imply an equivalency between the mean and median $I(Q)$ values.
+Despite the closeness of the mean and median once the final mask has been created, it seems that the median is more relialbe, as it was less effected by the beamstop holder in figure \ref{fig:workflow_edge_mask}.
+Thus, for subsequent integrations discussed in this work the median is used to avoid any defective features that the masking algorithm may have missed.
+
 \begin{landscape}
 \foreach \n/\o in {no_mask/with no mask, edge_mask/with only an edge mask, auto_mask/combining an edge mask combined and the automaticly generated mask}{
     \begin{figure}
@@ -15,15 +27,3 @@ However, other statistical measures of the average value can be used, like the m
     \end{figure}
 }
 \end{landscape}
-
-Figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask} show the importance of masking and the choice of average function.
-All the figures were produced using the same dataset, 50 \si{\degree}C \ce{Pr2NiO4} taken at the APS's 11-ID-B on a Perkin Elmer area detector.
-The automatic masking alpha was $3$ standard deviations from the mean.
-While it is difficult to observe the changes the mask causes in the full $I(Q)$ plot (subfigures a) and b)), the standard deviation plots show the effect of bad pixels on the data (subfigure c)).
-Subfigure c) for figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask} shows that removal of the beamstop holder lowers the low $Q$ standard deviation from around .1 to almost .01 out to 15 \iA.
-The high $Q$ subfigures d) and f) in figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask} show the ``kink'' effect of the detector edge and beamstop holder, where there is a dip in the $I(Q)$ scattering when the rings include the edge of the detector.
-This effect seems to be due to both errors in the edge pixel intensity and the beamstop holder as masking of the edges only seems to provide only partial removal of the issue.
-It is important to note that while integration using the mean of the ring has issues with only the edge mask, as evidenced by the change in slope in \ref{fig:workflow_edge_mask} d) around 29.5 \iA, the median integration does not include this error.
-Idealy the detector would have a normal distribution of pixel intensity for a given ring, which would imply an equivalency between the mean and median $I(Q)$ values.
-Despite the closeness of the mean and median once the final mask has been created, it seems that the median is more relialbe, as it was less effected by the beamstop holder in figure \ref{fig:workflow_edge_mask}.
-Thus, for subsequent integrations discussed in this work the median is used to avoid any defective features that the masking algorithm may have missed.
