@@ -9,7 +9,7 @@
 *.log
 *.lot
 *.toc
-*.pdf
+#*.pdf
 *.ps
 *.dia~
 *.out
@@ -22,4 +22,4 @@
 *~
 .idea
 *.fdb_latexmk
-!thesis.pdf
+!thesis.
