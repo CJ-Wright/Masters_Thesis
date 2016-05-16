@@ -2,8 +2,46 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.stats as sts
 from pyFAI.geometry import Geometry
-from skbeam.core.recip import generate_q_bins
 from skbeam.core.utils import twotheta_to_q
+
+
+def generate_q_bins(rmax, pixel_size, distance, wavelength, rmin=0):
+    """
+    Generate the Q bins at the resolution of the detector
+    Parameters
+    -----------
+    rmax: float
+        The maximum radial distance on the detector in distance units.
+        Note that this should go to the bottom edge of the pixel.
+    pixel_size: float
+        The size of the pixels, in the same units as rmax
+    distance: float
+        The sample to detector distance, in the same units as rmax
+    wavelength: float
+        The wavelength of the x-rays
+    rmin: float, optional
+        The minimum radial distance on the detector in distance units. Defaults
+        to zero. Note that this should be the bottom of the pixel
+
+    Returns
+    -------
+    ndarray:
+        The bin edges, suitable for np.histogram or
+        scipy.stats.binned_statistic
+    """
+    pixel_bottom = np.arange(rmin, rmax, pixel_size)
+    pixel_top = pixel_bottom + pixel_size
+
+    bottom_tth = np.arctan(pixel_bottom[0] / distance)
+    top_tth = np.arctan(pixel_top / distance)
+
+    top_q = twotheta_to_q(top_tth, wavelength)
+
+    bins = np.zeros(len(top_q) + 1)
+
+    bins[0] = twotheta_to_q(bottom_tth, wavelength)
+    bins[1:] = top_q
+    return bins
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 
@@ -37,8 +75,8 @@ even_bins_res = []
 for i in range(len(even_bins_bins) - 1):
     even_bins_res.append(even_bins_bins[i+1] - even_bins_bins[i])
 
-plt.plot(bins[:-1], res, label=r'$Q resolution binning $')
-plt.plot(even_bins_bins, even_bins_res, label=r'$Even binning$')
+plt.plot(bins[:-1], res, label=r'$Q$ resolution binning')
+plt.plot(even_bins_bins[:-1], even_bins_res, label=r'Even binning')
 plt.ylabel(r'$\Delta Q (\AA^{-1}$)')
 plt.xlabel(r'$Q (\AA^{-1}$)')
 plt.legend()
