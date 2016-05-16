@@ -136,19 +136,4 @@ Most of the design considerations went into the loaders, which are different for
 
 \input{pdf/mask}
 
-\subsection{Automated Image Azimuthal Integration}
-Using the $Q$ resolution binning and masking developed in sections \ref{subsec:qres} and \ref{subsec:mask} the images can be properly integrated.
-Generally, images are integrated by taking the mean value of the pixels in a ring.
-However, other statistical measures of the average value can be used, like the median.
-
-\begin{landscape}
-\foreach \n/\o in {no_mask/with no mask, edge_mask/with only an edge mask, auto_mask/combining an edge mask combined and the automaticly generated mask}{
-    \begin{figure}
-    \centering
-    \foreach \m in {img, ave, std, high_q_ave, high_q_std}{
-        \subfloat[]{\includegraphics[width=.4\textwidth]{\n_\m}}
-        }
-    \caption{Masking, average, and \% standard deviation of an example x-ray total scattering measurement. This image was produced \o. a) the image, b) the mean and median values, c) \% standard deviation (normalized to the median), d) a closeup of the 28 \AA$^{-1}$ to 31 \AA$^{-1}$ $Q$ range for the mean and median, e) \AA$^{-1}$ to 31 \AA$^{-1}$ $Q$ range for the standard deviation}
-    \end{figure}
-}
-\end{landscape}
+\include{pdf/int}

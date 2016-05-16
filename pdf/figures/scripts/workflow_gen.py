@@ -15,7 +15,7 @@ from filestore.api import retrieve
 from skbeam.diffraction import bin_edges_to_centers
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
-
+save=False
 save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
 
 
@@ -209,13 +209,14 @@ for name, mask in zip(
     plt.tight_layout()
 
     fig2, ax = plt.subplots()
-    ax.plot(x[:muidx], mean[:muidx], label='Mean')
-    ax.plot(x[:muidx], median[:muidx], label='Median')
+    ax.semilogy(x[:muidx], mean[:muidx], label='Mean')
+    ax.semilogy(x[:muidx], median[:muidx], label='Median')
+    ax.set_ylabel(r'$I(Q) in arbirary ')
     ax.legend()
     plt.tight_layout()
 
     fig3, ax = plt.subplots()
-    ax.plot(x[:muidx], (std/median)[:muidx], label='Standard Deviation')
+    ax.semilogy(x[:muidx], (std/median)[:muidx], label='Standard Deviation')
     ax.legend()
     plt.tight_layout()
 
@@ -229,9 +230,11 @@ for name, mask in zip(
     ax.plot(x[lidx:uidx], (std/median)[lidx:uidx], label='Standard Deviation')
     ax.legend()
     plt.tight_layout()
-
-    for plot_name, fig in zip(['img', 'ave', 'std', 'high_q_ave',
-                               'high_q_std'], [fig1, fig2, fig3, fig4, fig5]):
-        for end in ['png', 'pdf']:
-            fig.savefig(save_stem + '{}_{}.{}'.format(name, plot_name, end))
+    if save:
+        for plot_name, fig in zip(['img', 'ave', 'std', 'high_q_ave',
+                                   'high_q_std'], [fig1, fig2, fig3, fig4, fig5]):
+            for end in ['png', 'pdf']:
+                fig.savefig(save_stem + '{}_{}.{}'.format(name, plot_name, end))
+    else:
+        plt.show()
 exit()
