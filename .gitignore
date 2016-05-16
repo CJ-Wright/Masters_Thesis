@@ -20,4 +20,4 @@
 *~
 .idea
 *.fdb_latexmk
-!thesis.
+!thesis.pdf
