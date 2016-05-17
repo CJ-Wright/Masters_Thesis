@@ -1,9 +1,7 @@
+\graphicspath{{./bmk/figures/}}
 \chapter{Benchmarking}
 \section{PDF}
-\subsection{Au55: surface relaxed}
-\subsection{Au55: surface disordered}
-\subsection{Au55: amorphous}
-\subsection{Au102: triple phase}
-\subsection{Au147}
-\subsection{C60}
+\foreach \n in {au55sr, au55sd, au55a, au102tp, au147}{
+    \input{bmk/\n}
+}
 \section{PDF with ADPs}
