@@ -10,10 +10,7 @@
 To properly understand the PDF and its limitations we need to derive its mathematics.
 The following derivation has been performed numerous times but most recently and completely by Farrow and Billinge, it is reproduced here for clarity and completeness.
 \subsection{Derivation}
-Consider a wave incident on a volume of variable density...
-\subsection{Analytical Gradients}
-Many optimization algorithms and simulations methodologies, including HMC, require not only the potential energy of a given configuration but also the forces acting on that configuration.
-These forces are described by the gradient of potential energy of the system.
+\input{pdf/der}
 
 \section{Computation}
 Simply deriving the equations for the PDF is not enough.
@@ -25,6 +22,11 @@ To properly solve the structure of materials the PDF will need to be computed ma
 This requires computation of the PDF, potentialy over many atoms.
 Calculating these PDFs requires a fast, highly parallized, computational framework.
 \subsubsection{GPUs and Parallelization}
+\begin{figure}
+    \includegraphics[width=\textwidth]{cpu-and-gpu}
+    \caption{Comparison of the CPU and GPU chip architectures}
+    \label{fig:cpu_vs_gpu}
+\end{figure}
 Computing the PDF is an embarrassingly parallel problem.
 The basic procedure is to calculate the reduced structure factor $F(Q)$ for each atom pair and momentum transfer vector, sum over all the atom pairs, and Fourier transform the structure to the PDF.
 The first part of this procedure is perfectly parallizable, as each atom pair is seperate from the others.
@@ -129,16 +131,16 @@ Discuss the NSLS-II data stack.
 \subsection{MetadataStore Side Loading}
 Design of sidewinder-spec for loading the data into metadatastore.
 Most of the design considerations went into the loaders, which are different for each experiment.
-\subsection{Automated Image Azimuthal Integration}
-Mux data as needed. 
-Use pyFAI to get the radial distance array.
-Note that to properly mask and integrate the system we need to compute the bin edges for the pixels.
-The bin edges change as a function of $Q$, as the angle subtended by a pixel shrinks essentially giving high $Q$ pixels more resolution.
 
-\subsection{Detector $Q$ resolution} \label{subsec:qres}
-\begin{figure}[!h]
-  \includegraphics[width=\textwidth]{res}
-\caption{$Q$ resolution as a function of $Q$.}
-\end{figure}
+\input{pdf/res}
 
 \input{pdf/mask}
+
+\subsection{Automated Image Azimuthal Integration}
+Using the $Q$ resolution binning and masking developed in sections \ref{subsec:qres} and \ref{subsec:mask} the images can be properly integrated.
+Generally, images are integrated by taking the mean value of the pixels in a ring.
+However, other statistical measures of the average value can be used, like the median.
+
+\foreach \n in {raw, edge_mask, auto_mask}{
+    \missingfigure{\n image, mean/median, std}
+    }
