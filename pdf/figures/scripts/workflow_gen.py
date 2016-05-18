@@ -13,7 +13,7 @@ from sidewinder_spec.utils.handlers import *
 from filestore.api import db_connect as fs_db_connect
 from filestore.api import retrieve
 from skbeam.diffraction import bin_edges_to_centers
-
+from matplotlib.colors import LogNorm
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 save = True
 save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
@@ -175,7 +175,7 @@ q = geo.qArray(img.shape) / 10  # pyFAI works in nm**-1, we want A**-1
 fq = geo.qArray(img.shape).ravel()
 fimg = img.ravel()
 bins = generate_q_bins(np.max(r) - .5 * geo.pixel1,
-                       geo.pixel1, geo.dist, .143)
+                       geo.pixel1, geo.dist, geo.wavelength * 10**10)
 x = bin_edges_to_centers(bins)
 lidx = find_nearest(x, 28)
 uidx = find_nearest(x, 31)
@@ -209,13 +209,17 @@ for name, mask in zip(
             0]
 
     fig1, ax = plt.subplots()
-    ax.imshow(img2)
+    ax.imshow(img2, norm=LogNorm(vmax=.99*np.max(img[mask])))
+    plt.tight_layout()
+
+    fig11, ax = plt.subplots()
+    ax.imshow(~mask)
     plt.tight_layout()
 
     fig2, ax = plt.subplots()
     ax.plot(x[:muidx], mean[:muidx], label='Mean')
     ax.plot(x[:muidx], median[:muidx], label='Median')
-    ax.set_ylabel(r'$I(Q)$ in arbirary ')
+    ax.set_ylabel(r'$I(Q)$ in arbitrary units')
     ax.set_xlabel(r'$Q (\AA^{-1}$)')
     ax.legend()
     plt.tight_layout()
@@ -230,8 +234,9 @@ for name, mask in zip(
     fig4, ax = plt.subplots()
     ax.plot(x[lidx:uidx], mean[lidx:uidx], label='Mean')
     ax.plot(x[lidx:uidx], median[lidx:uidx], label='Median')
-    ax.set_ylabel(r'$I(Q)$ in arbirary ')
+    ax.set_ylabel(r'$I(Q)$ in arbitrary units')
     ax.set_xlabel(r'$Q (\AA^{-1}$)')
+    ax.set_xlim((x[lidx], x[uidx]))
     ax.legend()
     plt.tight_layout()
 
@@ -240,12 +245,13 @@ for name, mask in zip(
             label='Standard Deviation')
     ax.set_ylabel(r'Normalized standard deviation')
     ax.set_xlabel(r'$Q (\AA^{-1}$)')
+    ax.set_xlim((x[lidx], x[uidx]))
     ax.legend()
     plt.tight_layout()
     if save:
-        for plot_name, fig in zip(['img', 'ave', 'std', 'high_q_ave',
+        for plot_name, fig in zip(['img', 'mask','ave', 'std', 'high_q_ave',
                                    'high_q_std'],
-                                  [fig1, fig2, fig3, fig4, fig5]):
+                                  [fig1, fig11, fig2, fig3, fig4, fig5]):
             for end in ['png', 'pdf']:
                 fig.savefig(
                     save_stem + '{}_{}.{}'.format(name, plot_name, end))

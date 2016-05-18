@@ -15,15 +15,15 @@ Idealy the detector would have a normal distribution of pixel intensity for a gi
 Despite the closeness of the mean and median once the final mask has been created, it seems that the median is more relialbe, as it was less effected by the beamstop holder in figure \ref{fig:workflow_edge_mask}.
 Thus, for subsequent integrations discussed in this work the median is used to avoid any defective features that the masking algorithm may have missed.
 
-\begin{landscape}
-\foreach \n/\o in {no_mask/with no mask, edge_mask/with only an edge mask, auto_mask/combining an edge mask combined and the automaticly generated mask}{
+%\begin{landscape}
+\foreach \n/\o in {no_mask/with no mask, edge_mask/with only an edge mask, auto_mask/combining an edge mask and the automaticly generated mask}{
     \begin{figure}
     \centering
-    \foreach \m in {img, ave, std, high_q_ave, high_q_std}{
+    \foreach \m in {img, mask, ave, std, high_q_ave, high_q_std}{
         \subfloat[]{\includegraphics[width=.4\textwidth]{\n_\m}}
         }
-    \caption{Masking, average, and standard deviation of an example x-ray total scattering measurement. This image was produced \o. a) the image, b) the mean and median values, c) the standard deviation (normalized to the median), d) a closeup of the 28 \iA to 31 \iA $Q$ range for the mean and median, e) \iA to 31 \iA $Q$ range for the standard deviation}
+    \caption{Masking, average, and standard deviation of an example x-ray total scattering measurement. This image was produced \o. a) the image, b) the mask, c) the mean and median values, d) the standard deviation (normalized to the median), e) a closeup of the 28 \iA to 31 \iA $Q$ range for the mean and median, f) 28 \iA to 31 \iA $Q$ range for the standard deviation}
     \label{fig:workflow_\n}
     \end{figure}
 }
-\end{landscape}
+%\end{landscape}
