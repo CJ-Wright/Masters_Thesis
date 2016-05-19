@@ -1,9 +1,13 @@
 \graphicspath{{dp/figures/}}
 \chapter{X-ray Total Scattering Data Aquesition and Processing} \label{ch:dp}
-\section{Experiment}
-PDF experiments are generally performed at synchrotron light sources, as only these sources can provide the need flux, energy, and high momentum transfer vectors needed to obtain relyable PDFs.
+\section{Introduction}
+X-ray total scattering experiments are generally performed at synchrotron light sources, as only these sources can provide the needed flux, energy, and high momentum transfer vectors needed to obtain reliable PDFs.
+Despite the need for a dedicated facility to perform the total scattering experiments, the experiments themselves are fairly forgiving, allowing for reactive gasious environments, experiment temperatures ranging from 2 \si{K} to 1000 \si{C}, and even electrochemical cycling.
+The rapid PDF data aquesition associated with 2D area detectors creates a data management problem, as 96 hours of beamtime could result in almost $10,000$ images which need to be associated with the experimental conditions and detector metadata.
+ Finaly, all this data needs to be processed by removing bad pixels and regions, integrating azimuthally, and converting the scattering data to the PDF.
 
-\section{Data Processing Workflow}
+\section{Data Storage and Management}
+
 Processing the raw pixel intensities to the PDF is very important as we are extracting most of our interesting information out of very high $Q$ data.
 This data relies on good statistics and sound background subtraction.
 Talk about papers from Billinge Group with thin film PDF and dilute NP solutions.

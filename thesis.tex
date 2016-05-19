@@ -23,7 +23,7 @@
 \usepackage{cleveref}
 \usepackage{todonotes}
 \usepackage{siunitx}
-
+\usepackage{hyperref}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -72,7 +72,8 @@
 
 \tikzset{>=stealth}
 \usetikzlibrary{positioning}
-
+\hypersetup{colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  These are just a few sample lines. Put here any 
@@ -210,19 +211,7 @@ Brown University 2014\\ [\baselineskip]
 \section{Structural Analysis}
 \section{Conclusions}
 
-\chapter{Phase Changes and Annealing Dynamics of \ce{Pr2NiO4} and its derivatives}
-\section{Experiments}
-\subsection{\ce{Pr2NiO4} Synthesis}
-\subsection{X-ray Total Scattering Measurements}
-\section{Data Processing}
-\section{Data Analysis}
-\subsection{Intra Sample Comparison}
-\subsection{Inter Sample Comparison}
-\section{Simulation}
-\subsection{Small Box}
-\subsection{Large Box}
-\section{Structural Analysis}
-\section{Conclusions}
+\include{pno/pno}
 
 \chapter{Conclusion}
 %\include{Conclusion}     %% Honors theses are required to 
