@@ -31,9 +31,9 @@
 %% with this documentclass.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\usepackage[style=uscauthoryear]{biblatex}
-\bibliography{references}
-
+\bibliographystyle{amsplain}
+% \usepackage[style=uscnumeric]{biblatex}
+% \bibliography{\jobname}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% The lines above specify a BibTeX style which controls 
@@ -44,7 +44,7 @@
 %% have different styles.
 %% 
 %% The line  \bibliography{references} will cause LaTeX is search for a file
-%% called references.bib.  This file could be named differently.  For example
+%% called thesis.bib.  This file could be named differently.  For example
 %% \bibliography{henry} would provoke a search for henry.bib.  The
 %% file reference.bib (or henry.bib) is one you will have to produce.  It is
 %% a BibTeX database of references you use.
@@ -220,6 +220,7 @@ Brown University 2014\\ [\baselineskip]
                           %% followed by the appropriate
                           %% text.
 
+\include{biblio}
 % \printbibliography         %%  This is the command to use to
               			       %%  insert the bibliography if you are using
                            %% the biblatex.sty package.  See the 
