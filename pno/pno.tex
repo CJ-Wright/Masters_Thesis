@@ -2,7 +2,11 @@
 \chapter{Phase Changes and Annealing Dynamics of \ce{Pr2NiO4} and its derivatives}
 \section{Experiments}
 \subsection{\ce{Pr2NiO4} Synthesis}
-\subsection{X-ray Total Scattering Measurements}
+\subsection{X-ray Measurements}
+X-ray total scattering and x-ray powder diffraction experiments were performed at the APS's 11-ID-B beamline.
+An x-ray energy of XXX keV, YYY \AA was used.
+The detector was moved between a 20cm and a 95 cm sample to detector distance to measure the x-ray total scattering and x-ray diffraction patterns.
+Various PNO samples were annealed on the beamline during x-ray measurement.
 \section{Data Processing}
 
 \todo[inline]{masking parameters}
@@ -11,13 +15,56 @@
 
 \section{Data Analysis}
 \subsection{Intra Sample Comparison}
-\foreach \n {S1, S2, S3, S4, S5}{
-    \missingfigure
+Changes in S1 but very little in S2-5.
+\begin{landscape}
+\foreach \n in {S1, S2, S3, S4, S5}{
+    \foreach \m in {short}{
+      \begin{figure}
+        \includegraphics[width=\linewidth]{\n_\m_output_chi}
+    \end{figure}
     }
-\missingfigure{here}
+}
+\end{landscape}
 \subsection{Inter Sample Comparison}
+\begin{landscape}
+\foreach \n in {initial, high-temp, final}{
+  \begin{figure}
+    \includegraphics[width=\linewidth]{S1-5_full_\n_chi}
+  \end{figure}
+}
+\end{landscape}
+\begin{landscape}
+\foreach \n in {initial, high-temp, final}{
+    \foreach \m in {short, medium, long}{
+        \begin{figure}
+            \includegraphics[width=\linewidth]{S1-5_\m_\n}
+        \end{figure}
+    }
+    }
+\end{landscape}
+The PDF for S1 at operating temperature looks like S2-5 at the same temperature.
 \section{Simulation}
-\subsection{Small Box}
-\subsection{Large Box}
-\section{Structural Analysis}
+Simulations have not been run yet on these PNO samples.
+Solving the structures of these samples is expected to be more difficult than the NP benchmarks previously solved.
+The difficulty of these simulations is due to:
+\begin{enumerate}
+    \item The PDF's insensitivity to the oxygen positions, due to the poor x-ray scattering off the very electorn poor oxygens.
+    \item The large difference in mass between the oxygen and other atoms, causing the dynamics of the simulation to be governed by oxygen motion, nessecitating long simulation times to obtain movement of the other atoms.
+    \item The large parameter space caused by potential defects and degradation products.
+    Without knowing that the starting phase is pure, it is difficult to even produce starting structures, since the simulation will need to explore all the potential defect/degenerated structures.
+\end{enumerate}
+%\subsection{Small Box}
+%\subsection{Large Box}
+%\section{Structural Analysis}
 \section{Conclusions}
+X-ray total scattering and x-ray powder diffraction data was obtained on \ce{Pr2NiO4} powder samples annealed for various lengths of time.
+In-situ studies on the beamline were performed to understand how the structure of each of these powders changes at operating temperatures.
+The data was processed with the previously discussed $Q$ binning, masking, and integration methodology.
+The PDF results show very little change in the structure for the as synthesized sample.
+However, the PDFs show a large change in the previously annealed samples.
+These changes seem to reporduce PDFs similar to the as-synthesized PNO at operating temperatures.
+This would seem to imply that the source of the anamolus PNO phase/power density relationship may be due to the adoption of an active structure upon heating which is universal despite the amount of thermal degradation observed at room temperature.
+In contrast to the PDF results, the XRD results seem to show signifigant changes in the PNO structure, both with ex-situ and in-situ annealing.
+The XRDs show the degradation of the PNO into various phases, potentially including \ce{Pr2O11}, and higher ordered Pr based phases.
+The discrepency between these two results is quite interesting as it seems that the XRD and PDF results are contradictory.
+Turbostratic diplacements betweent the layers may be a cause of the PDF/XRD disagreement, as these changes would cause very little change in the local structure observed in the PDF, while causing large changes in the XRD.

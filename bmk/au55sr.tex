@@ -1,10 +1,20 @@
 \subsection{Au55: surface relaxed}
-\begin{figure}
+We first test our algorithm by solving the crystalline \ce{Au55} ($c$-\ce{Au55}) cluster structure from its PDF.
+The starting structure is taken as the bulk-cut cuboctahedron of \ce{Au55}  with a uniform bond length of 2.89~\AA.
+Due to finite-size and surface effects, the DFT-relaxed cluster structure shows a distinctively different bond length distribution as a function of the bond's distance to the cluster center of mass, and therefore is difficult to model with a small box approach which assumes an identical unit cell throughout the whole system.
+
+\subsubsection{Run Parameters}
+ $R_\mathrm{min}$ and $R_\mathrm{max}$ for this simulation were 2.45 \AA ~and 11.4 \AA, respectively, with $\delta Q=0.24$~\AA$^{-1}$.
+ The simulation ran for approximately 34 minutes, over a total of $\sim$40 thousand configurations.  The results are shown in Fig. \ref{fig:Au55_sr}.
+
+\begin{figure}[!ht]
   \def \localimgpath {./Au_55_DFT_HMC_paper_final/55d7ccded2d355710ddb3fdf}
   \centering
   \foreach \m in {min_colorbond, pdf, rbonds, angle}{
-     \subfloat[]{\includegraphics[width=.47\textwidth]{\localimgpath_\m}}\quad
+     \subfloat[]{\includegraphics[width=.47\textwidth]{\localimgpath_\m}\label{\m}}\quad
      }
-   \caption{\ce{Au55} PDF fitting of DFT-optimized $c$-\ce{Au55}. a) the final structural solution ($Rw$=0.3\%) with  bond lengths color-coded by step of 0.05\AA, b) the target PDF(blue dots) overlaid with the PDF of the final structure (solid red lines) with the difference in green lines offset below, c) the radial bond distribution, and d) bond angle distribution.  }
+   \caption{\ce{Au55} PDF fitting of DFT-optimized $c$-\ce{Au55}. \protect\subref{min_colorbond} the final structural solution ($Rw$=0.3\%) with  bond lengths color-coded by step of 0.05\AA, \protect\subref{pdf} the target PDF(blue dots) overlaid with the PDF of the final structure (solid red lines) with the difference in green lines offset below, \protect\subref{rbond} the radial bond distribution, and \protect\subref{angle} bond angle distribution.  }
      \label{fig:Au55_sr}
 \end{figure}
+
+The PDF, radial bond distribution, and bond angle distribution show good agreement between the target and final fitted structures, with a $Rw$ of 0.3\% whereas $Rw$ of the starting structure is as high as 44.8\%. DFT calculations yield a total energy of the final structure very close to that of the target structure (within a few meV). The success in the fitting is largely attributed to the factor that the target structure is only locally (and mildly) disturbed from its bulk-like counterpart and therefore there is no need to overcome any high PES barriers to reach the correct solution. As shown below, the situation is rather different for much more disordered target structures. Interestingly, the small-box solution using PDFgui\cite{Farrow2007} yields a rather large $Rw$ of 43\%, due to the failure to fit the surface contracted atoms with a unit cell. The PDF fits of the starting structure and small-box solution are shown \todo[inline]{Put this somewhere}.

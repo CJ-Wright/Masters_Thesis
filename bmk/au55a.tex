@@ -1,5 +1,10 @@
 \subsection{Au55: amorphous}
-\begin{figure}
+Next, we turn to the case in which the entire cluster structure is disordered. We used a DFT-optimized amorphous \ce{Au55} ($a$-\ce{Au55}) as the target structure, and
+ the DFT-relaxed $c$-\ce{Au55} cluster from Case I as the starting structure. The  total energy of $a$-\ce{Au55} was computed to be  {\em lower} than that of $c$-\ce{Au55} by as large as 2.9 eV, consistent with the 3.0 eV found in previous DFT work~\cite{DaSilva2010}.
+
+ $R_\mathrm{min}$ and $R_\mathrm{max}$ for this simulation were 2.6 \AA ~and 11.26 \AA, respectively, with $\delta Q=0.25$~\AA$^{-1}$. The simulation ran for approximately an hour,  over a total of $\sim$87 thousand configurations.  The results of the simulation are shown in Fig.~\ref{fig:Au55 amorphous}.
+
+\begin{figure}[!ht]
     \def \localimgpath {./Au_55_DFT_amorphous_HMC_paper_final/55d80747d2d355710ddb3fe5}
   \centering
   \foreach \m in {pdf, coord, rbonds, angle, target, min}{
@@ -8,3 +13,8 @@
        \caption{Similar to figure \ref{fig:Au55_sd} for  DFT-optimized amorphous \ce{Au55}.}
      \label{fig:Au55_a}
 \end{figure}
+
+Our PDF fitting yielded a final structure of  $Rw$ of 1.7\%, whereas that of the initial structure is as high as 76.1\% (see Fig. S3 ), due to the drastically different atomic structure of the crystalline and amorphous \ce{Au55} clusters.
+ Overall reasonable agreement in PDF, bond angle distribution, and radial bond distance distribution was found,  and the wide spread of the bond lengths was qualitatively reproduced.
+ However, the mismatch in CNs is  problematic, partly due to the lack of information and/or constraints on the CNs.
+The total energy of the final structure is computed to be $\sim 6$ eV higher than that of the target structure and the difference is substantially larger then the variation among different amorphous structures computed by DFT ($\Delta E_\mathrm{tot}\sim \pm$ 1-2 eV). Such a fitting result, despite the rather small $Rw$, clearly indicates the importance of complementary informations and/or constraints necessary for reliably solving disordered NP structures from PDF.

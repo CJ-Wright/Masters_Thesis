@@ -1,5 +1,13 @@
 \subsection{Au55: surface disordered}
-\begin{figure}
+In addition to surface relaxation, the  structure of a cluster or nanoparticle is often disrupted by the presence of defects and/or ligand bound to the surface.
+To mimic such surface disorders, we took the DFT-optimized $c$-\ce{Au55} structure from case I as the starting structure and randomly displaced the surface atoms with a normal distribution of $\sigma = 0.2$ \AA.
+All atoms are allowed to move in the HMC simulation, including the originally undisturbed core, which is a \ce{Au13} cluster with $O_h$ symmetry.
+
+$R_\mathrm{min}$ and $R_\mathrm{max}$ for this simulation were 1.95 \AA ~and 12.18 \AA, respectively, with $\delta Q=0.23$~\AA$^{-1}$.
+The simulation ran for approximately 3.6 hours, over a total of $\sim$270 thousand configurations.
+The results of the simulation are shown in Fig. \ref{fig: Au55 surface}.
+
+\begin{figure}[!ht]
     \def \localimgpath {./Au_55_DFT_distorted_HMC_paper_final/55d7d4c7d2d355710ddb3fe2}
   \centering
   \foreach \m in {pdf, coord, rbonds, angle, target, min}{
@@ -8,3 +16,7 @@
      \caption{\ce{Au55} PDF fitting of surface-disordered \ce{Au55}.  a) the target structure, b) the final structural solution ($Rw$=0.6\%), c) the comparison of PDFs, d) the CN distribution with the number of atoms in either the core or the surface, e) the radial bond distribution, and f) the bond angle distribution.}
      \label{fig:Au55_sd}
 \end{figure}
+
+Overall, good agreement is found between PDFs of the target structure and the final structural solution, even out to larger $r$, with an $Rw=0.6\%$ starting from an $Rw=50.4\%$ (see Fig. S2).   The radial bond distribution and angle distribution show reasonably  good agreement, but with lower degree of crystallinity in the final structure compared to the target structure. The discrepancy is most obvious in the core:  despite the identical core structure in the starting and target structures, the core atoms were displaced in the HMC simulations in order to achieve a ``best'' solution.  This is  because PDF measures the global average of interatomic distances between each atomic pair and does not contain direct information about the locality of such pairs, e.g. on the surface or cores. If such information is obtained a priori, for example, from theoretical prediction or other experimental measurements, the core structure can  then be fixed and excluded from HMC dynamics.
+
+Similar discrepancies are found in the CN distribution. Since the initial displacements of the surface atoms are relatively mild, the interatomic connectivities remain more or less the same and therefore the target structure has an identical CN distribution to the starting (unperturbed) structure. This is, however, not the case for the final fitted structure, which shows discernible differences, especially at the low and high CN numbers. This is partly caused by the  displacement of the core atoms mentioned above, and partly by the lack of CN constraints  for the PDF fitting, which has been previously demonstrated in the case of  $\alpha$-Si \cite{Cliffe2010}. Additional experimental data, e.g. from EXAFS or NMR, may help to steer the simulations towards better agreement in both PDF and CN distribution.
