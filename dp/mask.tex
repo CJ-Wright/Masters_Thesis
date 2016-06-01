@@ -42,7 +42,7 @@ Two version of the masking algorithm were run for each test case, one using the 
     \subfloat[]{\includegraphics[width=.5\textwidth]{bad_bin_dead_pixel_\m_\n}}
     \subfloat[]{\includegraphics[width=.5\textwidth]{dead_pixel_\m_\n}}
     }
-\caption{Generated dead/hot pixel masks for a detector with $\n$ bad pixels. a) the standard even bin mask and b) the $Q$ resolution binned mask. The bad pixels are noted with open cicles, masked pixels are noted with closed circles.}
+\caption[Generated dead/hot pixel masks for a detector with $\n$ bad pixels.]{Generated dead/hot pixel masks for a detector with $\n$ bad pixels. a) the standard even bin mask and b) the $Q$ resolution binned mask. The bad pixels are noted with open cicles, masked pixels are noted with closed circles.}
   \label{fig:dead_pixel_\n}
 \end{figure}
 }
@@ -52,7 +52,7 @@ Two version of the masking algorithm were run for each test case, one using the 
   \foreach \m in {raw, masked, missed}{
     \subfloat[]{\includegraphics[width=.3\textwidth]{\m_\n}}
     }
-  \caption{Generated beamstop holder masks for a beamstop holder with $\n\%$ transmittance. a) the raw image, b) the masked image, c) and the missed pixels}
+  \caption[Generated beamstop holder masks for a beamstop holder with $\n\%$ transmittance.]{Generated beamstop holder masks for a beamstop holder with $\n\%$ transmittance. a) the raw image, b) the masked image, c) and the missed pixels}
   \label{fig:bs_\n}
 \end{figure}
 }
@@ -82,7 +82,7 @@ Similar results were produced for beamstop holders which were rotated away from 
     \foreach \m in {raw, masked}{
         \subfloat[]{\includegraphics[width=.5\textwidth]{exp_\m}}
     }
-    \caption{Masked experimental data. a) the raw image, b) the mask}
+    \caption[Masked experimental data.]{Masked experimental data. a) the raw image, b) the mask}
     \label{fig:masked_exp}
 \end{figure}
 
@@ -90,7 +90,7 @@ Similar results were produced for beamstop holders which were rotated away from 
     \foreach \m in {raw, masked}{
         \subfloat[]{\includegraphics[width=.5\textwidth]{single_xtal_\m}}
     }
-    \caption{Masked experimental data with Pt single crystal signal. a) the raw image, b) the mask}
+    \caption[Masked experimental data with Pt single crystal signal.]{Masked experimental data with Pt single crystal signal. a) the raw image, b) the mask}
     \label{fig:masked_single_xtal}
 \end{figure}
 
@@ -98,7 +98,7 @@ Similar results were produced for beamstop holders which were rotated away from 
     \foreach \m in {raw, masked}{
         \subfloat[]{\includegraphics[width=.5\textwidth]{combined_\m}}
     }
-    \caption{Masked experimental data with Pt single crystal signal using figure's \ref{fig:masked_exp} as a starting mask. a) the raw image, b) the mask}
+    \caption[Masked experimental data with Pt single crystal signal using figure's \ref{fig:masked_exp} as a starting mask.]{Masked experimental data with Pt single crystal signal using figure's \ref{fig:masked_exp} as a starting mask. a) the raw image, b) the mask}
     \label{fig:combined}
 \end{figure}
 

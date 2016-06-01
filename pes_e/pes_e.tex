@@ -115,8 +115,11 @@ Otherwise the new system is rejected unless
 \]
 where u is a random number $[0, 1)$ and $E_{T}$ is the thermal energy characteristic to the system.
 
+\todo[inline]{Need to discuss Monte Carlo more, including Reverse Monte Carlo}
 
 \subsection{Hamiltonian Monte Carlo}
+\todo[inline]{Need to put HMC into the Stat Mech Formalism, it is kinda cannonical, except that it has a random momenta which is specified and not temperature.}
+
 In order to model dynamics we need to describe the motion of the particles in our system, thus:
 \begin{align}
   \frac{d q_{i}}{d t} &= \frac{\partial \mathcal{H}}{\partial p_{i}} = p_{i}\\
@@ -145,8 +148,13 @@ Using this notation the gradient is
   \end{bmatrix}
 \end{equation}
 where $\frac{\partial}{\partial q_{i, w}}$ is the derivative with respect to $q$ where $w$ denotes direction of the derivative ($x$, $y$, or $z$),  $n$ is the number of atoms and $U$ is the potential which depends on $q$, and $\vec{\mathcal{F}_{i}}$ is the "force" on the $i$th atom.
+\todo[inline]{Need the official criteria for HMC}
 \subsubsection{No-U-Turn-Sampling}
+\todo[inline]{Talk about the advances NUTS gives us}
+
 \subsection{Grand Canonical Ensemble}
+\todo[inline]{What limitations in RMC/HMC/NUTS/Cannonical ensembles in general force us to move to GCMC}
+
 \subsubsection{Ensemble description}
 In the Grand Canonical Ensemble (GCE) two sets of variables are allowed to change, the atomic positions and the total number of atoms and their associated identities.  
 These two variables are controlled by temperature and chemical potential.  
@@ -196,3 +204,5 @@ where $\Delta U_{i, j, k}$ is the change in energy.
 However, calculating $\Delta U_{i, j, k}$ can be particularly expensive, especially when calculating scattering from atomic positions.
 The computational expense can be mitigated by using a cheaper potential, if only for the evaluation of the voxel energy, as previously shown.
 Similar to previous work we can use the Lennard Jones potential to approximate the addition potential.
+
+\todo[inline]{Include figure which shows the configurational biasing map}

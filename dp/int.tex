@@ -17,7 +17,7 @@ Thus, for subsequent integrations discussed in this work the median is used to a
 
 %\begin{landscape}
 \foreach \n/\o in {no_mask/with no mask, edge_mask/with only an edge mask, auto_mask/combining an edge mask and the automaticly generated mask}{
-    \begin{figure}
+    \begin{figure}[!h]
     \centering
     \foreach \m in {img, mask, ave, std, high_q_ave, high_q_std}{
         \subfloat[]{\includegraphics[width=.4\textwidth]{\n_\m}}

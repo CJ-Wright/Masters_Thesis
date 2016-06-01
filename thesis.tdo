@@ -2,6 +2,15 @@
 \contentsline {todo}{Why is atomistic engineering important}{3}
 \contentsline {todo}{Barriers to atomistic engineering}{3}
 \contentsline {todo}{How are we going to attack this problem}{3}
+\contentsline {todo}{Need to discuss Monte Carlo more, including Reverse Monte Carlo}{9}
+\contentsline {todo}{Need to put HMC into the Stat Mech Formalism, it is kinda cannonical, except that it has a random momenta which is specified and not temperature.}{9}
+\contentsline {todo}{Need the official criteria for HMC}{10}
+\contentsline {todo}{Talk about the advances NUTS gives us}{10}
+\contentsline {todo}{What limitations in RMC/HMC/NUTS/Cannonical ensembles in general force us to move to GCMC}{11}
+\contentsline {todo}{Include figure which shows the configurational biasing map}{13}
+\contentsline {todo}{Need to include PBC ADP math}{16}
+\contentsline {todo}{Also should include PBC gradients, although they are trivial, maybe?}{17}
+\contentsline {todo}{Include Speed Benchmarks Here}{21}
 \contentsline {todo}{This entire section needs some rewritting to distinguish this from the paper}{22}
 \contentsline {todo}{Put this somewhere}{26}
 \contentsline {todo}{masking parameters}{55}
