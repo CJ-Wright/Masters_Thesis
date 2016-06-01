@@ -9,7 +9,8 @@
 \chapter{Atomic Pair Distribution Function: \\Theory and Computation} \label{ch:pdf}
 \section{Theory}
 To properly understand the PDF and its limitations we need to derive its mathematics.
-The following derivation has been performed numerous times but most recently and completely by Farrow and Billinge, it is reproduced here for clarity and completeness.
+The PDF has been previously derived many times so it is not rederived here.
+This discussion of the PDF and its gradients use the notation of Farrow and Billinge. \cite{Farrow2009}
 \subsection{Derivation}
 \input{pdf/der}
 
@@ -83,13 +84,57 @@ For the gradient a similar mapping is used:
 \end{figure}
 
 In this mapping, however, we use the $\tilde{\phi}\Sigma$ operator.  This operator simultaniously performs a reverse mapping from $k$ to $ij$ space, and a summation with the correct symmetry.  In this case the $\psi$ and $\psi'$ operators, which denote the $\grad{F(Q)}$ operator in $ij$ and $k$ space, are antisymmetric.  Intuitivly this makes sense as an extension of Newton's Second Law, since each particle's interation is felt oppositely by its partner.
-\subsubsection{Periodic Boundary Conditions}
-Periodic boundary conditions can be helpful when simulating extended solids or large nanoparticles. In this case all the non-crystallinity is contained within the simulation box and the box is repeated to create the longer distance peaks observed in the PDF. To perform this we can break up the Debye equation into two main parts, the part that describes the interatomic distances within the simulation box and those between boxes. Neglecting the thermal motion portion:
-\begin{equation}
-  F(Q) = \frac{1}{N \langle f \rangle^{2}}(\sum_{j\neq i} f_i^{*}(Q)f_j(Q) \frac{\sin(Qr_{ij})}{r_{ij}} + \sum_{i,j} f_i^{*}(Q)f_j(Q) \frac{\sin(QR_{ij})}{R_{ij}})
-\end{equation}
-where 
+\subsubsection{GPU Memory Allocation}
+While GPUs are very fast computational engines they tend to be memory bound.
+While a gradient array for a 10nm Au nanoparticle, consisting of 31,000 atoms and half a billion unique distances, occupies 1.5 TB of memory a single GPU's RAM allotment varies from 4GB on a NVIDIA GTX970 to 24 GB on a NVIDIA Tesla K80.
+Thus, it is important to determine exactly how many atoms can fit on a GPU of arbitrary size as a funciton of the number of atoms and the $Q$ range.
+The memory required per array is:
 \begin{eqnarray}
-  R = |\vec{r} + \vec{u}|\\
-  \vec{u} = \gamma_1*\vec{a} + \gamma_2*\vec{b} + \gamma_3*\vec{c}
+    q [=] 3n\\
+    d [=] 3k\\
+    r [=] k\\
+    scatter [=] nQ\\
+    normalization [=] kQ\\
+    omega [=] kQ\\
+    F_{k}(Q) [=] kQ\\
+    Sum [=] kQ\\
+    Sum2 [=] kQ\\
+    F(Q) [=] Q
 \end{eqnarray}
+where $n$ is the number of atoms, $k$ is the number of uniqe distances, $Q$ is the scatter vector.
+Each of the above arrays are used in the computation and thus must be able to be held in memory.
+Thus the number of atom pairs that can fit on a GPU with $am$ bytes of available memory is:
+\begin{equation}
+    k_{per GPU} = \frac{1}{16 Q + 16} \left(- 4 Q n - 4 Q + am - 12 n\right)
+\end{equation}
+If ADPs ar eincluded in the calculation, then the following arrays are also added to the memory allocaiton:
+\begin{eqnarray}
+    adps = 3n\\
+    sigma = k\\
+    tau = kQ
+\end{eqnarray}
+Thus the pair allotment is:
+\begin{equation}
+    k_{per GPU} = \frac{- 4 Q n - 4 Q + am - 24 n}{20 Q + 20}
+\end{equation}
+
+For the Gradient we need to calculate $F(Q)$ and its gradient, so the total memeory overhead is equal to the previously mentioned arrays plus:
+\begin{eqnarray}
+    g_omega = 3kQ \\
+    g_fq = 3kQ \\
+    rtn = 3nQ
+\end{eqnarray}
+Thus the gradient allotment is:
+\begin{equation}
+    \grad{k_{per GPU}} = \frac{- 16 Q n + am - 12 n}{32 Q + 16}
+\end{equation}
+For the gradient with ADPs the ADP gradient array is:
+\begin{equation}
+    g_tau = 3kQ
+\end{equation}
+Thus the allocation is:
+\begin{equation}
+    \grad{k_{per GPU}} = \frac{ - 16 Q n + am - 24 n}{48 Q + 20}
+\end{equation}
+These equations were solved by sympy as their validity is very important to the overal relyability of the software.
+If the GPU is overallocated then the system may crash or return meaningless results.

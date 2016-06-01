@@ -45,13 +45,9 @@ where
 
 Since $\vec{u}_{ij}$ is a variable as well, we need the derivative with respect to it as well.
 Thus
-\begin{equation}
-\frac{\partial}{\partial u_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} \frac{\partial \uptau_{ij}}{\partial u_{i,w}}  \Omega_{ij}
-\end{equation}
-
 \begin{eqnarray}
-\frac{\partial \uptau_{ij}}{\partial u_{i,w}} =
-- \frac{\sigma_{ij}Q^{2} \uptau_{ij}}{r_{ij}}  (q_{i,w} - q_{j,w})
+\frac{\partial}{\partial u_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} \frac{\partial \uptau_{ij}}{\partial u_{i,w}}  \Omega_{ij}
+\frac{\partial \uptau_{ij}}{\partial u_{i,w}} = - \frac{\sigma_{ij}Q^{2} \uptau_{ij}}{r_{ij}}  (q_{i,w} - q_{j,w})
 \end{eqnarray}
 \subsubsection{Without ADPs}
 Without ADPs the equations simplify down to
@@ -63,3 +59,14 @@ and
 \frac{\partial}{\partial q_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}}
 \end{equation}
 use of these equations, when ADPs are not appropriate (like at cyrogenic temperatures), greatly speeds up the computaiton.
+
+\subsubsection{Periodic Boundary Conditions}
+Periodic boundary conditions can be helpful when simulating extended solids or large nanoparticles. In this case all the non-crystallinity is contained within the simulation box and the box is repeated to create the longer distance peaks observed in the PDF. To perform this we can break up the Debye equation into two main parts, the part that describes the interatomic distances within the simulation box and those between boxes. Neglecting the thermal motion portion:
+\begin{equation}
+  F(Q) = \frac{1}{N \langle f \rangle^{2}}(\sum_{j\neq i} f_i^{*}(Q)f_j(Q) \frac{\sin(Qr_{ij})}{r_{ij}} + \sum_{i,j} f_i^{*}(Q)f_j(Q) \frac{\sin(QR_{ij})}{R_{ij}})
+\end{equation}
+where
+\begin{eqnarray}
+  R = |\vec{r} + \vec{u}|\\
+  \vec{u} = \gamma_1*\vec{a} + \gamma_2*\vec{b} + \gamma_3*\vec{c}
+\end{eqnarray}
