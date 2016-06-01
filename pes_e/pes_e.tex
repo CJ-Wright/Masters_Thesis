@@ -1,8 +1,14 @@
 \chapter{Statistical Mechanical Ensembles and Potential Energy Surfaces} \label{ch:pes_e}
 \section{Introduction}
 The approach taken in this work for solving the atomic structures of materials is one of optimization.
-The positional variables of the system are optimized so as to minimize the value of a potential energy surface (PES).
-The 
+The plan is to develop a potential energy surface (PES) which has minima associated with atomic structures who's properties match the experimentally observed properties.
+Thus, the various positional variables of the structure can be solved by optimizing the structure against the PES.
+This approach is popular in the PDF community for solving the structure of materials using both extensive large box models and simpler small box models.
+
+In this chapter we discuss the development of the various PESs used in the PDF community for comparing theoretical and experimental PDFs.
+Special attention will be paid to the gradients of the potential energy functions, as these are important to some optimization techniques.
+Additionally, we also discuss the use of statistical mechanical ensembles for finding minima on the PES.
+
 \section{Potential Energy Surfaces} \label{sec:pes}
 A PES simply describes the potential energy of the system as a function of all its relevent coordinates in phase space, essentially providing a mapping $\mathbb{R}^{n} \rightarrow \mathbb{R}$.
 Usually these coordinates are the positions of the atoms $q$ and their conjugate the momenta $p$.
@@ -36,6 +42,16 @@ where $A_{calc}$ and $A_{obs}$ are the calculated and observed 1D experimental d
 and $A_{calc, j}$ is the calculated data for a single atom interacting with the other atoms of the system. 
 Note that $A_{calc}$ has a dependence on $q$, the positions of the system.
 
+The $Rw$ and $\chi^{2}$ potentials have been reported numerous times. \cite{ALL THE THINGS}
+However, the $\mathrm{INVERT}$ potential is fairly new and aims to incorperate descriptions of the structural symmetry into the PES. \cite{Cliffe2010, Cliffe2013}
+In the case of the $\mathrm{INVERT}$ potential NMR or other symmetry sensitive data is used to describe the number of unique atomic coordinations.
+This is then used to describe the number of unique atomwise pair distribution functions, thus causing systems with more or less unique coordination environments to be higher in energy.
+This approach has been shown to be useful for \ce{C60} and other systems which are highly symmetric, creating a PES with an easier to find minima. \cite{Cliffe2010, Cliffe2013}
+However, many times this kind of data is unavailable when refining the structure causing the potential to be less useful.
+Additionally, this potential introduces an element of user bias as the refiner must decide, based on some spectroscopic data, how many unique environments are in the material.
+This bias could be removed by using one of the other potentials with a method for simulating the observed spectra, allowing the computational system decide what structures properly reproduce all the observed data.
+
+
 \subsubsection{Forces}
 \begin{equation}
 \grad{\chi^{2}} =
@@ -46,35 +62,60 @@ Note that $A_{calc}$ has a dependence on $q$, the positions of the system.
 \frac{Rw}{\chi^{2}} \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} (\alpha \frac{\partial A_{_\mathrm{calc}}}{\partial \gamma_{i, w}} + A_{_\mathrm{calc}} \frac{\partial \alpha}{\partial \gamma_{i, w}} ) (\alpha A_{_\mathrm{calc}}  - (A_{_\mathrm{obs}}))
 \end{equation}
 \begin{equation}
-\frac{\partial \alpha}{\partial \gamma_{i, w}}  = 
-\frac{(\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{obs}} \frac{\partial A_{_\mathrm{calc}}}{\partial \gamma_{i, w}}- 2\alpha \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}} \frac{\partial A_{_\mathrm{calc}}}{\partial \gamma_{i, w}})}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}}^{2}}
+  \grad{\chi^{2}_{\mathrm{INVERT}}} = \frac{-2}{N} \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} \sum_{j}(\alpha \frac{\partial A_{j_\mathrm{calc}}}{\partial \gamma_{i, w}} + A_{j_\mathrm{calc}} \frac{\partial \alpha}{\partial \gamma_{i, w}} ) (A_{_\mathrm{obs}} - \alpha A_{j_\mathrm{calc}})
 \end{equation}
 \begin{equation}
-  \grad{\chi^{2}_{\mathrm{INVERT}}} = \frac{-2}{N} \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} \sum_{j}(\alpha \frac{\partial A_{j_\mathrm{calc}}}{\partial \gamma_{i, w}} + A_{j_\mathrm{calc}} \frac{\partial \alpha}{\partial \gamma_{i, w}} ) (A_{_\mathrm{obs}} - \alpha A_{j_\mathrm{calc}})
+\frac{\partial \alpha}{\partial \gamma_{i, w}}  =
+\frac{(\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{obs}} \frac{\partial A_{_\mathrm{calc}}}{\partial \gamma_{i, w}}- 2\alpha \sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}} \frac{\partial A_{_\mathrm{calc}}}{\partial \gamma_{i, w}})}{\sum_{a=a_\mathrm{min}}^{a_\mathrm{max}} A_{_\mathrm{calc}}^{2}}
 \end{equation}
 where $\gamma_{i, w}$ is the $i$th arbitrary positional variable in the $w$th direction.
 The concept of an "arbitrary positional variable" might seem a bit cumbersome but it allows us to define the forces for any atomic parameter which can be represented as a vector in 3-space.
 This comes in handy when trying to define the forces acting on variables like anistropic displacement parameters or atomic magnetic spins.
 
-DISCUSS INVERT A BUNCH. ALSO COMPARE RW AND CHI**2, POTENTIALY WITH A FIGURE.
+ALSO COMPARE RW AND CHI**2, POTENTIALY WITH A FIGURE.
 
 \section{Ensembles} \label{sec:ens}
 While PESs describe which atomic configurations are the most desirable and how the atoms would like to get there, the ensemble describes how the atoms move on the PES.
 The abstraction of the PES from the ensemble is an important one, as it allows for the reuse and exchange of both PESs and ensembles for a wide array of problems.
 Statistical mechanical ensembles can be described in two ways, analyticly and stochasticly.
 For long simulation times and fine enough numerical or analytical integration these two descriptions should be identical.
-In either case one starts by defining the Hamiltonian $\mathcal{H}$ as the total energy of the system.
+
+In either case one starts by defining the Hamiltonian, $\mathcal{H}$, as the total energy of the system.
 Thus, the Hamiltonian is described as the sum of the potential $U(q)$ and kinetic $K(p)$ energies, where $q$ is the positions of the atoms and $p$ is their momenta
 \begin{equation} \label{Hamiltonian}
   \mathcal{H}(q, p) = U(q) + K(p)
 \end{equation}
 \noindent where $K(p) = \frac{1}{2}\sum_{i} \frac{p_{i}^{2}}{m_{i}}$ and $i$ denotes the $i$th particle.
+
 Analyticly one generally defines a partition function, which describes the sum of probabilities over all potential atomic states.
 \[
 \Xi = \sum_{i} P_{i}(q, p)
 \]
 where $P_{i}$ is the probability of the $i$th state and is a function of the total energy of that state.
 This partition function can then be used to obtain the probabilty of any specific state.
+The relationship of the probability of a state to the state's energy and other properties depends on the ensemble being used.
+For the microcanonical ensemble the probability of a state is:
+\begin{equation}
+P(q, p) = \frac{\delta(\mathcal{H}(q, p) - E)}{W}
+\end{equation}
+where $E$ is the energy of the system, W is the total number of states in the system, and $\delta$ is the Dirac Delta Function.
+
+However, for the cannonical ensemble the probability is:
+\begin{equation}
+P(q, p) = \exp(\frac{E-\mathcal{H}(q, p)}{k_{b}T})
+\end{equation}
+
+\subsection{Monte Carlo Modeling}
+Monte Carlo can be used to simulate a statistical mechanical ensemble which can not be solved analyticly.
+In most Monte Carlo systems the ensemble is simulated by randomly changing one of the system parameters and comparing the energy of the new system against the energy of the old system.
+If the energy of the new system is lower than the current energy then the new configuration is accepted.
+Otherwise the new system is rejected unless
+\[
+\exp(\frac{-\Delta E}{E_{T}}) < u
+\]
+where u is a random number $[0, 1)$ and $E_{T}$ is the thermal energy characteristic to the system.
+
+
 \subsection{Hamiltonian Monte Carlo}
 In order to model dynamics we need to describe the motion of the particles in our system, thus:
 \begin{align}

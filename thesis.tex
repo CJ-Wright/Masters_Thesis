@@ -80,6 +80,8 @@
 
 \newcommand{\grad}[1]{\vec{\nabla} #1} % for gradient
 \newcommand{\iA}{\AA$^{-1}$}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%             The Front Matter
@@ -175,6 +177,7 @@ Brown University 2014\\ [\baselineskip]
 \begin{document}
 \linenumbers
 \todototoc
+\todo[inline]{Fix the figures so that they don't give the full caption}
 \listoftodos
 
 \include{introduction}    %% Calls Introduction.tex
@@ -187,7 +190,6 @@ Brown University 2014\\ [\baselineskip]
                           %% followed by the text of the 
                           %% introduction.
 
-\todo[inline]{Fix the figures so that they don't give the full caption}
 % \include{misc/rev}
 
 \include{pes_e/pes_e}
