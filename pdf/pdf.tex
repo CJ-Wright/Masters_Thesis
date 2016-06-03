@@ -148,10 +148,10 @@ Figure \ref{fig:speed} shows the results of these time studies. CPU and GPU calc
     \foreach \n in {fq_log, speed_log}{
         \subfloat[]{\includegraphics[width=.5\textwidth]{\n}}
         }
-    \label{fig:speed}
     \caption[Speed comparison of CPU and GPU implementations]{Speed comparison of CPU and GPU implementations.
     a) shows the time to compute the $F(Q)$ by itself.
     b) shows the time to compute the Rw based energy for Au NPs of various sizes, which includes computing $F(Q)$, its FFT, and the $Rw.$}
+    \label{fig:speed}
 \end{figure}
 The $F(Q)$ computations show a 100x to 10x speedup using the GPUs over the CPUs.
 Additionally, the $\grad{F(Q)}$ and $F(Q)$ computations seem to have similar computation time and scaling relationships on the GPU.

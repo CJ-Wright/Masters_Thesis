@@ -18,7 +18,6 @@ Application of the term "momenta" might seem odd here, as the magnetic spin does
 However, since the magnetic "position" is defined on the PES we need to describe its conjugate varible to properly formulate Hamitonian dynamics and the kinetic portion of the PES.
 
 \subsection{Experimentally Derived Potential Energy Surfaces}
-\todo[inline]{Explain the origin of the potentials, especially $\chi^{2}$ and $Rw$}
 Generally PESs are obtained from purely computational experiments including: ab-initio DFT, classical approximations via the embedded atom method, or even parameter driven models with experimentally fitted parameters.
 However, one can dervive a PES from an experiment which describes how well the model reproduces the experimental data.
 In this case one needs a theoretical and computational framework mapping the atomistic variables of the simulation to the same space of the data obtained from the experiment.
@@ -43,15 +42,15 @@ where $A_{calc}$ and $A_{obs}$ are the calculated and observed 1D experimental d
 and $A_{calc, j}$ is the calculated data for a single atom interacting with the other atoms of the system. 
 Note that $A_{calc}$ has a dependence on $q$, the positions of the system.
 
-The $Rw$ and $\chi^{2}$ potentials have been reported numerous times. \cite{ALL THE THINGS}
-However, the $\mathrm{INVERT}$ potential is fairly new and aims to incorperate descriptions of the structural symmetry into the PES. \cite{Cliffe2010, Cliffe2013}
+The $Rw$ and $\chi^{2}$ potentials have been reported numerous times. \cite{Petkov2014, Masadeh2007, Choi2013, McGreevy, Proffen1997}
+Essentially these potentials measure the least squares distance between the observed scattering and the predicted scattering poviding a way to quantify the agreement between the model and experiment.
+While $RW$ and $\chi^{2}$ are now standard in the PDF community, the $\mathrm{INVERT}$ potential is fairly new and aims to incorperate descriptions of the structural symmetry into the PES. \cite{Cliffe2010, Cliffe2013}
 In the case of the $\mathrm{INVERT}$ potential NMR or other symmetry sensitive data is used to describe the number of unique atomic coordinations.
 This is then used to describe the number of unique atomwise pair distribution functions, thus causing systems with more or less unique coordination environments to be higher in energy.
 This approach has been shown to be useful for \ce{C60} and other systems which are highly symmetric, creating a PES with an easier to find minima. \cite{Cliffe2010, Cliffe2013}
 However, many times this kind of data is unavailable when refining the structure causing the potential to be less useful.
 Additionally, this potential introduces an element of user bias as the refiner must decide, based on some spectroscopic data, how many unique environments are in the material.
 This bias could be removed by using one of the other potentials with a method for simulating the observed spectra, allowing the computational system decide what structures properly reproduce all the observed data.
-
 
 \subsubsection{Forces}
 \begin{equation}
@@ -73,8 +72,6 @@ where $\gamma_{i, w}$ is the $i$th arbitrary positional variable in the $w$th di
 The concept of an "arbitrary positional variable" might seem a bit cumbersome but it allows us to define the forces for any atomic parameter which can be represented as a vector in 3-space.
 This comes in handy when trying to define the forces acting on variables like anistropic displacement parameters or atomic magnetic spins.
 
-ALSO COMPARE RW AND CHI**2, POTENTIALY WITH A FIGURE.
-
 \section{Ensembles} \label{sec:ens}
 While PESs describe which atomic configurations are the most desirable and how the atoms would like to get there, the ensemble describes how the atoms move on the PES.
 The abstraction of the PES from the ensemble is an important one, as it allows for the reuse and exchange of both PESs and ensembles for a wide array of problems.
@@ -95,6 +92,7 @@ Analyticly one generally defines a partition function, which describes the sum o
 where $P_{i}$ is the probability of the $i$th state and is a function of the total energy of that state.
 This partition function can then be used to obtain the probabilty of any specific state.
 The relationship of the probability of a state to the state's energy and other properties depends on the ensemble being used.
+\todo[inline]{double check against McQuerry, cite it}
 For the microcanonical ensemble the probability of a state is:
 \begin{equation}
 P(q, p) = \frac{\delta(\mathcal{H}(q, p) - E)}{W}
@@ -115,16 +113,24 @@ Otherwise the new system is rejected unless
 \exp(\frac{-\Delta E}{E_{T}}) < u
 \]
 where u is a random number $[0, 1)$ and $E_{T}$ is the thermal energy characteristic to the system.
+The ability of Monte Carlo modeling to accept ``bad'' moves allows the system to hop out of local energy minima during the search for the global mimimum.
+Reverse Monte Carlo (RMC) is similar to Monte Carlo except it uses $\chi^{2}$ as the PES.\cite{McGreevy}
 
-\todo[inline]{Need to discuss Monte Carlo more, including Reverse Monte Carlo}
+Despite the utility of RMC, and its wide use in the x-ray scattering commmunity, as Hoffman and Gelman state ``Not all MCMC [Markov Chain Monte Carlo] algorithms are created equal''.\cite{Hoffman2014}
+RMC, similar to standard Monte Carlo simulations, samples from the PES at random, usually by translating atoms in the system randomly.
+This creates a less efficent, random walk based, exploration of the PES.\cite{Hoffman2014, Neal1993}
+Thus, methods for suppressing this random walk nature, while still searching the potential energy surface fully are needed.
 
 \subsection{Hamiltonian Monte Carlo}
-\todo[inline]{Need to put HMC into the Stat Mech Formalism, it is kinda cannonical, except that it has a random momenta which is specified and not temperature.}
+Hybrid or Hamiltonian Monte Carlo (HMC) can help to address some of these issues.
+HMC was developed orginally in the lattice quantum chromodynamic community and provides a more efficent, more scalable approach to PES sampling for Monte Carlo.\cite{Duane1987, Neal2011}
+In HMC the PES is explored using Hamiltonian dynamics, essentially follwoing the gradient of the PES to find more acceptable configurations.
+
 
 In order to model dynamics we need to describe the motion of the particles in our system, thus:
 \begin{align}
   \frac{d q_{i}}{d t} &= \frac{\partial \mathcal{H}}{\partial p_{i}} = p_{i}\\
-  \frac{d p_{i}}{d t} &= -\frac{\partial \mathcal{H}}{\partial q_{i}} = -\grad{U}  
+  \frac{d p_{i}}{d t} &= -\frac{\partial \mathcal{H}}{\partial q_{i}} = -\grad{U}
 \end{align}
 Using these equations we can derive the position and momentum vectors at any point in time using the leap-frog algorithm:
 \begin{align}
@@ -139,7 +145,7 @@ Using this notation the gradient is
     \frac{\partial U}{\partial q_{0, x}} & \frac{\partial U}{\partial q_{0, y}} & \frac{\partial U}{\partial q_{0, z}} \\
     \vdots & \frac{\partial U}{\partial q_{i, w}} & \vdots \\
     \frac{\partial U}{\partial q_{n, x}} & \frac{\partial U}{\partial q_{n, y}} & \frac{\partial U}{\partial q_{n, z}} \\
-  \end{bmatrix} = 
+  \end{bmatrix} =
   \begin{bmatrix}
     \vec{\mathcal{F}}_{0} \\
     \vdots \\
@@ -149,8 +155,17 @@ Using this notation the gradient is
   \end{bmatrix}
 \end{equation}
 where $\frac{\partial}{\partial q_{i, w}}$ is the derivative with respect to $q$ where $w$ denotes direction of the derivative ($x$, $y$, or $z$),  $n$ is the number of atoms and $U$ is the potential which depends on $q$, and $\vec{\mathcal{F}_{i}}$ is the "force" on the $i$th atom.
-\todo[inline]{Need the official criteria for HMC}
-\subsubsection{No-U-Turn-Sampling}
+Using these equations new potential configurations are proposed from the PES.
+These proposals are checked against the standard Metropolis criteria discussed above, except that the change in potential energy $\Delta E$ is replaced with the change in the Hamiltonian $\Delta \mathcal{H}$.
+Note that while this sampling closely simulates the cannonical ensemble, it is not exactly the same.
+Usually the cannonical ensemble is formulated as microcannonical ensembles in contact with an infinite heat bath at a given temperature, or a set of microcannoical ensembles which exchange thermal energy.
+However, the HMC ensemble presented here has a momentum bath instead of a temperature bath.
+One could imagine the atoms sitting in a simulation box which has walls which can toggle their thermal exchange.
+Initially the box starts in the momentum bath, allowing the atoms to come to equilibrium with the bath momentum.
+The box is then removed from the bath causing it to become adiabatic.
+Hamiltonian dynamics are then propagated inside the box, essentially running a microcannonical simulation.
+Once the dynamics are finished the energy of the system is checked with the Metropolis criteria and the box is reintroduced to the momentum bath and the process starts again.
+
 \todo[inline]{Talk about the advances NUTS gives us}
 
 \subsection{Grand Canonical Ensemble}
