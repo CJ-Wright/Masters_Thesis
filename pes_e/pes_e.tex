@@ -10,7 +10,7 @@ Special attention will be paid to the gradients of the potential energy function
 Additionally, we also discuss the use of statistical mechanical ensembles for finding minima on the PES.
 
 \section{Potential Energy Surfaces} \label{sec:pes}
-A PES simply describes the potential energy of the system as a function of all its relevent coordinates in phase space, essentially providing a mapping $\mathbb{R}^{n} \rightarrow \mathbb{R}$.
+A PES simply describes the potential energy of the system as a function of all its relevent coordinates in phase space, essentially providing a mapping $\mathbb{R}^{n} \rightarrow \mathbb{R}$, where $\mathbb{R}$ is the set of real numbers and $n$ is the number of positional parameters in the system.
 Usually these coordinates are the positions of the atoms $q$ and their conjugate the momenta $p$.
 Note that there could be more variables associated with the system, for instance the magnetic moments of the atoms could play a role in describing the system.
 In this magnetic system there would be positional variables for the atomwise spin vectors and their "momenta".
@@ -18,6 +18,7 @@ Application of the term "momenta" might seem odd here, as the magnetic spin does
 However, since the magnetic "position" is defined on the PES we need to describe its conjugate varible to properly formulate Hamitonian dynamics and the kinetic portion of the PES.
 
 \subsection{Experimentally Derived Potential Energy Surfaces}
+\todo[inline]{Explain the origin of the potentials, especially $\chi^{2}$ and $Rw$}
 Generally PESs are obtained from purely computational experiments including: ab-initio DFT, classical approximations via the embedded atom method, or even parameter driven models with experimentally fitted parameters.
 However, one can dervive a PES from an experiment which describes how well the model reproduces the experimental data.
 In this case one needs a theoretical and computational framework mapping the atomistic variables of the simulation to the same space of the data obtained from the experiment.

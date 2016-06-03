@@ -4,6 +4,7 @@ These forces are described by the gradient of potential energy of the system whi
 As previously shown the PDF is the Fourier Transform of the Debye equation.
 Since the Fourier Transform is expressed as an integral we can exchange the order of the gradient and the integral, allowing us to calculate the analytical gradient of the Debye equation and FFT the resulting function.
 The Debye equation, with a Debye-Waller vibrational correction is
+\todo[inline]{cite something with debye waller most likely simon's paper}
 \begin{equation}
 F(Q) = \frac{1}{N \langle f \rangle^{2}} \sum_{j\neq i} f_i^{*}(Q)f_j(Q) \exp(-\frac{1}{2}\sigma_{ij}^{2}Q^{2}) \frac{\sin(Qr_{ij})}{r_{ij}}
 \end{equation}
@@ -72,3 +73,4 @@ where
 \end{eqnarray}
 \todo[inline]{Need to include PBC ADP math}
 \todo[inline]{Also should include PBC gradients, although they are trivial, maybe?}
+\todo[inline]{How does this compare against the Ewald simulation technique for ionic solutions}

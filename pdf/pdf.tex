@@ -29,6 +29,8 @@ Calculating these PDFs requires a fast, highly parallized, computational framewo
     \caption{Comparison of the CPU and GPU chip architectures}
     \label{fig:cpu_vs_gpu}
 \end{figure}
+\todo[inline]{use the figure from the presentation, it is better}
+\todo[inline]{I wish we had a picture of the GPU profiling}
 Computing the PDF is an embarrassingly parallel problem.
 The basic procedure is to calculate the reduced structure factor $F(Q)$ for each atom pair and momentum transfer vector, sum over all the atom pairs, and Fourier transform the structure to the PDF.
 The first part of this procedure is perfectly parallizable, as each atom pair is seperate from the others.
@@ -95,13 +97,13 @@ The memory required per array is:
     r [=] k\\
     scatter [=] nQ\\
     normalization [=] kQ\\
-    omega [=] kQ\\
+    \Omega [=] kQ\\
     F_{k}(Q) [=] kQ\\
     Sum [=] kQ\\
     Sum2 [=] kQ\\
     F(Q) [=] Q
 \end{eqnarray}
-where $n$ is the number of atoms, $k$ is the number of uniqe distances, $Q$ is the scatter vector.
+where $n$ is the number of atoms, $k$ is the number of uniqe distances, $Q$ is the scatter vector, and the $[=]$ operator denote the number of single percision floating point values in memory.
 Each of the above arrays are used in the computation and thus must be able to be held in memory.
 Thus the number of atom pairs that can fit on a GPU with $am$ bytes of available memory is:
 \begin{equation}
@@ -110,8 +112,8 @@ Thus the number of atom pairs that can fit on a GPU with $am$ bytes of available
 If ADPs ar eincluded in the calculation, then the following arrays are also added to the memory allocaiton:
 \begin{eqnarray}
     adps = 3n\\
-    sigma = k\\
-    tau = kQ
+    \sigma = k\\
+    \uptau = kQ
 \end{eqnarray}
 Thus the pair allotment is:
 \begin{equation}
@@ -120,9 +122,9 @@ Thus the pair allotment is:
 
 For the Gradient we need to calculate $F(Q)$ and its gradient, so the total memeory overhead is equal to the previously mentioned arrays plus:
 \begin{eqnarray}
-    g_omega = 3kQ \\
-    g_fq = 3kQ \\
-    rtn = 3nQ
+    \grad{\Omega} = 3kQ \\
+    \grad{F_{k}(Q)} = 3kQ \\
+    \grad{F_{n}(Q)} = 3nQ
 \end{eqnarray}
 Thus the gradient allotment is:
 \begin{equation}
@@ -130,7 +132,7 @@ Thus the gradient allotment is:
 \end{equation}
 For the gradient with ADPs the ADP gradient array is:
 \begin{equation}
-    g_tau = 3kQ
+    \grad{\uptau} = 3kQ
 \end{equation}
 Thus the allocation is:
 \begin{equation}
