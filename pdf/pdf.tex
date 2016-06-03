@@ -9,7 +9,7 @@
 \chapter{Atomic Pair Distribution Function: \\Theory and Computation} \label{ch:pdf}
 \section{Theory}
 To properly understand the PDF and its limitations we need to derive its mathematics.
-The PDF has been previously derived many times so it is not rederived here.
+The PDF has been previously derived many times so it is not re-derived here.
 This discussion of the PDF and its gradients use the notation of Farrow and Billinge. \cite{Farrow2009}
 \subsection{Derivation}
 \input{pdf/der}
@@ -17,11 +17,11 @@ This discussion of the PDF and its gradients use the notation of Farrow and Bill
 \section{Computation} \label{sec:comp}
 Simply deriving the equations for the PDF is not enough.
 The many body nature of the PDF equation make analytical solution of the structure from the PDF impossible.
-Thus, the PDF must be computed from a structural candidates and compared against experimental results to evaluate the relability of the model.
+Thus, the PDF must be computed from a structural candidates and compared against experimental results to evaluate the reliability of the model.
 
 \subsection{HPC and GPUs}
 To properly solve the structure of materials the PDF will need to be computed many times and checked against experimental results.
-This requires computation of the PDF, potentialy over many atoms.
+This requires computation of the PDF, potentially over many atoms.
 Calculating these PDFs requires a fast, highly parallized, computational framework.
 \subsubsection{GPUs and Parallelization}
 \begin{figure}
