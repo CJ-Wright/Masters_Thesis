@@ -2,9 +2,9 @@
 \chapter{X-ray Total Scattering Data Acquisition and Processing} \label{ch:dp}
 \section{Introduction}
 X-ray total scattering experiments are generally performed at synchrotron light sources, as only these sources can provide the needed flux, energy, and high momentum transfer vectors needed to obtain reliable PDFs. \cite{Chupas2003, Dykhne2011}
-Despite the need for a dedicated facility to perform the total scattering experiments, the experiments themselves are fairly forgiving, allowing for reactive gasious environments, experiment temperatures ranging from 2 \si{K} to 1200 \si{K}, and even electrochemical cycling. \cite{Chupas2008, Petkov2013, Redmond2012}
-The rapid PDF data aquesition associated with 2D area detectors creates a data management problem, as 96 hours of beamtime could result in almost $10,000$ images which need to be associated with the experimental conditions and detector metadata. \cite{Chupas2003}
- Finaly, all this data needs to be processed by masking bad pixels and regions, integrating azimuthally, and converting the scattering data to the PDF. \cite{Kieffer2013, Juhas2013, Yang2014, Pauw2014, Billinge2012}
+Despite the need for a dedicated facility to perform the total scattering experiments, the experiments themselves are fairly forgiving, allowing for reactive gaseous environments, experiment temperatures ranging from 2 \si{K} to 1200 \si{K}, and even electrochemical cycling. \cite{Chupas2008, Petkov2013, Redmond2012}
+The rapid PDF data acquisition associated with 2D area detectors creates a data management problem, as 96 hours of beamtime could result in almost $10,000$ images which need to be associated with the experimental conditions and detector metadata. \cite{Chupas2003}
+ Finally, all this data needs to be processed by masking bad pixels and regions, integrating azimuthally, and converting the scattering data to the PDF. \cite{Kieffer2013, Juhas2013, Yang2014, Pauw2014, Billinge2012}
 
 %\input{dp/ds}
 
@@ -19,7 +19,7 @@ This chapter developed and analyzed the proper data processing and reduction met
 Binning at the $Q$ resolution of the detector was found to be key to the data processing.
 The primary outcome of using the $Q$ resolution binning was an enhancement in effectiveness for the masking algorithm, producing much fewer false positives for dead pixels.
 This masking approach was then applied to the integration of experimental data taken at the APD's 11-ID-B beamline.
-The automaticly generated masks, when combined with edge masks, were found to greatly reduce the overall standard deviation of the pixel intensity and produce a smoother $F(Q)$ at high $Q$, enabling the use of much higher $Q$ data in the PDF.
+The automatically generated masks, when combined with edge masks, were found to greatly reduce the overall standard deviation of the pixel intensity and produce a smoother $F(Q)$ at high $Q$, enabling the use of much higher $Q$ data in the PDF.
 Different statistical measures used in the azimuthal integration was also compared.
 This comparison showed that the median was a more reliable statistic for integration with data which had more detector defects.
 However, upon properly masking it was shown that these metrics were almost identical.
