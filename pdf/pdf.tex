@@ -141,4 +141,26 @@ Thus the allocation is:
 These equations were solved by sympy as their validity is very important to the overal relyability of the software.
 If the GPU is overallocated then the system may crash or return meaningless results.
 
-\todo[inline]{Include Speed Benchmarks Here}
+\subsection{Speed and Scaling of PDF Computation}
+To understand exactly how much the GPUs speed up the computation of $F(Q)$ and the PDF a series of time studies were run Au nanoparticles of varying size.
+Figure \ref{fig:speed} shows the results of these time studies. CPU and GPU calculations were carried out on an Intel i7-4820K $@$3.70GHz Quad-Core and one Nvidia GTX970s, respectively.
+\begin{figure}
+    \foreach \n in {fq_log, speed_log}{
+        \subfloat[]{\includegraphics[width=.5\textwidth]{\n}}
+        }
+    \label{fig:speed}
+    \caption[Speed comparison of CPU and GPU implementations]{Speed comparison of CPU and GPU implementations.
+    a) shows the time to compute the $F(Q)$ by itself.
+    b) shows the time to compute the Rw based energy for Au NPs of various sizes, which includes computing $F(Q)$, its FFT, and the $Rw.$}
+\end{figure}
+The $F(Q)$ computations show a 100x to 10x speedup using the GPUs over the CPUs.
+Additionally, the $\grad{F(Q)}$ and $F(Q)$ computations seem to have similar computation time and scaling relationships on the GPU.
+This implies that the two proceisses may have similar bottlenecks, most likely in the $F(Q)$ computation workflow.
+This relationship is similarly preserved, although to a lesser extent, in the CPU scaling.
+
+Interestingly, the tight runtime relationship between $F(Q)$ and its gradient are not preserved in the $Rw$ based force calculations.
+While the energy calculations are very similar to the $F(Q)$ calcultions in terms of runtime, the GPU and CPU force calculations are much closer, with the GPU calculations being much slower.
+This is due to the force bottleneck being the $3n$ FFT operations which must be performed on the $\grad{F(Q)}$ array to produce the $\grad{PDF}$ array.
+While the GPU is leveraged to perform the FFT, the data must be loaded off the GPU and back on, causing a potential slowdown.
+Larger systems of atoms were not tried as the CPU computation quickly becomes very slow.
+Even higher GPU  speedup is expected on more advanced GPUs like the Nvidia Tesla series.

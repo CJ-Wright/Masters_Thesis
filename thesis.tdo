@@ -15,9 +15,9 @@
 \contentsline {todo}{How does this compare against the Ewald simulation technique for ionic solutions}{17}
 \contentsline {todo}{use the figure from the presentation, it is better}{17}
 \contentsline {todo}{I wish we had a picture of the GPU profiling}{17}
-\contentsline {todo}{Include Speed Benchmarks Here}{21}
-\contentsline {todo}{This entire section needs some rewritting to distinguish this from the paper}{22}
-\contentsline {todo}{Put this somewhere}{26}
-\contentsline {todo}{masking parameters}{55}
-\contentsline {todo}{integration parameters}{55}
-\contentsline {todo}{PDF parameters}{55}
+\contentsline {todo}{Include Speed Benchmarks Here}{23}
+\contentsline {todo}{This entire section needs some rewritting to distinguish this from the paper}{24}
+\contentsline {todo}{Put this somewhere}{28}
+\contentsline {todo}{masking parameters}{57}
+\contentsline {todo}{integration parameters}{57}
+\contentsline {todo}{PDF parameters}{57}
