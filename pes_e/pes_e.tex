@@ -92,10 +92,10 @@ Analyticly one generally defines a partition function, which describes the sum o
 where $P_{i}$ is the probability of the $i$th state and is a function of the total energy of that state.
 This partition function can then be used to obtain the probabilty of any specific state.
 The relationship of the probability of a state to the state's energy and other properties depends on the ensemble being used.
-\todo[inline]{double check against McQuerry, cite it}
+\todo[inline]{double check against McQuerry, cite it, also move from probabilities to partition functions, develop partition functions above}
 For the microcanonical ensemble the probability of a state is:
 \begin{equation}
-P(q, p) = \frac{\delta(\mathcal{H}(q, p) - E)}{W}
+P(q, p) = \frac{\delta(E - \mathcal{H}(q, p))}{W}
 \end{equation}
 where $E$ is the energy of the system, W is the total number of states in the system, and $\delta$ is the Dirac Delta Function.
 
@@ -169,15 +169,20 @@ Once the dynamics are finished the energy of the system is checked with the Metr
 \todo[inline]{Talk about the advances NUTS gives us}
 
 \subsection{Grand Canonical Ensemble}
-\todo[inline]{What limitations in RMC/HMC/NUTS/Cannonical ensembles in general force us to move to GCMC}
+While NUTS-HMC simulations provide a system to find minima on PESs, the simulation is fundamentally run in the Canonical Ensemble thus the variables in the simulation are limited to a fixed number of particles, simulation volume, and thermal energy.
+Fixing the thermal energy and simulation volume is not a problem, as they are not variables of interest in the final structure.
+However, specifying the number of atoms in the system can be problematic, as the exact number of atoms in a sample can be difficult to count or a sample could have a distribution of particle sizes.
+Thus, a new ensemble needs to be used to allow the number of atoms to vary as a function of the PES.
+This new ensemble is the Grand Canonical Ensemble.
 
 \subsubsection{Ensemble description}
-In the Grand Canonical Ensemble (GCE) two sets of variables are allowed to change, the atomic positions and the total number of atoms and their associated identities.  
-These two variables are controlled by temperature and chemical potential.  
+In the Grand Canonical Ensemble (GCE) two sets of variables are allowed to change, the atomic positions, and the total number of atoms and their associated identities.
+These two variables are controlled by temperature, or average momentum, and chemical potential.  
 The partition function is
 \begin{equation}
-  \Xi = e^{-\beta(\mathcal{H} +\mu)}
+  \Xi = \sum_{N=0}^{\infty} Q(N, V, T) \exp{\frac{N\mu\beta}{T}}
 \end{equation}
+where $Q(N, V, T)$ is the Cannonical partition function discussed above, $\mu$ is the chemical potential. \cite{McQuarrie}
 This is translated into a Monte Carlo system, producing Grand Canonical Monte Carlo (GCMC).
 \subsubsection{Grand Canonical Monte Carlo}
 While the probabilities for atomic motion are the same as in the Canonical Ensemble, the addition or removal of an atom have their own probabilities. For the addition of an atom the probability is formally:
@@ -195,30 +200,27 @@ A GCMC move consists of creating a new atomic configuration, where an atom has b
 However, previous results have shown that this method is computationally expensive in dense liquids, and exceedingly expensive in solid materials.
 The long simulation times are due to the random nature of the atomic additions or removals which produce: over-tightly packed atoms, atoms in the middle of nowhere, or unphysical vacancies.  
 These configurations are rejected by the GCMC criteria but their probability of being sampled is much higher than configurations which are lower in energy, since the number of incorrect ways to add/remove atoms is much larger than the correct ways.
-Thus we have implemented methods for biasing the atomic addition positions and the atomic removals toward configurations which are more likely to be accepted.
-\subsubsection{GCMC biasing}
-The first method is to remove some of the excess options from the probability pool.
-Initially the insertion positions are calculated at random using a random number generator and scaled to the size of the simulation cell.
-This produces probabilities which have floating point level precision, which is effectively infinite.
-While this produces a potentially infinite number of ways to create energetically favorable configurations, the infinite ways to produce bad configurations is much larger.
-Thus we can limit this by moving to voxels.
-In this case atoms are added to the center of voxels which have a pre-set resolution, limiting our total number of valid addition points.
-While this could produce some problems with ergodicity, we avoid this by allowing the atoms to translate throughout the system.
-Each voxel has a probability of being tried:
-\begin{equation}
-  P_{i, j, k} = \frac{x y z}{a b c}
-\end{equation}
-where $x, y, z$ and $a, b, c$ are the resolutions and cell side lengths in the cardinal directions, respectively.
-While this does help to limit the total probability space it does not tell us which voxels are likely to lead to better configurations, leading to many rejected atomic additions.
-To combat this issue we can weigh the individual voxels, giving more probability to voxels which show promise and less to those with less likelihood to be accepted.
+Thus, we have implemented methods for biasing the atomic addition positions and the atomic removals toward configurations which are more likely to be accepted.
 
-The approach most likely to yield success would be to measure the change in potential energy associated with the addition of an atom at the center of the voxel where the probability of a voxel to be tried is:
+\subsubsection{GCMC biasing}
+\todo[inline]{This is wrong and needs a redo}
+The basic idea of GCMC biasing is mapping, in 3 dimensions, where an atomic addition or removal is most likely to be accepted.
+Thus, the simulation volume is broken up into voxels, 3 dimensional volumes which are contained by the total simulation volume, with a pre-set size.
+Each voxel is given a probability of being chosen for a trial insertion where the probability is:
 \begin{equation}
   P_{i, j, k} = \frac{e^{\beta \Delta U_{i, j, k}}}{\sum_{i, j, k}e^{\beta \Delta U_{i, j, k}}}
 \end{equation}
 where $\Delta U_{i, j, k}$ is the change in energy.
 However, calculating $\Delta U_{i, j, k}$ can be particularly expensive, especially when calculating scattering from atomic positions.
 The computational expense can be mitigated by using a cheaper potential, if only for the evaluation of the voxel energy, as previously shown.
-Similar to previous work we can use the Lennard Jones potential to approximate the addition potential.
+Similar to previous work we can use the Lennard Jones potential to approximate the addition potential, lowering the computational burden. \cite{bell's work}
 
+Atomic deletion follows a similar biasing procedure, calculating the energy of each atom and biasing the probability of each atom to be chosen for removal by its energy.
+This way atoms which add the most energy to the system are more likely to be removed.
+
+\begin{figure}
+	\caption[2D slice of addition biasing with Rw and Lennard Jones potentials.]{2D slice of addition biasing with Rw and Lennard Jones potentials. Note the similarity of the minima positions}
+	\label{fig:biasing}
+\end{figure}
+Figure \ref{fig:biasing} shows an example map for atomic addition in a Au54 atom system, with an Au55 atom target. 
 \todo[inline]{Include figure which shows the configurational biasing map}
