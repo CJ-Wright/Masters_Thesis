@@ -12,6 +12,11 @@ To properly understand the PDF and its limitations we need to derive its mathema
 The PDF has been previously derived many times so it is not re-derived here.
 This discussion of the PDF and its gradients use the notation of Farrow and Billinge. \cite{Farrow2009}
 \subsection{Derivation}
+Many of the above techniques require the gradient of the PES.
+This in turn requires the gradient of the PDF to be derived.
+Mathematicly treating thermal vibrations will also be discussed in this seciton.
+Systems which are truly extended materials, like powders with particle sizes larger than 10nm, are best formulated as systems with periodic boundaries.
+Thus, the equations for a periodicly bound PDF need to be developed as well, with their gradients.
 \input{pdf/der}
 
 \section{Computation} \label{sec:comp}
@@ -25,12 +30,17 @@ This requires computation of the PDF, potentially over many atoms.
 Calculating these PDFs requires a fast, highly parallized, computational framework.
 \subsubsection{GPUs and Parallelization}
 \begin{figure}
-    \includegraphics[width=\textwidth]{cpu-and-gpu}
-    \caption{Comparison of the CPU and GPU chip architectures}
+    \includegraphics[width=\textwidth]{cpu_gpu}
+    \caption[Comparison of the CPU and GPU chip architectures]{
+    Comparison of the CPU and GPU chip architectures from \cite{Chen2013}.
+    The ALU are the arithmetic logic units which perform the matematical operations,
+    the DRAM holds most of the data, although it is slower to access,
+    the Cache holds rapidly accessed data,
+    and the Control controls the exicution of software.
+    Note the greater number of ALUs on the GPU, the comparitivly smaller cache,
+    and the allocaiton of caches and controls to entire rows of processors.}
     \label{fig:cpu_vs_gpu}
 \end{figure}
-\todo[inline]{use the figure from the presentation, it is better}
-\todo[inline]{I wish we had a picture of the GPU profiling}
 Computing the PDF is an embarrassingly parallel problem.
 The basic procedure is to calculate the reduced structure factor $F(Q)$ for each atom pair and momentum transfer vector, sum over all the atom pairs, and Fourier transform the structure to the PDF.
 The first part of this procedure is perfectly parallizable, as each atom pair is seperate from the others.
@@ -39,6 +49,13 @@ Lastly the FFT can be parallelized using existing parellel FFT algorithms.
 
 GPUs are particularly well suted to the task of computing PDFs.
 GPU chip architecture is designed to perform many task simultaniously by having potentially thousands of cores.
+Figure \ref{fig:cpu_vs_gpu} show the comparison of CPU and GPU architectures.
+As the figure shows the GPUs have a very different layout of computational processors (ALUs) and memory.
+While each ALU is simpler on the GPU, requireing the instructions to be less demanding in terms of memory, there are many more of them.
+The greater number of processors allows each atomic pairing to be placed on its own processor, so long as the math can be broken into simpler operations.
+The equations are broken up on the gpus into various pieces which correspond to the $\alpha, \beta, \uptau$ and $\Omega$ as shown in equations \ref{eq:alpha}-\ref{eq:omega} and subequations as needed.
+For example, while $\beta$ is computed in one step, $\Omega$ requires the computation of the displacement array, then the distance array and finally the $\Omega$ array.
+The exact breakdown of processies, how the problems are broken down and spread across the processor has been optimized for speed and reliability.
 
 \subsubsection{Map from ij space to k space}
 The above equations, although formally correct, are very ineffiecent. $F(Q)$ and its gradient are indexed over all the atoms twice, however there are symmetries that allow us to only compute over the atom pairs esentially mapping from an $n$x$n$ space, $ij$ space, to a $\frac{n(n-1)}{2}$ space, $k$ space.

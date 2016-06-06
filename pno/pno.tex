@@ -23,7 +23,27 @@ need to be more readable\\
 need to cull through them to pull out the interesting features}
 
 \subsection{Intra Sample Comparison}
-Changes in S1 but very little in S2-5.
+As figures \ref{fig:S1_0_to_40} and \ref{fig:S1_0_to_10} show the as synthesized PNO undergoes very little change in structure according to the PDF.
+The PDF does show some broadening at around 3.5 and 8.5 \AA, but the peak shifts themselves are fairly limited.
+This implies that the as synthesized PNO structure is stable at least for the \tilde 1 hour that the sample was held at 750 $^\circ$C.
+
+The annealed samples figures, \ref{fig:S2_0_to_40} and \ref{fig:S2_0_to_10}, tell a rather different story.
+In this case the PDF shows signifigant peak shifts and broadening, especially at higher interatomic distances.
+Some peaks completely disapear, like the peak at 12 \AA.
+Similar results were also observed for samples with longer annealing times, as shown in the appendix.
+
+\begin{landscape}
+\foreach \n/\o in {S1/as synthesized PNO , S2/PNO annealed at 750 $^\circ$C for 25 hours }{
+    \foreach \m/\p in {0_to_40/the full PDF, 0_to_10/a close up on the short range section}{
+        \begin{figure}
+            \includegraphics[height=\textheight]{\n/\m_gr}
+            \caption{PDF as a function of temperature for \o showing \p}
+            \label{fig:\n_\m}
+        \end{figure}
+    }
+}
+\end{landscape}
+
 \begin{landscape}
 \foreach \n in {S1, S2, S3, S4, S5}{
     \foreach \m in {short}{

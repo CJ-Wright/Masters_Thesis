@@ -16,103 +16,130 @@ from databroker import db, get_events
 from datamuxer import DataMuxer
 from sidewinder_spec.utils.handlers import *
 import logging
-from xpd_workflow.parsers import parse_xrd_standard
+import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
+
+
+def plot_temp_1d_data(temps, data_list, x_lims=None, save_path=None, plot=True,
+                      plot_type='gr', offset=.5, save=False):
+    if x_lims is None:
+        x_lims = (0, np.max(data_list[0][0]))
+    for xmin, xmax in x_lims:
+        # setup the figure
+        # fig = plt.figure(figsize=(26, 12))
+        fig = plt.figure()
+        gs = gridspec.GridSpec(1, 2, width_ratios=[5, 1])
+        gs.update(left=0, right=1, hspace=1e-6, wspace=.01)
+        ax1 = plt.subplot(gs[0])
+        ax2 = plt.subplot(gs[1], sharey=ax1)
+
+        # Strip the Temp graph of the y values
+        plt.setp(ax2.get_yticklabels(), visible=False)
+        plt.setp(ax2.get_ylabel(), visible=False)
+
+        # Setup the color map
+        cm = plt.get_cmap('viridis')
+        cNorm = colors.Normalize(vmin=0, vmax=len(temps))
+        scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=cm)
+
+        # for each temp/data plot the temperature and data
+        ylim_min = None
+        for idx in range(len(temps)):
+            x, y = data_list[idx]
+            colorVal = scalarMap.to_rgba(idx)
+            ax1.plot(x, y + idx * offset, color=colorVal, lw=.5)
+            ax2.plot(Ts[idx], y[-1] + idx * offset, marker='o', color=colorVal)
+            if ylim_min is None or ylim_min > np.min(np.min(y + idx * offset)):
+                ylim_min = np.min(y + idx * offset)
+
+        # Set the x-axis to the temperatures for the temp plot
+        ax2.locator_params(nbins=5, tight=True)
+        ax2.set_xticklabels([str(f) for f in ax2.get_xticks()],
+                            rotation=90)
+        ax2.set_xlabel(r'Temperature $^\circ$C')
+        if plot_type == 'gr':
+            ax1.set_xlabel(r"$r (\AA)$")
+            ax1.set_ylabel(r"$G (\AA^{-2})$")
+        elif plot_type == 'chi':
+            ax1.set_xlabel(r"$Q (\AA^{-1})$")
+            ax1.set_ylabel(r"$I (Q) $")
+        ax1.set_ylim(ylim_min)
+        ax1.set_xlim(xmin, xmax)
+
+        if save:
+            for output_type in ['png', 'eps', 'pdf']:
+                dest = os.path.join(save_path, '{}_to_{}_{}.{}'.format(
+                    xmin, xmax, plot_type, output_type
+                ))
+                fig.savefig(dest)
+        if plot:
+            plt.show()
+        plt.clf()
+
 
 if __name__ == '__main__':
     import os
     import numpy as np
     import matplotlib.pyplot as plt
+
+    plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
+
     save = False
-    ns = [1, 2, 3, 4, 5,
-          # 18, 20, 22, 16, 28, 29, 27, 26
-          ]
-    # ns = [26]
+
+    # Sample names of interest for plotting
+    ns = [1, 2, 3, 4, 5,]
     ns.sort()
-    #
+
+    # For each sample plot the intra sample temperature curve
     for i in ns:
-        legended_hkl = []
         print(i)
+        save_folder = '../S{}'.format(i)
+
+        # Get the folder where the data is
         folder = '/mnt/bulk-data/research_data/USC_beamtime/APS_March_2016/S' \
                  + str(i) + '/temp_exp'
+
+        # Get the run header assocaited with that folder
         hdr = db(run_folder=folder)[0]
+
+        # Mux the data so that we have the correct Temp->data relationship
         dm = DataMuxer()
         dm.append_events(get_events(hdr))
         df = dm.to_sparse_dataframe()
         print(df.keys())
         binned = dm.bin_on('img', interpolation={'T': 'linear'})
 
+        # Only to the G(r)
         key_list = [f for f in os.listdir(folder) if
                     f.endswith('.gr') and not f.startswith('d')]
         key_list.sort()
+
+        # Don't do the last one we had some problems with that one
         key_list = key_list[:-1]
-        # key_list2.sort()
+
+        # Get the indexes for the data this ties the data to the temps
         idxs = [int(os.path.splitext(f)[0]) for f in key_list]
         Ts = binned['T'].values[idxs]
         output = os.path.splitext(key_list[0])[-1][1:]
+
+        # If we are working with G(r) files use these offset and read parameters
+        # The read params should be handled by filestore at some point
+        # However this needs analysisstore
         if key_list[0].endswith('.gr'):
             offset = .1
             skr = 0
+        # Load the data
         data_list = [(np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 0],
                       np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 1])
                      for f in key_list]
-        ylim_min = None
-        for xmax, length in zip(
-                [len(data_list[0][0]) - 1, len(data_list[0][0]) - 1],
-                ['short', 'full']):
-            fig = plt.figure(figsize=(26, 12))
-            gs = gridspec.GridSpec(1, 2, width_ratios=[5, 1])
-            ax1 = plt.subplot(gs[0])
-            if length == 'short':
-                ax1.set_xlim(1.5, 4.5)
-            ax2 = plt.subplot(gs[1], sharey=ax1)
-            plt.setp(ax2.get_yticklabels(), visible=False)
-            cm = plt.get_cmap('viridis')
-            cNorm = colors.Normalize(vmin=0, vmax=len(key_list))
-            scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=cm)
-            for idx in range(len(key_list)):
-                xnm, y = data_list[idx]
-                colorVal = scalarMap.to_rgba(idx)
-                if output == 'chi':
-                    x = xnm / 10.
-                ax1.plot(x[:xmax], y[:xmax] + idx * offset,
-                         color=colorVal)
-                ax2.plot(Ts[idx], y[-1] + idx * offset, marker='o',
-                         color=colorVal)
-                if ylim_min is None or ylim_min > np.min(
-                        y[:xmax + idx * offset]):
-                    ylim_min = np.min(y[:xmax + idx * offset])
-            ax2.set_xticklabels([str(f) for f in ax2.get_xticks()],
-                                rotation=90)
-            if output == 'gr':
-                bnds = ['O-Pr', 'O-Ni', 'Ni-Ni', 'Pr-Pr', 'Ni-Pr', 'O-Pr',
-                        'O-Ni',
-                        'Ni-Ni-Ni', 'Pr-Ni', 'Pr-Pr', 'Pr-Ni-O', 'Ni-Pr-Ni',
-                        'Pr-Pr', 'Rs:Pr-Pr', 'Rs:Pr_Pr']
-                bnd_lens = [2.320, 1.955, 3.883, 3.765, 3.186, 2.771, 2.231,
-                            7.767, 4.426, 6.649, 4.989, 5.404, 3.374, 3.910,
-                            8.801]
-                # ax1.grid(True)
-                # ax2.grid(True)
-                for bnd, bnd_len in zip(bnds, bnd_lens):
-                    ax1.axvline(bnd_len, color='grey', linestyle='--')
-                ax3 = ax1.twiny()
-                ax3.set_xticks(np.asarray(bnd_lens) / x[xmax])
-                ax3.set_xticklabels(bnds, rotation=90)
-            ax2.set_xlabel('Temperature C')
-            ax1.set_xlabel(r"$r (\AA)$")
-            ax1.set_ylabel(r"$G (\AA^{-2})$")
-            ax1.set_ylim(ylim_min)
-            gs.tight_layout(fig, rect=[0, 0, 1, .98], w_pad=1e-6)
-
-            if save:
-
-                fig.savefig(os.path.join('/mnt/bulk-data/Dropbox/',
-                                         'S{}_{}_output_{}.png'.format(
-                                             i, length, output)))
-                fig.savefig(os.path.join('/mnt/bulk-data/Dropbox/',
-                                         'S{}_{}_output_{}.eps'.format(
-                                             i, length, output)))
-            else:
-                plt.show()
+        # Specify the x limits:
+        xlims = [
+            (0, 40),
+            (0, 10),
+        ]
+        if not os.path.exists(save_folder):
+            os.makedirs(save_folder)
+        plot_temp_1d_data(Ts, data_list=data_list, x_lims=xlims,
+                          save_path=save_folder, plot_type='gr', save=True,
+                          plot=False)

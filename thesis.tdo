@@ -1,24 +1,17 @@
-\contentsline {todo}{Need more references}{2}
-\contentsline {todo}{Why is atomistic engineering important}{3}
-\contentsline {todo}{Barriers to atomistic engineering}{3}
-\contentsline {todo}{How are we going to attack this problem}{3}
-\contentsline {todo}{double check against McQuerry, cite it}{9}
+\contentsline {todo}{Need more references}{1}
+\contentsline {todo}{Why is atomistic engineering important}{2}
+\contentsline {todo}{Barriers to atomistic engineering}{2}
+\contentsline {todo}{How are we going to attack this problem}{2}
+\contentsline {todo}{double check against McQuerry, cite it, also move from probabilities to partition functions, develop partition functions above}{8}
 \contentsline {todo}{Talk about the advances NUTS gives us}{11}
-\contentsline {todo}{What limitations in RMC/HMC/NUTS/Cannonical ensembles in general force us to move to GCMC}{12}
-\contentsline {todo}{Include figure which shows the configurational biasing map}{14}
-\contentsline {todo}{cite something with debye waller most likely simon's paper}{15}
-\contentsline {todo}{Need to include PBC ADP math}{17}
-\contentsline {todo}{Also should include PBC gradients, although they are trivial, maybe?}{18}
-\contentsline {todo}{How does this compare against the Ewald simulation technique for ionic solutions}{18}
-\contentsline {todo}{use the figure from the presentation, it is better}{18}
-\contentsline {todo}{I wish we had a picture of the GPU profiling}{18}
-\contentsline {todo}{This entire section needs some rewritting to distinguish this from the paper}{25}
-\contentsline {todo}{Also some introduction would be great}{25}
-\contentsline {todo}{this just needs a lot of work}{25}
-\contentsline {todo}{Put this somewhere}{29}
-\contentsline {todo}{If we are going to keep this we need to get a lot done in terms of modeling}{57}
-\contentsline {todo}{need some sort of synthesis information}{58}
-\contentsline {todo}{masking parameters}{58}
-\contentsline {todo}{integration parameters}{58}
-\contentsline {todo}{PDF parameters}{58}
-\contentsline {todo}{Need to redo all the figures:\\ need to use the new stylesheet\\ need to be more readable\\ need to cull through them to pull out the interesting features}{59}
+\contentsline {todo}{This is wrong and needs a redo}{12}
+\contentsline {todo}{Include figure which shows the configurational biasing map}{13}
+\contentsline {todo}{This entire section needs some rewritting to distinguish this from the paper}{24}
+\contentsline {todo}{Also some introduction would be great}{24}
+\contentsline {todo}{this just needs a lot of work}{24}
+\contentsline {todo}{Put this somewhere}{28}
+\contentsline {todo}{need some sort of synthesis information}{56}
+\contentsline {todo}{masking parameters}{56}
+\contentsline {todo}{integration parameters}{56}
+\contentsline {todo}{PDF parameters}{56}
+\contentsline {todo}{Need to redo all the figures:\\ need to use the new stylesheet\\ need to be more readable\\ need to cull through them to pull out the interesting features}{57}

@@ -1,0 +1,43 @@
+\subsubsection{Periodic Boundary Conditions}
+Periodic boundary conditions can be helpful when simulating extended solids or large nanoparticles. In this case all the non-crystallinity is contained within the simulation box and the box is repeated to create the longer distance peaks observed in the PDF. To perform this we can break up the Debye equation into two main parts, the part that describes the interatomic distances within the simulation box and those between boxes. Neglecting the thermal motion portion:
+\begin{equation}
+  F(Q) = \frac{1}{N \langle f \rangle^{2}}(\sum_{j\neq i} f_i^{*}(Q)f_j(Q) \frac{\sin(Qr_{ij})}{r_{ij}} + \sum_{i,j} f_i^{*}(Q)f_j(Q) \frac{\sin(QR_{ij})}{R_{ij}})
+\end{equation}
+where
+\begin{eqnarray}
+  R = |\vec{r} + \vec{\nu}|\\
+  \vec{\nu} = \gamma_1*\vec{a} + \gamma_2*\vec{b} + \gamma_3*\vec{c}
+\end{eqnarray}
+where $\gamma_{i}$ is the number of copies of the simulation box in the $i$th direction, and $\vec{a}, \vec{b}, \vec{c}$ are the lattice or superlattice directions.
+This can be represented in the form of equation \ref{eq:abto} with ADPs as:
+\begin{equation}
+F(Q) = \alpha(\sum_{j\neq i}  \beta_{ij} \uptau_{ij} \Omega_{ij} + \sum_{i,j}  \beta_{ij} \zeta_{ij} \eta_{ij}) \label{eq:adp_pbc}
+\end{equation}
+where:
+\begin{eqnarray}
+    \zeta_{ij} = \exp(-\frac{1}{2}\varsigma_{ij}^{2}Q^{2}) \label{eq:zeta}\\
+    \eta_{ij} = \frac{\sin(QR_{ij})}{R_{ij}} \label{eq:eta}\\
+    \varsigma_{ij}^{2} = (\vec{u}_{ij} * \hat{D}_{ij})^{2}\\
+    \hat{D}_{ij} = \frac{\vec{D}_{ij}}{R_{ij}}\\
+    \vec{D}_{ij} = \vec{r} + \vec{\nu}
+\end{eqnarray}
+The additive nature of the first and second term of equation \ref{eq:adp_pbc} implies that we can seperate the gradient.
+Thus the gradient is:
+\frac{\partial}{\partial q_{i,w}} F{ (Q )} = \alpha (\sum_{i!=j} \beta_{ij} (\frac{\partial \uptau_{ij}}{\partial q_{i,w}}  \Omega_{ij} + \uptau_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}}) + \sum_{i,j} \beta_{ij} (\frac{\partial \uptau_{ij}}{\partial q_{i,w}}  \Omega_{ij} + \uptau_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}})) \label{eq:pbc_grad_fq}
+The first term gradient will be the same as equation \ref{eq:grad_fq}.
+The second term however will have its own destinct gradients:
+\begin{eqnarray}
+  \frac{\partial \eta_{ij}}{\partial q_{i,w}}  = \frac{Q\cos(QR_{ij}) - \eta_{ij}}{R_{ij}^{2}} (q_{i,w}-q_{j,w} + \nu_{w})\\
+  \frac{\partial \zeta_{ij}}{\partial q_{i,w}} = \frac{\varsigma_{ij}Q^{2} \eta_{ij}}{R_{ij}^{3}}   ((q_{i,w} - q_{j,w} +\nu_{w}) \varsigma_{ij}- (u_{i,w} - u_{j,w})R_{ij}^{2})\\
+\end{eqnarray}
+\begin{eqnarray}
+\frac{\partial}{\partial u_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} \frac{\partial \uptau_{ij}}{\partial u_{i,w}}  \Omega_{ij}\\
+\frac{\partial \uptau_{ij}}{\partial u_{i,w}} = - \frac{\sigma_{ij}Q^{2} \uptau_{ij}}{r_{ij}}  (q_{i,w} - q_{j,w})
+\end{eqnarray}
+
+\todo[inline]{Also should include PBC gradients, although they are trivial, maybe?}
+\todo[inline]{How does this compare against the Ewald simulation technique for ionic solutions}
+
+\begin{equation}
+\frac{1.0 \sigma_ij}{R_{ij}^{3}} Q^{2} \uptau_ij \left(R_{ij}^{2} \left(- u_{ix} + u_{jx}\right) + \left(\nu_{x} + q_{ix} - q_{jx}\right) \left(\left(u_{ix} - u_{jx}\right) \left(\nu_{x} + q_{ix} - q_{jx}\right) + \left(u_{iy} - u_{jy}\right) \left(\nu_{y} + q_{iy} - q_{jy}\right) + \left(u_{iz} - u_{jz}\right) \left(\nu_{z} + q_{iz} - q_{jz}\right)\right)\right)
+\end{equation}
