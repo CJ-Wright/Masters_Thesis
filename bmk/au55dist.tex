@@ -1,0 +1,15 @@
+\graphicspath{{/mnt/bulk-data/Dropbox/BNL_Project/HMC_paper/data/structures/NewBenchmarks/results/}}
+
+\section{Surface Distorted}
+
+\foreach \n in {Au55.A1.00001, Au55.A1.0001, Au55.A1.001, Au55.A1.05}
+\begin{figure}[!ht]
+    \def \localimgpath {./Au55/\n}
+  \centering
+  \foreach \m in {pdf, coord, rbonds, angle, target, min}{
+     \subfloat[]{\includegraphics[width=.47\textwidth]{\localimgpath_\m}}\quad
+     }
+       \caption{Similar to figure \ref{fig:Au55_sd} for  DFT-optimized amorphous \ce{Au55}.}
+     \label{fig:Au55_a}
+\end{figure}
+}

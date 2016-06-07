@@ -2,6 +2,7 @@
 Using the $Q$ resolution binning and masking developed in sections \ref{subsec:qres} and \ref{subsec:mask} the images can be properly integrated.
 Generally, images are integrated by taking the mean value of the pixels in a ring.
 However, other statistical measures of the average value can be used, like the median.
+Note that all the integrations done here use the pixels as they are, without pixel splitting, minimizing the covariance of the resulting $I(Q)$.\cite{Yang2014}
 
 Figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask} show the importance of masking and the choice of average function.
 All the figures were produced using the same dataset, 50 \si{\degree}C \ce{Pr2NiO4} taken at the APS's 11-ID-B on a Perkin Elmer area detector.

@@ -23,6 +23,7 @@
 \usepackage{cleveref}
 \usepackage{todonotes}
 \usepackage{siunitx}
+\usepackage[section]{placeins}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -112,7 +113,7 @@ Brown University 2014\\ [\baselineskip]
 \advisor {Dr.}{Xiao-Dong Zhou}{Major Professor}  %%% Be sure the 
 \readera{Dr.}{Mark Uline}{Committee Member}          %%% the one used in 
 \readerb{Dr.}{Jochen Lauterbach}{Committee Member} %%% your department.
-\readerc{Dr.}{Thomas Vogt}{Committee Member}     %%% third field is %%% If you have just two readers, for example, leave out \readerc and
+% \readerc{Dr.}{Thomas Vogt}{Committee Member}     %%% third field is %%% If you have just two readers, for example, leave out \readerc and
 %%% \readerd
 %%%
 %%% For Honors College theses use \reader{}{}   NO third field.
@@ -186,7 +187,6 @@ Brown University 2014\\ [\baselineskip]
                           %% followed by the text of the 
                           %% introduction.
 
-% \include{misc/rev}
 
 \include{pes_e/pes_e}
 
@@ -200,7 +200,7 @@ Brown University 2014\\ [\baselineskip]
 
 \include{pno/pno}
 
-\chapter{Conclusion}
+\chapter*{Conclusion}
 %\include{Conclusion}     %% Honors theses are required to 
                           %% have an unnumbered chapter
                           %% for conclusions.  The file
@@ -218,11 +218,11 @@ Brown University 2014\\ [\baselineskip]
                            %% for alternative bibliographic systems.     
 
 \Appendix                 %% Use this command if you have one 
-                          %% appendix. Use \Appendices if you 
+% \Appendices                          %% appendix. Use \Appendices if you 
                           %% have more than one.
 	
 % \input{toolong}         %% Calls toolong.tex which contains
-                          %% an appendix. After issuing the 
+% \input{pno/pno_appendix}  %% an appendix. After issuing the 
                         %% command \Appendix or \Appendices
                         %% you must use \input not \include
                         %% to load the first appendix.

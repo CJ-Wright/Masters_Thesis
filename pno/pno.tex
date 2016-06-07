@@ -1,9 +1,11 @@
 \graphicspath{{./pno/figures/}}
-\chapter{Phase Changes and Annealing Dynamics of \ce{Pr2NiO4} and its derivatives}
+\chapter{Phase Changes and Annealing Dynamics of \ce{Pr2NiO4} and its derivatives} \label{ch:pno}
+\section{Introduction}
+\todo[inline]{We should discuss about why PNO is interesting, at least in brief}
 \section{Experiments}
 
 \subsection{\ce{Pr2NiO4} Synthesis}
-\todo[inline]{need some sort of synthesis information}
+\todo[inline]{need some sort of synthesis information, something along the lines of as previously reported}
 
 \subsection{X-ray Measurements}
 X-ray total scattering and x-ray powder diffraction experiments were performed at the APS's 11-ID-B beamline.
@@ -11,23 +13,31 @@ An x-ray energy of XXX keV, YYY \AA was used.
 The detector was moved between a 20cm and a 95 cm sample to detector distance to measure the x-ray total scattering and x-ray diffraction patterns.
 Various PNO samples were annealed on the beamline during x-ray measurement.
 \section{Data Processing}
+The data was calibrated at each of the detector positions using a \ce{CeO2} standard via pyFAI. \cite{Kieffer2013}
+The images were corrected for a .95 x-ray polerization.
+Masks were produced for both the foreground and background images.
+The forground masks were produced using both a 30 pixel edge mask and a 2.5$\sigma$ automatic mask as discussed in chapter \ref{ch:dp}.
+The background masks were produced by using the forground mask as a starting mask with a 2.5$\sigma$ automatic mask.
 
-\todo[inline]{masking parameters}
-\todo[inline]{integration parameters}
-\todo[inline]{PDF parameters}
+The foreground and background images were then integrated using the $Q$ resolution binning discussed in chapter \ref{ch:dp}.
+The resulting $I(Q)$ data were corrected for their number of frames and $I_{00}$.
+Finally the corrected background $I(Q)$ was subtracted from the foreground $I(Q)$.
+
+Each PDF was generated with a
+$Q_{min}$ of 1.5,
+$Q_{max}$ of 29.,
+$R_{poly}$ of .9,
+$R_{max}$ of 40.
+descriptions of these parameters can be found in the work by Juhas et. al. \cite{Juhas2013}
 
 \section{Data Analysis}
-\todo[inline]{Need to redo all the figures:\\
-need to use the new stylesheet\\
-need to be more readable\\
-need to cull through them to pull out the interesting features}
-
 \subsection{Intra Sample Comparison}
-As figures \ref{fig:S1_0_to_40} and \ref{fig:S1_0_to_10} show the as synthesized PNO undergoes very little change in structure according to the PDF.
+\subsubsection{PDF}
+As figures \ref{fig:S1_0_to_40_pdf} and \ref{fig:S1_0_to_10_pdf} show the as synthesized PNO undergoes very little change in structure according to the PDF.
 The PDF does show some broadening at around 3.5 and 8.5 \AA, but the peak shifts themselves are fairly limited.
-This implies that the as synthesized PNO structure is stable at least for the \tilde 1 hour that the sample was held at 750 $^\circ$C.
+This implies that the as synthesized PNO structure is stable at least for the 1 hour that the sample was held at 750 $^\circ$C.
 
-The annealed samples figures, \ref{fig:S2_0_to_40} and \ref{fig:S2_0_to_10}, tell a rather different story.
+The annealed samples figures, \ref{fig:S2_0_to_40_pdf} and \ref{fig:S2_0_to_10_pdf}, tell a rather different story.
 In this case the PDF shows signifigant peak shifts and broadening, especially at higher interatomic distances.
 Some peaks completely disapear, like the peak at 12 \AA.
 Similar results were also observed for samples with longer annealing times, as shown in the appendix.
@@ -36,41 +46,58 @@ Similar results were also observed for samples with longer annealing times, as s
 \foreach \n/\o in {S1/as synthesized PNO , S2/PNO annealed at 750 $^\circ$C for 25 hours }{
     \foreach \m/\p in {0_to_40/the full PDF, 0_to_10/a close up on the short range section}{
         \begin{figure}
-            \includegraphics[height=\textheight]{\n/\m_gr}
+            \includegraphics[width=\linewidth]{\n/\m_gr}
             \caption{PDF as a function of temperature for \o showing \p}
-            \label{fig:\n_\m}
+            \label{fig:\n_\m_pdf}
         \end{figure}
     }
 }
 \end{landscape}
 
+
+\subsubsection{$I(Q)$}
+
 \begin{landscape}
-\foreach \n in {S1, S2, S3, S4, S5}{
-    \foreach \m in {short}{
-      \begin{figure}
-        \includegraphics[width=\linewidth]{\n_\m_output_chi}
-        \caption{XRD as a function of temperature for \n}
-    \end{figure}
-    }
-}
-\end{landscape}
-\subsection{Inter Sample Comparison}
-\begin{landscape}
-\foreach \n in {initial, high-temp, final}{
-  \begin{figure}
-    \includegraphics[width=\linewidth]{S1-5_full_\n_chi}
-  \end{figure}
-}
-\end{landscape}
-\begin{landscape}
-\foreach \n in {initial, high-temp, final}{
-    \foreach \m in {short, medium, long}{
+\foreach \n/\o in {S1/as synthesized PNO , S2/PNO annealed at 750 $^\circ$C for 25 hours }{
+    \foreach \m/\p in {0_to_12/the full XRD, 0.8_to_5/a close up on the low $Q$ section}{
         \begin{figure}
-            \includegraphics[width=\linewidth]{S1-5_\m_\n}
+            \includegraphics[width=\linewidth]{\n/\m_chi}
+            \caption{$I(Q)$ as a function of temperature for \o showing \p}
+            \label{fig:\n_\m_iq}
         \end{figure}
     }
-    }
+}
 \end{landscape}
+
+\subsection{Inter Sample Comparison}
+
+%\begin{landscape}
+%\foreach \n in {S1, S2, S3, S4, S5}{
+%    \foreach \m in {short}{
+%      \begin{figure}
+%        \includegraphics[width=\linewidth]{\n_\m_output_chi}
+%        \caption{XRD as a function of temperature for \n}
+%    \end{figure}
+%    }
+%}
+%\end{landscape}
+%\subsection{Inter Sample Comparison}
+%\begin{landscape}
+%\foreach \n in {initial, high-temp, final}{
+%  \begin{figure}
+%    \includegraphics[width=\linewidth]{S1-5_full_\n_chi}
+%  \end{figure}
+%}
+%\end{landscape}
+%\begin{landscape}
+%\foreach \n in {initial, high-temp, final}{
+%    \foreach \m in {short, medium, long}{
+%        \begin{figure}
+%            \includegraphics[width=\linewidth]{S1-5_\m_\n}
+%        \end{figure}
+%    }
+%    }
+%\end{landscape}
 The PDF for S1 at operating temperature looks like S2-5 at the same temperature.
 \section{Simulation}
 Simulations have not been run yet on these PNO samples.

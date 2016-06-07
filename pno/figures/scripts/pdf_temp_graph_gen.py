@@ -47,6 +47,7 @@ def plot_temp_1d_data(temps, data_list, x_lims=None, save_path=None, plot=True,
         ylim_min = None
         for idx in range(len(temps)):
             x, y = data_list[idx]
+            print(np.max(y), idx)
             colorVal = scalarMap.to_rgba(idx)
             ax1.plot(x, y + idx * offset, color=colorVal, lw=.5)
             ax2.plot(Ts[idx], y[-1] + idx * offset, marker='o', color=colorVal)
@@ -75,7 +76,6 @@ def plot_temp_1d_data(temps, data_list, x_lims=None, save_path=None, plot=True,
                 fig.savefig(dest)
         if plot:
             plt.show()
-        plt.clf()
 
 
 if __name__ == '__main__':
@@ -88,7 +88,10 @@ if __name__ == '__main__':
     save = False
 
     # Sample names of interest for plotting
-    ns = [1, 2, 3, 4, 5,]
+    ns = [
+        # 1, 2,
+        3, 4, 5,
+    ]
     ns.sort()
 
     # For each sample plot the intra sample temperature curve
@@ -111,8 +114,13 @@ if __name__ == '__main__':
         binned = dm.bin_on('img', interpolation={'T': 'linear'})
 
         # Only to the G(r)
+        # key_list = [f for f in os.listdir(folder) if
+        #             f.endswith('.gr') and not f.startswith('d')]
+        # key_list.sort()
+
         key_list = [f for f in os.listdir(folder) if
-                    f.endswith('.gr') and not f.startswith('d')]
+                    f.endswith('.chi') and not f.startswith('d')
+                    and int(f.split('.')[0]) % 2 == 1]
         key_list.sort()
 
         # Don't do the last one we had some problems with that one
@@ -129,17 +137,31 @@ if __name__ == '__main__':
         if key_list[0].endswith('.gr'):
             offset = .1
             skr = 0
+        elif key_list[0].endswith('.chi'):
+            skr = 8
+            offset = 5e-4
         # Load the data
-        data_list = [(np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 0],
-                      np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 1])
-                     for f in key_list]
+        data_list = [
+            (np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 0],
+             np.nan_to_num(np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 1]))
+            for f in key_list]
+        for a, b in data_list:
+            print(np.max(b))
+        print(len(data_list))
         # Specify the x limits:
         xlims = [
-            (0, 40),
-            (0, 10),
+            # (0, 40),
+            # (0, 10),
+            (0, 12),
+            (.8, 5)
         ]
         if not os.path.exists(save_folder):
             os.makedirs(save_folder)
         plot_temp_1d_data(Ts, data_list=data_list, x_lims=xlims,
-                          save_path=save_folder, plot_type='gr', save=True,
-                          plot=False)
+                          save_path=save_folder,
+                          # plot_type='gr',
+                          plot_type='chi',
+                          save=True,
+                          # plot=False,
+                          offset=offset
+                          )
