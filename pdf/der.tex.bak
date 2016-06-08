@@ -1,4 +1,14 @@
-\subsection{Analytical Gradients}
+\section{Theory}
+To properly understand the PDF and its limitations we need to derive its mathematics.
+The PDF has been previously derived many times so it is not re-derived here.
+This discussion of the PDF and its gradients use the notation of Farrow and Billinge. \cite{Farrow2009}
+\subsection{Derivation}
+Many of the above techniques require the gradient of the PES.
+This in turn requires the gradient of the PDF to be derived.
+Mathematicly treating thermal vibrations will also be discussed in this seciton.
+Systems which are truly extended materials, like powders with particle sizes larger than 10nm, are best formulated as systems with periodic boundaries.
+Thus, the equations for a periodicly bound PDF need to be developed as well, with their gradients.
+\subsection{Analytically Gradients}
 Many optimization algorithms and simulations methodologies, including HMC, require not only the potential energy of a given configuration but also the forces acting on that configuration.
 These forces are described by the gradient of potential energy of the system which in turn requires the gradient of the PDF.
 As previously shown the PDF is the Fourier Transform of the Debye equation.
@@ -20,22 +30,22 @@ where
     q_{iz} - q_{jz}
   \end{bmatrix}
 \end{eqnarray}
-where $Q$ is the scatter vector, $f_i$ is atomic scattering factor of the $i$th atom, and $r_{ij}$ is the distance between atoms $i$ and $j$ and has $q$ dependence.
+where $Q$ is the scatter vector, $f_i$ is atomic scattering factor of the $i$th atom, and $r_{ij}$ is the distance between atoms $i$ and $j$ and has $q$ dependence. \cite{Jeong2002}
 For simplicities sake we will break up $F(Q)$ so that
 \begin{equation}
-F(Q) = \alpha \sum_{j\neq i} \beta_{ij} \uptau_{ij} \Omega_{ij}
+F(Q) = \alpha \sum_{j\neq i} \beta_{ij} \uptau_{ij} \Omega_{ij} \label{eq:abto}
 \end{equation}
 where
 \begin{eqnarray}
-  \alpha = \frac{1}{N \langle f \rangle^{2}} \\
-  \beta_{ij} = f_i^{*}(Q)f_j(Q)\\
-  \uptau_{ij} = \exp(-\frac{1}{2}\sigma_{ij}^{2}Q^{2})\\
-  \Omega_{ij} = \frac{\sin(Qr_{ij})}{r_{ij}}
+  \alpha = \frac{1}{N \langle f \rangle^{2}} \label{eq:alpha} \\
+  \beta_{ij} = f_i^{*}(Q)f_j(Q)\label{eq:beta}\\
+  \uptau_{ij} = \exp(-\frac{1}{2}\sigma_{ij}^{2}Q^{2}) \label{eq:tau}\\
+  \Omega_{ij} = \frac{\sin(Qr_{ij})}{r_{ij}} \label{eq:omega}
 \end{eqnarray}
 
 \noindent The derivatives are as follows:
 \begin{equation}
-\frac{\partial}{\partial q_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} (\frac{\partial \uptau_{ij}}{\partial q_{i,w}}  \Omega_{ij} + \uptau_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}})
+\frac{\partial}{\partial q_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} (\frac{\partial \uptau_{ij}}{\partial q_{i,w}}  \Omega_{ij} + \uptau_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}}) \label{eq:grad_fq}
 \end{equation}
 where
 \begin{eqnarray}
@@ -46,7 +56,7 @@ where
 Since $\vec{u}_{ij}$ is a variable as well, we need the derivative with respect to it as well.
 Thus
 \begin{eqnarray}
-\frac{\partial}{\partial u_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} \frac{\partial \uptau_{ij}}{\partial u_{i,w}}  \Omega_{ij}
+\frac{\partial}{\partial u_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} \frac{\partial \uptau_{ij}}{\partial u_{i,w}}  \Omega_{ij}\\
 \frac{\partial \uptau_{ij}}{\partial u_{i,w}} = - \frac{\sigma_{ij}Q^{2} \uptau_{ij}}{r_{ij}}  (q_{i,w} - q_{j,w})
 \end{eqnarray}
 \subsubsection{Without ADPs}
@@ -60,15 +70,4 @@ and
 \end{equation}
 use of these equations, when ADPs are not appropriate (like at cyrogenic temperatures), greatly speeds up the computaiton.
 
-\subsubsection{Periodic Boundary Conditions}
-Periodic boundary conditions can be helpful when simulating extended solids or large nanoparticles. In this case all the non-crystallinity is contained within the simulation box and the box is repeated to create the longer distance peaks observed in the PDF. To perform this we can break up the Debye equation into two main parts, the part that describes the interatomic distances within the simulation box and those between boxes. Neglecting the thermal motion portion:
-\begin{equation}
-  F(Q) = \frac{1}{N \langle f \rangle^{2}}(\sum_{j\neq i} f_i^{*}(Q)f_j(Q) \frac{\sin(Qr_{ij})}{r_{ij}} + \sum_{i,j} f_i^{*}(Q)f_j(Q) \frac{\sin(QR_{ij})}{R_{ij}})
-\end{equation}
-where
-\begin{eqnarray}
-  R = |\vec{r} + \vec{u}|\\
-  \vec{u} = \gamma_1*\vec{a} + \gamma_2*\vec{b} + \gamma_3*\vec{c}
-\end{eqnarray}
-\todo[inline]{Need to include PBC ADP math}
-\todo[inline]{Also should include PBC gradients, although they are trivial, maybe?}
+\input{pdf/pbc}

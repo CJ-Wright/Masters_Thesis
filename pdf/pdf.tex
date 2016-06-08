@@ -8,14 +8,32 @@
 
 \chapter{Atomic Pair Distribution Function: \\Theory and Computation} \label{ch:pdf}
 \section{Introduction}
-\todo[inline]{Need some introduction about why we want to use the PDF}
+Atomistic structural insight is essential for understanding and controlling a material's properties and functions, which has led to some of the most exciting advances in modern materials science and engineering.
+X-ray diffraction techniques are one of the most powerful tools for probing atomic structures with ultimate precision.
+Traditionally, thousands of diffraction peaks are analyzed using refinements of a structural  model with few parameters to determine the 3D structure of bulk single crystals with high precision \cite{Giacovazzo1992}.
+However, real engineered materials differ from ideal single crystals by showing a complexity in morphology, crystallite size, and atomic structure.
+The  X-ray Powder Diffraction method (XPD) is among the most widely used methods for solving the structure of micro-crystals.
+The XPD technique utilizes hundreds of diffraction peaks and constrains the refinement of the structural model to few parameters in order to resolve the structure \cite{Pecharsky2009}.
+Solving the atomic structure becomes difficult using traditional x-ray diffraction techniques when the size of the material or its important features is reduced to the nanometer scale with non-periodic or short-periodic atomic arrangements.
+Materials consisting of particles with sizes less than a few tens of nanometers, often called nanoparticles (NPs), are structurally more complex than their bulk cousins.
+This structural complexity is often attributed to the large number of surface atoms which have incomplete coordination spheres \cite{Sun2007}, surface relaxation \cite{Huang2008}, and surface environment effects \cite{Petkov2013, Gilbert2004, Marks1994}.
+These effects make the precise determination of 3D atomic structure of NPs far more complicated and problematic \cite{Billinge2007a}.
+
+Over the years many advances have been made to address the famous ``nanostructure problem''\cite{Billinge2007a}, for example, by using the atomic Pair Distribution Function (PDF) analysis of x-ray and neutron total scattering data \cite{Farrow2007, Page2011, Proffen1997}, PDF analysis combined with molecular dynamics simulations \cite{Zhang2008, Gilbert2013}, bulk crystallography approaches \cite{Jadzinsky2007}, and others.
+Attempts with non-diffraction based approaches have also been made,  including Transmission Electron Microscopy (TEM) \cite{Cui2013},
+Raman spectroscopy\cite{Kassiba2002}, Extended X-ray Absorption Fine-Structure Spectroscopy (EXAFS)\cite{Frenkel2007} and Nuclear Magnetic Resonance (NMR) \cite{Arnold2013}.
+
+In this chapter the PDF and its gradients will be derived.
+These expressions, when combined with the PES and statistical mechanical treatment from chapter \ref{ch:pes_e}, will allow for the solution of atomic structures.
+This chapter will also develop a computational framework for evaluating the PDF and its gradients using Graphical Processing Units (GPUs) to enable fast structural solution.
+
 \input{pdf/der}
 
 \input{pdf/comp}
 
 \section{Conclusions}
-In this chapter we developed the graidents of the PDF in the descrite and periodic boundary condition case.
+In this chapter we developed the gradients of the PDF in the discreet and periodic boundary condition case.
 We also developed the computational implementation of the PDF equations.
-This implementaiton emphasized use of GPUs to compute the PDF and its gradient.
-The GPU software was futhur sped up by mapping the computation to atom pairs rather than atom by atom.
+This implementation emphasized use of GPUs to compute the PDF and its gradient.
+The GPU software was further sped up by mapping the computation to atom pairs rather than atom by atom.
 Finally, the speed of the GPU implementation was checked against the CPU implementation via speed benchmarking.

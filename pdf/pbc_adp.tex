@@ -10,11 +10,11 @@ where:
     \hat{D}_{ij} = \frac{\vec{D}_{ij}}{R_{ij}}\\
     \vec{D}_{ij} = \vec{r} + \vec{\nu}
 \end{eqnarray}
-The additive nature of the first and second term of equation \ref{eq:adp_pbc} implies that we can seperate the gradient.
+The additive nature of the first and second term of equation \ref{eq:adp_pbc} implies that we can separate the gradient.
 Thus the gradient is:
 \frac{\partial}{\partial q_{i,w}} F{ (Q )} = \alpha (\sum_{i!=j} \beta_{ij} (\frac{\partial \uptau_{ij}}{\partial q_{i,w}}  \Omega_{ij} + \uptau_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}}) + \sum_{i,j} \beta_{ij} (\frac{\partial \uptau_{ij}}{\partial q_{i,w}}  \Omega_{ij} + \uptau_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}})) \label{eq:pbc_grad_fq}
 The first term gradient will be the same as equation \ref{eq:grad_fq}.
-The second term however will have its own destinct gradients:
+The second term however will have its own distinct gradients:
 \begin{eqnarray}
   \frac{\partial \eta_{ij}}{\partial q_{i,w}}  = \frac{Q\cos(QR_{ij}) - \eta_{ij}}{R_{ij}^{2}} (q_{i,w}-q_{j,w} + \nu_{w})\\
   \frac{\partial \zeta_{ij}}{\partial q_{i,w}} = \frac{\varsigma_{ij}Q^{2} \eta_{ij}}{R_{ij}^{3}}   ((q_{i,w} - q_{j,w} +\nu_{w}) \varsigma_{ij}- (u_{i,w} - u_{j,w})R_{ij}^{2})\\

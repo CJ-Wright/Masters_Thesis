@@ -5,9 +5,9 @@ This discussion of the PDF and its gradients use the notation of Farrow and Bill
 \subsection{Derivation}
 Many of the above techniques require the gradient of the PES.
 This in turn requires the gradient of the PDF to be derived.
-Mathematicly treating thermal vibrations will also be discussed in this seciton.
+Mathematically treating thermal vibrations will also be discussed in this section.
 Systems which are truly extended materials, like powders with particle sizes larger than 10nm, are best formulated as systems with periodic boundaries.
-Thus, the equations for a periodicly bound PDF need to be developed as well, with their gradients.
+Thus, the equations for a periodically bound PDF need to be developed as well, with their gradients.
 \subsection{Analytically Gradients}
 Many optimization algorithms and simulations methodologies, including HMC, require not only the potential energy of a given configuration but also the forces acting on that configuration.
 These forces are described by the gradient of potential energy of the system which in turn requires the gradient of the PDF.
@@ -31,7 +31,7 @@ where
   \end{bmatrix}
 \end{eqnarray}
 where $Q$ is the scatter vector, $f_i$ is atomic scattering factor of the $i$th atom, and $r_{ij}$ is the distance between atoms $i$ and $j$ and has $q$ dependence. \cite{Jeong2002}
-For simplicities sake we will break up $F(Q)$ so that
+For simplicity's sake we will break up $F(Q)$ so that
 \begin{equation}
 F(Q) = \alpha \sum_{j\neq i} \beta_{ij} \uptau_{ij} \Omega_{ij} \label{eq:abto}
 \end{equation}
@@ -68,6 +68,6 @@ and
  \begin{equation}
 \frac{\partial}{\partial q_{i,w}} F{ (Q )} = \alpha \sum_{j} \beta_{ij} \frac{\partial \Omega_{ij}}{\partial q_{i,w}}
 \end{equation}
-use of these equations, when ADPs are not appropriate (like at cyrogenic temperatures), greatly speeds up the computaiton.
+use of these equations, when ADPs are not appropriate (like at cryogenic temperatures), greatly speeds up the computation.
 
 \input{pdf/pbc}
