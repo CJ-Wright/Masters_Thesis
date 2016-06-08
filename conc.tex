@@ -1,1 +1,17 @@
 \chapter*{Conclusions}
+The work here presents one of the most complete end to end approaches to processing, analyzing, and simulating atomic pair distribution function data.
+The goals of this work were to build a modular, quick, and robust method for handeling both experimental PDF data and solving atomic structures from said data.
+
+The statistical mechanical PES solvers were designed to robustly find atomic solutions which are global minima of the PES.
+This was accomplished by using some of the most advanced Monte Carlo algorithms and samplers.
+The analytical equations for the PES and its gradients were derived to provide the quickest searches.
+
+The PDF gradients were derived and implemented as GPU kernels to furthur speed up the PES search.
+The inclusion of the GPUs, combined with the atom pair mapping, were found to provide a 10x to 100x speedup over a multiprocessed CPU methodology.
+
+The extensive benchmarking of the NUTS-HMC system presented in chapters \ref{ch:pes_e} and \ref{ch:pdf} showcased the system's robustness, speed, and effectiveness.
+Interestingly it seems the the simulations also helped to elucidate the relationship between $Rw$ and the resulting fit of the secondary metrics, including radial bond distribution.
+This is particularly important as it begins to establish $Rw$ goals and a relationship between $Rw$ and the confidence that features from the underlying structure that the PDF represents are reproduced by the structural model which is produced my Monte Carlo modeling.
+It seems that the theshold for acceptable $Rw$ in Monte Carlo modeling needs to be quite lower than the current literature standards to properly reproduce the structure.
+
+A novel data processing workflow was also developed
