@@ -1,14 +1,14 @@
 \section{Potential Energy Surfaces} \label{sec:pes}
-A PES simply describes the potential energy of the system as a function of all its relevent coordinates in phase space, essentially providing a mapping $\mathbb{R}^{n} \rightarrow \mathbb{R}$, where $\mathbb{R}$ is the set of real numbers and $n$ is the number of positional parameters in the system.
+A PES simply describes the potential energy of the system as a function of all its relevant coordinates in phase space, essentially providing a mapping $\mathbb{R}^{n} \rightarrow \mathbb{R}$, where $\mathbb{R}$ is the set of real numbers and $n$ is the number of positional parameters in the system.
 Usually these coordinates are the positions of the atoms $q$ and their conjugate the momenta $p$.
 Note that there could be more variables associated with the system, for instance the magnetic moments of the atoms could play a role in describing the system.
-In this magnetic system there would be positional variables for the atomwise spin vectors and their "momenta".
+In this magnetic system there would be positional variables for the atom-wise spin vectors and their "momenta".
 Application of the term "momenta" might seem odd here, as the magnetic spin does not have a mass or a velocity.
-However, since the magnetic "position" is defined on the PES we need to describe its conjugate varible to properly formulate Hamitonian dynamics and the kinetic portion of the PES.
+However, since the magnetic "position" is defined on the PES we need to describe its conjugate variable to properly formulate Hamiltonian dynamics and the kinetic portion of the PES.
 
 \subsection{Experimentally Derived Potential Energy Surfaces}
 Generally PESs are obtained from purely computational experiments including: ab-initio DFT, classical approximations via the embedded atom method, or even parameter driven models with experimentally fitted parameters.
-However, one can dervive a PES from an experiment which describes how well the model reproduces the experimental data.
+However, one can derive a PES from an experiment which describes how well the model reproduces the experimental data.
 In this case one needs a theoretical and computational framework mapping the atomistic variables of the simulation to the same space of the data obtained from the experiment.
 This allows the experiment to be compared directly against the predicted data via an experimentally derived PES.
 \subsubsection{Potentials}
@@ -32,10 +32,10 @@ and $A_{calc, j}$ is the calculated data for a single atom interacting with the 
 Note that $A_{calc}$ has a dependence on $q$, the positions of the system.
 
 The $Rw$ and $\chi^{2}$ potentials have been reported numerous times. \cite{Petkov2014, Masadeh2007, Choi2013, McGreevy, Proffen1997}
-Essentially these potentials measure the least squares distance between the observed scattering and the predicted scattering poviding a way to quantify the agreement between the model and experiment.
-While $RW$ and $\chi^{2}$ are now standard in the PDF community, the $\mathrm{INVERT}$ potential is fairly new and aims to incorperate descriptions of the structural symmetry into the PES. \cite{Cliffe2010, Cliffe2013}
+Essentially these potentials measure the least squares distance between the observed scattering and the predicted scattering providing a way to quantify the agreement between the model and experiment.
+While $RW$ and $\chi^{2}$ are now standard in the PDF community, the $\mathrm{INVERT}$ potential is fairly new and aims to incorporate descriptions of the structural symmetry into the PES. \cite{Cliffe2010, Cliffe2013}
 In the case of the $\mathrm{INVERT}$ potential NMR or other symmetry sensitive data is used to describe the number of unique atomic coordinations.
-This is then used to describe the number of unique atomwise pair distribution functions, thus causing systems with more or less unique coordination environments to be higher in energy.
+This is then used to describe the number of unique atom-wise pair distribution functions, thus causing systems with more or less unique coordination environments to be higher in energy.
 This approach has been shown to be useful for \ce{C60} and other systems which are highly symmetric, creating a PES with an easier to find minima. \cite{Cliffe2010, Cliffe2013}
 However, many times this kind of data is unavailable when refining the structure causing the potential to be less useful.
 Additionally, this potential introduces an element of user bias as the refiner must decide, based on some spectroscopic data, how many unique environments are in the material.
@@ -59,4 +59,4 @@ This bias could be removed by using one of the other potentials with a method fo
 \end{equation}
 where $\gamma_{i, w}$ is the $i$th arbitrary positional variable in the $w$th direction.
 The concept of an "arbitrary positional variable" might seem a bit cumbersome but it allows us to define the forces for any atomic parameter which can be represented as a vector in 3-space.
-This comes in handy when trying to define the forces acting on variables like anistropic displacement parameters or atomic magnetic spins.
+This comes in handy when trying to define the forces acting on variables like anisotropic displacement parameters or atomic magnetic spins.

@@ -2,7 +2,7 @@
 \section{Ensembles} \label{sec:ens}
 While PESs describe which atomic configurations are the most desirable and how the atoms would like to get there, the ensemble describes how the atoms move on the PES.
 The abstraction of the PES from the ensemble is an important one, as it allows for the reuse and exchange of both PESs and ensembles for a wide array of problems.
-Statistical mechanical ensembles can be described in two ways, analyticly and stochasticly.
+Statistical mechanical ensembles can be described in two ways, analytically and scholastically.
 For long simulation times and fine enough numerical or analytical integration these two descriptions should be identical.
 
 In either case one starts by defining the Hamiltonian, $\mathcal{H}$, as the total energy of the system.
@@ -12,26 +12,26 @@ Thus, the Hamiltonian is described as the sum of the potential $U(q)$ and kineti
 \end{equation}
 \noindent where $K(p) = \frac{1}{2}\sum_{i} \frac{p_{i}^{2}}{m_{i}}$ and $i$ denotes the $i$th particle.
 
-Analyticly one generally defines a partition function, which describes the sum of probabilities over all potential atomic states.
+Analytically one generally defines a partition function, which describes the sum of probabilities over all potential atomic states.
 \begin{equation}
 \Xi = \sum_{i} P_{i}(q, p)
 \end{equation}
 where $P_{i}$ is the probability of the $i$th state and is a function of the total energy of that state.
-This partition function can then be used to obtain the probabilty of any specific state.
+This partition function can then be used to obtain the probability of any specific state.
 The relationship of the probability of a state to the state's energy and other properties depends on the ensemble being used.
 %\begin{equation}
 %P(q, p) = \frac{\delta(E - \mathcal{H}(q, p))}{W}
 %\end{equation}
 %where $E$ is the energy of the system, W is the total number of states in the system, and $\delta$ is the Dirac Delta Function.
 
-For the cannonical ensemble the partition function is probability is:
+For the canonical ensemble the partition function is probability is:
 \begin{equation}
 Q(N, V, T) = \exp(\frac{-\mathcal{H}(q, p)}{k_{b}T})
 \end{equation}
 where $k_{b}$ is the Boltzmann constant and $T$ is the temperature of the system. \cite{McQuarrie2000}
 
 \subsection{Monte Carlo Modeling}
-Monte Carlo can be used to simulate a statistical mechanical ensemble which can not be solved analyticly.
+Monte Carlo can be used to simulate a statistical mechanical ensemble which can not be solved analytically.
 In most Monte Carlo systems the ensemble is simulated by randomly changing one of the system parameters and comparing the energy of the new system against the energy of the old system.
 If the energy of the new system is lower than the current energy then the new configuration is accepted.
 Otherwise the new system is rejected unless
@@ -39,18 +39,18 @@ Otherwise the new system is rejected unless
 \exp(\frac{-\Delta E}{E_{T}}) < u
 \end{equation}
 where u is a random number $[0, 1)$ and $E_{T}$ is the thermal energy characteristic to the system.
-The ability of Monte Carlo modeling to accept ``bad'' moves allows the system to hop out of local energy minima during the search for the global mimimum.
+The ability of Monte Carlo modeling to accept ``bad'' moves allows the system to hop out of local energy minima during the search for the global minimum.
 Reverse Monte Carlo (RMC) is similar to Monte Carlo except it uses $\chi^{2}$ as the PES.\cite{McGreevy}
 
-Despite the utility of RMC, and its wide use in the x-ray scattering commmunity, as Hoffman and Gelman state ``Not all MCMC [Markov Chain Monte Carlo] algorithms are created equal''.\cite{Hoffman2014}
+Despite the utility of RMC, and its wide use in the x-ray scattering community, as Hoffman and Gelman state ``Not all MCMC [Markov Chain Monte Carlo] algorithms are created equal''.\cite{Hoffman2014}
 RMC, similar to standard Monte Carlo simulations, samples from the PES at random, usually by translating atoms in the system randomly.
-This creates a less efficent, random walk based, exploration of the PES.\cite{Hoffman2014, Neal1993}
+This creates a less efficient, random walk based, exploration of the PES.\cite{Hoffman2014, Neal1993}
 Thus, methods for suppressing this random walk nature, while still searching the potential energy surface fully are needed.
 
 \subsection{Hamiltonian Monte Carlo}
 Hybrid or Hamiltonian Monte Carlo (HMC) can help to address some of these issues.
-HMC was developed orginally in the lattice quantum chromodynamic community and provides a more efficent, more scalable approach to PES sampling for Monte Carlo.\cite{Duane1987216, Neal2011}
-In HMC the PES is explored using Hamiltonian dynamics, essentially follwoing the gradient of the PES to find more acceptable configurations.
+HMC was developed originally in the lattice quantum chromodynamics community and provides a more efficient, more scalable approach to PES sampling for Monte Carlo.\cite{Duane1987216, Neal2011}
+In HMC the PES is explored using Hamiltonian dynamics, essentially following the gradient of the PES to find more acceptable configurations.
 
 
 In order to model dynamics we need to describe the motion of the particles in our system, thus:
@@ -83,13 +83,13 @@ Using this notation the gradient is
 where $\frac{\partial}{\partial q_{i, w}}$ is the derivative with respect to $q$ where $w$ denotes direction of the derivative ($x$, $y$, or $z$),  $n$ is the number of atoms and $U$ is the potential which depends on $q$, and $\vec{\mathcal{F}_{i}}$ is the "force" on the $i$th atom.
 Using these equations new potential configurations are proposed from the PES.
 These proposals are checked against the standard Metropolis criteria discussed above, except that the change in potential energy $\Delta E$ is replaced with the change in the Hamiltonian $\Delta \mathcal{H}$.
-Note that while this sampling closely simulates the cannonical ensemble, it is not exactly the same.
-Usually the cannonical ensemble is formulated as microcannonical ensembles in contact with an infinite heat bath at a given temperature, or a set of microcannoical ensembles which exchange thermal energy.
+Note that while this sampling closely simulates the canonical ensemble, it is not exactly the same.
+Usually the canonical ensemble is formulated as microcanonical ensembles in contact with an infinite heat bath at a given temperature, or a set of microcanonical ensembles which exchange thermal energy.
 However, the HMC ensemble presented here has a momentum bath instead of a temperature bath.
 One could imagine the atoms sitting in a simulation box which has walls which can toggle their thermal exchange.
 Initially the box starts in the momentum bath, allowing the atoms to come to equilibrium with the bath momentum.
 The box is then removed from the bath causing it to become adiabatic.
-Hamiltonian dynamics are then propagated inside the box, essentially running a microcannonical simulation.
+Hamiltonian dynamics are then propagated inside the box, essentially running a microcanonical simulation.
 Once the dynamics are finished the energy of the system is checked with the Metropolis criteria and the box is reintroduced to the momentum bath and the process starts again.
 
 \subsubsection{No-U-Turn Sampling}
@@ -117,7 +117,7 @@ The partition function is
 \begin{equation}
   \Xi = \sum_{N=0}^{\infty} Q(N, V, T) \exp{\frac{N\mu\beta}{T}}
 \end{equation}
-where $Q(N, V, T)$ is the Cannonical partition function discussed above, $\mu$ is the chemical potential. \cite{McQuarrie}
+where $Q(N, V, T)$ is the Canonical partition function discussed above, $\mu$ is the chemical potential. \cite{McQuarrie}
 This is translated into a Monte Carlo system, producing Grand Canonical Monte Carlo (GCMC).
 \subsubsection{Grand Canonical Monte Carlo}
 While the probabilities for atomic motion are the same as in the Canonical Ensemble, the addition or removal of an atom have their own probabilities. For the addition of an atom the probability is formally:
@@ -133,7 +133,7 @@ Thus, we roll them into the definition of the chemical potential, essentially se
 This makes certain that our simulation does not change if we change the overall cell volume.
 A GCMC move consists of creating a new atomic configuration, where an atom has been added or removed, and checking the above criteria.
 However, previous results have shown that this method is computationally expensive in dense liquids, and exceedingly expensive in solid materials.
-The long simulation times are due to the random nature of the atomic additions or removals which produce: over-tightly packed atoms, atoms in the middle of nowhere, or unphysical vacancies.
+The long simulation times are due to the random nature of the atomic additions or removals which produce: over-tightly packed atoms, atoms in the middle of nowhere, or nonphysical vacancies.
 These configurations are rejected by the GCMC criteria but their probability of being sampled is much higher than configurations which are lower in energy, since the number of incorrect ways to add/remove atoms is much larger than the correct ways.
 Thus, we have implemented methods for biasing the atomic addition positions and the atomic removals toward configurations which are more likely to be accepted.
 
@@ -156,9 +156,9 @@ This way atoms which add the most energy to the system are more likely to be rem
     \centering
     \subfloat[]{\includegraphics[width=.8\textwidth]{snapshot}\label{subfig: biasing_map}} \\
     \subfloat[]{\includegraphics[width=.8\textwidth]{gc_positioning_snapshot}\label{subfig: insertian_trials}}
-	\caption[Addition biasing with a Lennard Jones potential.]{These figures show slices of the three dimensional addition potential energy surface. a) shows the addition probabilty, with the red area most probable. b) shows the results of trial insertions, where the green spheres denote where insertions were attempted.}
+	\caption[Addition biasing with a Lennard Jones potential.]{These figures show slices of the three dimensional addition potential energy surface. a) shows the addition probability, with the red area most probable. b) shows the results of trial insertions, where the green spheres denote where insertions were attempted.}
 	\label{fig:biasing}
 \end{figure}
 Figure \ref{subfig: biasing_map} shows an example map for atomic addition in a Au54 atom system, with an Au55 atom target.
-Figure \ref{subfig: insertian_trials} shows the results of a few GCMC insertians with biasing, showing the focusing of the simulation on the missing atom.
+Figure \ref{subfig: insertian_trials} shows the results of a few GCMC insertions with biasing, showing the focusing of the simulation on the missing atom.
 The high density of insertions around the missing atom would not have been possible without the biasing.
