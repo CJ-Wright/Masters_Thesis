@@ -1,3 +1,4 @@
+\graphicspath{{./pes_e/figures/}}
 \section{Ensembles} \label{sec:ens}
 While PESs describe which atomic configurations are the most desirable and how the atoms would like to get there, the ensemble describes how the atoms move on the PES.
 The abstraction of the PES from the ensemble is an important one, as it allows for the reuse and exchange of both PESs and ensembles for a wide array of problems.
@@ -12,32 +13,31 @@ Thus, the Hamiltonian is described as the sum of the potential $U(q)$ and kineti
 \noindent where $K(p) = \frac{1}{2}\sum_{i} \frac{p_{i}^{2}}{m_{i}}$ and $i$ denotes the $i$th particle.
 
 Analyticly one generally defines a partition function, which describes the sum of probabilities over all potential atomic states.
-\[
+\begin{equation}
 \Xi = \sum_{i} P_{i}(q, p)
-\]
+\end{equation}
 where $P_{i}$ is the probability of the $i$th state and is a function of the total energy of that state.
 This partition function can then be used to obtain the probabilty of any specific state.
 The relationship of the probability of a state to the state's energy and other properties depends on the ensemble being used.
-\todo[inline]{double check against McQuerry, cite it, also move from probabilities to partition functions, develop partition functions above}
-For the microcanonical ensemble the probability of a state is:
-\begin{equation}
-P(q, p) = \frac{\delta(E - \mathcal{H}(q, p))}{W}
-\end{equation}
-where $E$ is the energy of the system, W is the total number of states in the system, and $\delta$ is the Dirac Delta Function.
+%\begin{equation}
+%P(q, p) = \frac{\delta(E - \mathcal{H}(q, p))}{W}
+%\end{equation}
+%where $E$ is the energy of the system, W is the total number of states in the system, and $\delta$ is the Dirac Delta Function.
 
-However, for the cannonical ensemble the probability is:
+For the cannonical ensemble the partition function is probability is:
 \begin{equation}
-P(q, p) = \exp(\frac{E-\mathcal{H}(q, p)}{k_{b}T})
+Q(N, V, T) = \exp(\frac{-\mathcal{H}(q, p)}{k_{b}T})
 \end{equation}
+where $k_{b}$ is the Boltzmann constant and $T$ is the temperature of the system. \cite{McQuarrie2000}
 
 \subsection{Monte Carlo Modeling}
 Monte Carlo can be used to simulate a statistical mechanical ensemble which can not be solved analyticly.
 In most Monte Carlo systems the ensemble is simulated by randomly changing one of the system parameters and comparing the energy of the new system against the energy of the old system.
 If the energy of the new system is lower than the current energy then the new configuration is accepted.
 Otherwise the new system is rejected unless
-\[
+\begin{equation}
 \exp(\frac{-\Delta E}{E_{T}}) < u
-\]
+\end{equation}
 where u is a random number $[0, 1)$ and $E_{T}$ is the thermal energy characteristic to the system.
 The ability of Monte Carlo modeling to accept ``bad'' moves allows the system to hop out of local energy minima during the search for the global mimimum.
 Reverse Monte Carlo (RMC) is similar to Monte Carlo except it uses $\chi^{2}$ as the PES.\cite{McGreevy}
@@ -153,8 +153,12 @@ Atomic deletion follows a similar biasing procedure, calculating the energy of e
 This way atoms which add the most energy to the system are more likely to be removed.
 
 \begin{figure}
-	\caption[2D slice of addition biasing with Rw and Lennard Jones potentials.]{2D slice of addition biasing with Rw and Lennard Jones potentials. Note the similarity of the minima positions}
+    \centering
+    \subfloat[]{\includegraphics[width=.8\textwidth]{snapshot}\label{subfig: biasing_map}} \\
+    \subfloat[]{\includegraphics[width=.8\textwidth]{gc_positioning_snapshot}\label{subfig: insertian_trials}}
+	\caption[Addition biasing with a Lennard Jones potential.]{These figures show slices of the three dimensional addition potential energy surface. a) shows the addition probabilty, with the red area most probable. b) shows the results of trial insertions, where the green spheres denote where insertions were attempted.}
 	\label{fig:biasing}
 \end{figure}
-Figure \ref{fig:biasing} shows an example map for atomic addition in a Au54 atom system, with an Au55 atom target.
-\todo[inline]{Include figure which shows the configurational biasing map}
+Figure \ref{subfig: biasing_map} shows an example map for atomic addition in a Au54 atom system, with an Au55 atom target.
+Figure \ref{subfig: insertian_trials} shows the results of a few GCMC insertians with biasing, showing the focusing of the simulation on the missing atom.
+The high density of insertions around the missing atom would not have been possible without the biasing.
