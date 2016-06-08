@@ -2,6 +2,7 @@
 Using the $Q$ resolution binning and masking developed in sections \ref{subsec:qres} and \ref{subsec:mask} the images can be properly integrated.
 Generally, images are integrated by taking the mean value of the pixels in a ring.
 However, other statistical measures of the average value can be used, like the median.
+Note that all the integrations done here use the pixels as they are, without pixel splitting, minimizing the covariance of the resulting $I(Q)$.\cite{Yang2014}
 
 Figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask} show the importance of masking and the choice of average function.
 All the figures were produced using the same dataset, 50 \si{\degree}C \ce{Pr2NiO4} taken at the APS's 11-ID-B on a Perkin Elmer area detector.
@@ -11,18 +12,18 @@ Subfigure c) for figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask}
 The high $Q$ subfigures d) and f) in figures \ref{fig:workflow_no_mask}-\ref{fig:workflow_auto_mask} show the ``kink'' effect of the detector edge and beamstop holder, where there is a dip in the $I(Q)$ scattering when the rings include the edge of the detector.
 This effect seems to be due to both errors in the edge pixel intensity and the beamstop holder as masking of the edges only seems to provide only partial removal of the issue.
 It is important to note that while integration using the mean of the ring has issues with only the edge mask, as evidenced by the change in slope in \ref{fig:workflow_edge_mask} d) around 29.5 \iA, the median integration does not include this error.
-Idealy the detector would have a normal distribution of pixel intensity for a given ring, which would imply an equivalency between the mean and median $I(Q)$ values.
-Despite the closeness of the mean and median once the final mask has been created, it seems that the median is more relialbe, as it was less effected by the beamstop holder in figure \ref{fig:workflow_edge_mask}.
+Ideally the detector would have a normal distribution of pixel intensity for a given ring, which would imply an equivalency between the mean and median $I(Q)$ values.
+Despite the closeness of the mean and median once the final mask has been created, it seems that the median is more reliable, as it was less effected by the beamstop holder in figure \ref{fig:workflow_edge_mask}.
 Thus, for subsequent integrations discussed in this work the median is used to avoid any defective features that the masking algorithm may have missed.
 
 %\begin{landscape}
-\foreach \n/\o in {no_mask/with no mask, edge_mask/with only an edge mask, auto_mask/combining an edge mask and the automaticly generated mask}{
+\foreach \n/\o in {no_mask/with no mask, edge_mask/with only an edge mask, auto_mask/combining an edge mask and the automatically generated mask}{
     \begin{figure}[!h]
     \centering
     \foreach \m in {img, mask, ave, std, high_q_ave, high_q_std}{
         \subfloat[]{\includegraphics[width=.4\textwidth]{\n_\m}}
         }
-    \caption{Masking, average, and standard deviation of an example x-ray total scattering measurement. This image was produced \o. a) the image, b) the mask, c) the mean and median values, d) the standard deviation (normalized to the median), e) a closeup of the 28 \iA to 31 \iA $Q$ range for the mean and median, f) 28 \iA to 31 \iA $Q$ range for the standard deviation}
+    \caption[Masking, average, and standard deviation of an example x-ray total scattering measurement with \o.]{Masking, average, and standard deviation of an example x-ray total scattering measurement. This image was produced \o. a) the image, b) the mask, c) the mean and median values, d) the standard deviation (normalized to the median), e) a closeup of the 28 \iA to 31 \iA $Q$ range for the mean and median, f) 28 \iA to 31 \iA $Q$ range for the standard deviation}
     \label{fig:workflow_\n}
     \end{figure}
 }
