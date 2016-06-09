@@ -45,14 +45,17 @@ def plot_temp_1d_data(temps, data_list, x_lims=None, save_path=None, plot=True,
 
         # for each temp/data plot the temperature and data
         ylim_min = None
+        ylim_max = None
         for idx in range(len(temps)):
             x, y = data_list[idx]
             print(np.max(y), idx)
             colorVal = scalarMap.to_rgba(idx)
             ax1.plot(x, y + idx * offset, color=colorVal, lw=.5)
             ax2.plot(Ts[idx], y[-1] + idx * offset, marker='o', color=colorVal)
-            if ylim_min is None or ylim_min > np.min(np.min(y + idx * offset)):
+            if ylim_min is None or ylim_min > np.min(y + idx * offset):
                 ylim_min = np.min(y + idx * offset)
+            if ylim_max is None or ylim_max < np.max(y + idx * offset):
+                ylim_max = np.max(y + idx * offset)
 
         # Set the x-axis to the temperatures for the temp plot
         ax2.locator_params(nbins=5, tight=True)
@@ -65,7 +68,7 @@ def plot_temp_1d_data(temps, data_list, x_lims=None, save_path=None, plot=True,
         elif plot_type == 'chi':
             ax1.set_xlabel(r"$Q (\AA^{-1})$")
             ax1.set_ylabel(r"$I (Q) $")
-        ax1.set_ylim(ylim_min)
+        ax1.set_ylim(ylim_min, ylim_max)
         ax1.set_xlim(xmin, xmax)
 
         if save:
@@ -89,8 +92,9 @@ if __name__ == '__main__':
 
     # Sample names of interest for plotting
     ns = [
-        # 1, 2,
-        3, 4, 5,
+        1,
+        # 2,
+        # 3, 4, 5,
     ]
     ns.sort()
 
@@ -113,55 +117,60 @@ if __name__ == '__main__':
         print(df.keys())
         binned = dm.bin_on('img', interpolation={'T': 'linear'})
 
-        # Only to the G(r)
-        # key_list = [f for f in os.listdir(folder) if
-        #             f.endswith('.gr') and not f.startswith('d')]
-        # key_list.sort()
+        for plot_type in [
+            # 'gr',
+            'chi'
+        ]:
+            if plot_type is 'gr':
+            # Only to the G(r)
+                key_list = [f for f in os.listdir(folder) if
+                            f.endswith('.gr') and not f.startswith('d')]
+                # If we are working with G(r) files use these offset and read parameters
+                offset = .1
+                skr = 0
+                xlims = [
+                    (0, 40),
+                    (0, 10),
+                ]
+            else:
+                key_list = [f for f in os.listdir(folder) if
+                            f.endswith('.chi') and not f.startswith('d')
+                            and int(f.split('.')[0]) % 2 == 1]
+                skr = 8
+                offset = .02
+                xlims = [
+                    (0, 12),
+                    (.8, 5),
+                    (5, 12)
+                ]
+            key_list.sort()
 
-        key_list = [f for f in os.listdir(folder) if
-                    f.endswith('.chi') and not f.startswith('d')
-                    and int(f.split('.')[0]) % 2 == 1]
-        key_list.sort()
+            # Don't do the last one we had some problems with that one
+            key_list = key_list[:-1]
 
-        # Don't do the last one we had some problems with that one
-        key_list = key_list[:-1]
+            # Get the indexes for the data this ties the data to the temps
+            idxs = [int(os.path.splitext(f)[0]) for f in key_list]
+            Ts = binned['T'].values[idxs]
+            output = os.path.splitext(key_list[0])[-1][1:]
 
-        # Get the indexes for the data this ties the data to the temps
-        idxs = [int(os.path.splitext(f)[0]) for f in key_list]
-        Ts = binned['T'].values[idxs]
-        output = os.path.splitext(key_list[0])[-1][1:]
+            # The read params should be handled by filestore at some point
+            # However this needs analysisstore
 
-        # If we are working with G(r) files use these offset and read parameters
-        # The read params should be handled by filestore at some point
-        # However this needs analysisstore
-        if key_list[0].endswith('.gr'):
-            offset = .1
-            skr = 0
-        elif key_list[0].endswith('.chi'):
-            skr = 8
-            offset = 5e-4
-        # Load the data
-        data_list = [
-            (np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 0],
-             np.nan_to_num(np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 1]))
-            for f in key_list]
-        for a, b in data_list:
-            print(np.max(b))
-        print(len(data_list))
-        # Specify the x limits:
-        xlims = [
-            # (0, 40),
-            # (0, 10),
-            (0, 12),
-            (.8, 5)
-        ]
-        if not os.path.exists(save_folder):
-            os.makedirs(save_folder)
-        plot_temp_1d_data(Ts, data_list=data_list, x_lims=xlims,
-                          save_path=save_folder,
-                          # plot_type='gr',
-                          plot_type='chi',
-                          save=True,
-                          # plot=False,
-                          offset=offset
-                          )
+            # Load the data
+            data_list = [
+                (np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 0],
+                 np.nan_to_num(np.loadtxt(os.path.join(folder, f), skiprows=skr)[:, 1]))
+                for f in key_list]
+            for a, b in data_list:
+                print(np.max(b))
+            print(len(data_list))
+            # Specify the x limits:
+            if not os.path.exists(save_folder):
+                os.makedirs(save_folder)
+            plot_temp_1d_data(Ts, data_list=data_list, x_lims=xlims,
+                              save_path=save_folder,
+                              plot_type=plot_type,
+                              save=True,
+                              plot=False,
+                              offset=offset
+                              )

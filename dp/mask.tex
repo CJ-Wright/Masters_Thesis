@@ -10,13 +10,13 @@ Since non-textured powder scattering should produce the same pixel intensity for
 This method relies on the aforementioned pixel binning algorithm, as using miss sized bins will cause some pixels which should be in separate rings to be put together, and others which should be in the same ring to be separated.
 In that case the masking algorithm will overestimate the number of pixels to be masked due to the additional statistical variation in the sample.
 
-\subsubsection{Algorithm Design}
+\subsection{Algorithm Design}
 The masking algorithm procedure takes in the image and a description of the pixel positions in either distance from the point of incidence or in $Q$.
 The image is then integrated twice, producing both the mean $I(Q)$ and the standard deviation of each $I(Q)$ ring.
 The mask is created by comparing the pixel values against each ring's standard deviation and threshold $\alpha$.
 Note that the threshold can be a function of distance from the point of incidence or $Q$.
 
-\subsubsection{Test Cases}
+\subsection{Test Cases}
 To study the effectiveness of the masking we ran the algorithm against both simulated experimental data.
 In the case of the simulated data four systems were created:
 1) dead/hot pixels with varying numbers of defective pixels,
@@ -34,7 +34,7 @@ The height of the beamstop was 1024 pixels.
 The beamstop was calculated to attenuate the x-ray scattering signal at various transmittance, as various beamstop holder materials have different transmittance.
 Two version of the masking algorithm were run for each test case, one using the standard even bin sizes for the integration step, and one where the bin sizes are tuned to the pixel $Q$ resolution as discussed in \ref{subsec:qres}.
 
-\subsubsection{Results and Discussion}
+\subsection{Results and Discussion}
 \foreach \n in {100, 300, 500, 1000}{
 \begin{figure}
   \centering
@@ -111,7 +111,7 @@ This can be alleviated to some degree by using the previously generated mask as 
 While the masking algorithm still produces many diffuse masked pixels, they are far fewer, this may be due to the removal of the beamstop which could have contributed to the large standard deviation in figure \ref{fig:masked_single_xtal}.
 
 
-\subsubsection{Conclusions}
+\subsection{Conclusions}
 In this section the masking algorithm, which relies on both $Q$ resolution based binning and a statistical approach to azimuthal symmetry, was developed.
 The focus of this algorithm was to remove many unwanted detector features associated with pixel defect, beamstop holder associated scattering attenuation, and single crystal/texture peaks.
 Simulated data was used to evaluate the beamstop holder and dead/hot pixel masking capacity, while experimental data was used to check for single crystal and texture based masking.

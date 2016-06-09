@@ -13,7 +13,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}
 \usepackage{amsmath,amsfonts,amssymb}
-\usepackage[version=3]{mhchem} % Formula subscripts using \ce{}
+\usepackage[version=4]{mhchem} % Formula subscripts using \ce{}
 \usepackage{tikz}
 \usepackage{upgreek}
 \usepackage{lscape}
@@ -21,9 +21,12 @@
 % \usepackage{caption}
 \usepackage[position=t,singlelinecheck=off]{subfig}
 \usepackage{cleveref}
-\usepackage{todonotes}
+\usepackage
+%[disable]
+{todonotes}
 \usepackage{siunitx}
 \usepackage[section]{placeins}
+\usepackage[english]{babel}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -216,8 +219,8 @@ Brown University 2014\\ [\baselineskip]
                            %% uscthesisdoc.pdf documentation for
                            %% for alternative bibliographic systems.     
 
-\Appendix                 %% Use this command if you have one 
-% \Appendices                          %% appendix. Use \Appendices if you 
+% \Appendix                 %% Use this command if you have one 
+\Appendices                          %% appendix. Use \Appendices if you 
                           %% have more than one.
 	
 % \input{toolong}         %% Calls toolong.tex which contains
