@@ -144,57 +144,7 @@ def ring_blur_mask(img, q, alpha, bins, mask=None):
     return mask.astype(bool)
 
 
-hdrs = db(
-    run_folder='/mnt/bulk-data/research_data/USC_beamtime/APS_March_2016/S1/temp_exp')
-
-hdr = hdrs[0]
-print(hdr['start']['run_folder'], hdr['start']['uid'])
-
-# Get calibrations
-if not hdr['start']['is_calibration']:
-    cals = [db[u]['start']['poni'][0] for u in
-            hdr['start']['calibration']]
-else:
-    cals = [p for p in hdr['start']['poni']]
-
-geos = [retrieve(p) for p in cals]
-cal_dists = np.asarray(
-    [g.dist for g in geos]) * 100  # convert to meters
-
-events = get_events(hdr)
-ev0 = events.next()
-detz = ev0['data']['detz']
-cal_idx = np.argmin((detz - cal_dists) ** 2)
-geo = geos[cal_idx]
-img = retrieve(ev0['data']['img'])
-# Correct for polarization
-img /= geo.polarization(img.shape, .95)
-
-r = geo.rArray(img.shape)
-q = geo.qArray(img.shape) / 10  # pyFAI works in nm**-1, we want A**-1
-fq = geo.qArray(img.shape).ravel()
-fimg = img.ravel()
-bins = generate_q_bins(np.max(r) - .5 * geo.pixel1,
-                       geo.pixel1, geo.dist, geo.wavelength * 10**10)
-x = bin_edges_to_centers(bins)
-lidx = find_nearest(x, 28)
-uidx = find_nearest(x, 31)
-m0 = np.ones(img.shape, dtype=int).astype(bool)
-m1 = (m0 * mask_edge(img.shape, 30)).astype(np.bool)
-m2 = ring_blur_mask(img, q, (2., 2.), bins, mask=m1)
-
-muidx = find_nearest(x, 35)
-
-for name, mask in zip(
-        [
-            'no_mask',
-            'edge_mask',
-            'auto_mask'
-        ], [
-            m0,
-            m1,
-            m2
-        ]):
+def mask_int_and_save(img, q, mask, save_stem, name):
     img2 = img.copy()
     img2[~mask] = np.nan
 
@@ -209,7 +159,7 @@ for name, mask in zip(
             0]
 
     fig1, ax = plt.subplots()
-    ax.imshow(img2, norm=LogNorm(vmax=.99*np.max(img[mask])))
+    ax.imshow(img2, norm=LogNorm(vmax=.99 * np.max(img[mask])))
     plt.tight_layout()
 
     fig11, ax = plt.subplots()
@@ -249,7 +199,7 @@ for name, mask in zip(
     ax.legend()
     plt.tight_layout()
     if save:
-        for plot_name, fig in zip(['img', 'mask','ave', 'std', 'high_q_ave',
+        for plot_name, fig in zip(['img', 'mask', 'ave', 'std', 'high_q_ave',
                                    'high_q_std'],
                                   [fig1, fig11, fig2, fig3, fig4, fig5]):
             for end in ['png', 'pdf']:
@@ -257,4 +207,50 @@ for name, mask in zip(
                     save_stem + '{}_{}.{}'.format(name, plot_name, end))
     else:
         plt.show()
+
+hdrs = db(
+    run_folder='/mnt/bulk-data/research_data/USC_beamtime/APS_March_2016/S1/temp_exp')
+
+hdr = hdrs[0]
+print(hdr['start']['run_folder'], hdr['start']['uid'])
+
+# Get calibrations
+if not hdr['start']['is_calibration']:
+    cals = [db[u]['start']['poni'][0] for u in
+            hdr['start']['calibration']]
+else:
+    cals = [p for p in hdr['start']['poni']]
+
+geos = [retrieve(p) for p in cals]
+cal_dists = np.asarray(
+    [g.dist for g in geos]) * 100  # convert to meters
+
+events = get_events(hdr)
+ev0 = events.next()
+detz = ev0['data']['detz']
+cal_idx = np.argmin((detz - cal_dists) ** 2)
+geo = geos[cal_idx]
+img = retrieve(ev0['data']['img'])
+# Correct for polarization
+img /= geo.polarization(img.shape, .95)
+
+r = geo.rArray(img.shape)
+q = geo.qArray(img.shape) / 10  # pyFAI works in nm**-1, we want A**-1
+fq = geo.qArray(img.shape).ravel()
+fimg = img.ravel()
+bins = generate_q_bins(np.max(r) - .5 * geo.pixel1,
+                       geo.pixel1, geo.dist, geo.wavelength * 10**10)
+x = bin_edges_to_centers(bins)
+lidx = find_nearest(x, 28)
+uidx = find_nearest(x, 31)
+
+m0 = np.ones(img.shape, dtype=int).astype(bool)
+mask_int_and_save(img, q, m0, save_stem, 'no_mask')
+for ems in range(5, 35, 5):
+    m1 = (m0 * mask_edge(img.shape, 30)).astype(np.bool)
+    mask_int_and_save(img, q, m1, save_stem, 'edge_mask_{}'.format(ems))
+    for alpha in [5, 3, 2.5, 2]:
+        m2 = ring_blur_mask(img, q, alpha, bins, mask=m1)
+        mask_int_and_save(img, q, m2, save_stem, 'auto_mask_{}_{}'.format(
+            ems, alpha))
 exit()
