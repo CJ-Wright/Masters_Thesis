@@ -1,0 +1,36 @@
+\chapter{Conclusion}
+The work here presents one of the most complete end to end approaches to processing, analyzing, and simulating atomic pair distribution function data.
+The goals of this work were to build a modular, quick, and robust method for handling both experimental PDF data and solving atomic structures from said data.
+
+The statistical mechanical PES solvers were designed to robustly find atomic solutions which are global minima of the PES.
+This was accomplished by using some of the most advanced Monte Carlo algorithms and samplers.
+The analytical equations for the PES and its gradients were derived to provide the quickest searches.
+
+The PDF gradients were derived and implemented as GPU kernels to further speed up the PES search.
+The inclusion of the GPUs, combined with the atom pair mapping, were found to provide a 10x to 100x speedup over a multiprocessor based CPU methodology.
+
+The extensive benchmarking of the NUTS-HMC system presented in chapters \ref{ch:pes_e} and \ref{ch:pdf} showcased the system's robustness, speed, and effectiveness.
+Interestingly it seems the the simulations also helped to elucidate the relationship between $Rw$ and the resulting fit of the secondary metrics, including radial bond distribution.
+This is particularly important as it begins to establish $Rw$ goals and a relationship between $Rw$ and the confidence that features from the underlying structure that the PDF represents are reproduced by the structural model which is produced my Monte Carlo modeling.
+It seems that the threshold for acceptable $Rw$ in Monte Carlo modeling needs to be quite lower than the current literature standards to properly reproduce the structure.
+
+A novel data processing workflow was also developed which focused on using $Q$ resolution binning to create masks automatically and azimuthally integrate.
+The $Q$ resolution binning provided a significant improvement in the automated masking robustness, leading to much fewer false positives, as shown by a series of masks generated on simulated and experimental data.
+The effect of these masks on the median and mean azimuthal integration was also discussed, establishing masks as very important to the removal of the high $Q$ ``kink'' seen in 2D area detector data.
+Furthermore, a comparison was drawn between the median and mean integration, showing the median to be more reliable than the mean when working with data that could have residual detector defects.
+Overall the masking scheme was shown to reduce the standard deviation of the data significantly.
+
+Finally, preliminary results of x-ray total scattering measurements on \ce{Pr2NiO4} were presented.
+Interestingly, these results show a strong discrepancy between the PDF and $I(Q)$ data.
+Where the PDF shows a very static as synthesized structure, despite annealing, the associated $I(Q)$ data shows peak movement and formation.
+For the pre-annealed samples both the $I(Q)$ and PDF data show peak changes.
+Interestingly, the PDFs of the as synthesized and pre-annealed samples show very similar local structure at operating temperatures.
+
+Despite all the work presented here, there is of course much more to be done.
+Implementing new ensembles, like Parallel Tempering, and faster Grand Canonical Monte Carlo, may help to find solutions faster and with less user based parameter tuning.
+Building the mathematics and software to quickly compute the data from other atomistic experiments, including EXAFS, STEM, and neutron scattering, could help to produce structures which more fully describe all the available experimental data.
+Implementing the existing codebase in a more general High Performance Computing context would allow for the solution of much larger particles, and extended solids.
+Further benchmarking will help to probe the robustness of the algorithm with other systems, including systems with periodic boundary conditions.
+Faster scattering data processing will enable a quicker total turn around time from taking experimental images to producing atomic structures.
+
+Even without these enhancements it is expected that this work will become a standard method for solving atomic structures from x-ray total scattering experiments, having presented one of the most complete end to end x-ray processing and analysis systems.

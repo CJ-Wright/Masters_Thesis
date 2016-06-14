@@ -13,7 +13,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{graphicx}
 \usepackage{amsmath,amsfonts,amssymb}
-\usepackage[version=4]{mhchem} % Formula subscripts using \ce{}
+\usepackage[version=3]{mhchem} % Formula subscripts using \ce{}
 \usepackage{tikz}
 \usepackage{upgreek}
 \usepackage{lscape}
@@ -26,7 +26,6 @@
 {todonotes}
 \usepackage{siunitx}
 \usepackage[section]{placeins}
-\usepackage[english]{babel}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -155,7 +154,7 @@ Brown University 2014\\ [\baselineskip]
 
 % \preface{forward}    %% Calls forward.tex.  Optional.
 
-\makeLoT               %% Issue this command if your work has 
+% \makeLoT               %% Issue this command if your work has 
                        %% four or more tables.  A list of tables 
                        %% will be produced automatically.
 
@@ -179,8 +178,7 @@ Brown University 2014\\ [\baselineskip]
 \linenumbers
 \todototoc
 \listoftodos
-\todo[inline]{Need more references}
-\include{introduction}    %% Calls Introduction.tex
+\include{intro/introduction}    %% Calls Introduction.tex
                           %% Honors theses are required to 
                           %% have an Introduction.  For
                           %% Honors theses, the file 
@@ -203,7 +201,7 @@ Brown University 2014\\ [\baselineskip]
 
 \include{pno/pno}
 
-\include{conc}     %% Honors theses are required to 
+\include{conc/conc}     %% Honors theses are required to 
                           %% have an unnumbered chapter
                           %% for conclusions.  The file
                           %% Conclusion.tex should begin
@@ -211,7 +209,6 @@ Brown University 2014\\ [\baselineskip]
                           %% \chapter*{Conclusion}
                           %% followed by the appropriate
                           %% text.
-
 \include{biblio}
 % \printbibliography         %%  This is the command to use to
               			       %%  insert the bibliography if you are using

@@ -2,6 +2,7 @@
 Simply deriving the equations for the PDF is not enough.
 The many body nature of the PDF equation make analytical solution of the structure from the PDF impossible.
 Thus, the PDF must be computed from a structural candidates and compared against experimental results to evaluate the reliability of the model.
+These computations were implemented using high performance or high throughput computing methods (HPC or HTC) and Graphical Processing Units to provide quicker solutions.
 
 \subsection{HPC and GPUs}
 To properly solve the structure of materials the PDF will need to be computed many times and checked against experimental results.
@@ -11,9 +12,9 @@ Calculating these PDFs requires a fast, highly parallelized, computational frame
 \begin{figure}
     \includegraphics[width=\textwidth]{cpu_gpu}
     \caption[Comparison of the CPU and GPU chip architectures]{
-    Comparison of the CPU and GPU chip architectures from \cite{Chen2013}.
-    The ALU are the arithmetic logic units which perform the mathematical operations,
-    the DRAM holds most of the data, although it is slower to access,
+    Comparison of the central processing unit (CPU) and GPU chip architectures from \cite{Chen2013}.
+    The arithmetic logic unit (ALU) are the arithmetic logic units which perform the mathematical operations,
+    the dynamic random-access memory (DRAM) holds most of the data, although it is slower to access,
     the Cache holds rapidly accessed data,
     and the Control controls the execution of software.
     Note the greater number of ALUs on the GPU, the comparatively smaller cache,
@@ -24,7 +25,7 @@ Computing the PDF is an embarrassingly parallel problem.
 The basic procedure is to calculate the reduced structure factor $F(Q)$ for each atom pair and momentum transfer vector, sum over all the atom pairs, and Fourier transform the structure to the PDF.
 The first part of this procedure is perfectly parallelizable, as each atom pair is separate from the others.
 The summation over all the atomic reduced structure factors can be parallelized via distributed summing.
-Lastly the FFT can be parallelized using existing parallel FFT algorithms.
+Lastly the FFT can be parallelized using existing parallel Fast Fourier Transform (FFT) algorithms.
 
 Graphical Processing Units (GPUs) are particularly well suited to the task of computing PDFs.
 GPU chip architecture is designed to perform many task simultaneously by having potentially thousands of cores.

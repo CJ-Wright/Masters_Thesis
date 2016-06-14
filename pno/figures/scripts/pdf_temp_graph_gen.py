@@ -73,8 +73,10 @@ def plot_temp_1d_data(temps, data_list, x_lims=None, save_path=None, plot=True,
 
         if save:
             for output_type in ['png', 'eps', 'pdf']:
+                safe_xmin = str(xmin).replace('.', 'p')
+                safe_xmax = str(xmax).replace('.', 'p')
                 dest = os.path.join(save_path, '{}_to_{}_{}.{}'.format(
-                    xmin, xmax, plot_type, output_type
+                    safe_xmin, safe_xmax, plot_type, output_type
                 ))
                 fig.savefig(dest)
         if plot:
@@ -93,8 +95,8 @@ if __name__ == '__main__':
     # Sample names of interest for plotting
     ns = [
         1,
-        # 2,
-        # 3, 4, 5,
+        2,
+        3, 4, 5,
     ]
     ns.sort()
 
@@ -137,7 +139,7 @@ if __name__ == '__main__':
                             f.endswith('.chi') and not f.startswith('d')
                             and int(f.split('.')[0]) % 2 == 1]
                 skr = 8
-                offset = .02
+                offset = .05
                 xlims = [
                     (0, 12),
                     (.8, 5),
