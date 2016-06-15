@@ -1,6 +1,6 @@
 \chapter{Conclusion}
-The work here presents one of the most complete end to end approaches to processing, analyzing, and simulating atomic pair distribution function data.
-The goals of this work were to build a modular, quick, and robust method for handling both experimental PDF data and solving atomic structures from said data.
+This work presents one of the most complete end to end approaches to processing, analyzing, and simulating atomic pair distribution function data.
+The goals of this work were to build a modular, quick, and robust method for handling experimental PDF data and solving atomic structures.
 
 The statistical mechanical PES solvers were designed to robustly find atomic solutions which are global minima of the PES.
 This was accomplished by using some of the most advanced Monte Carlo algorithms and samplers.
@@ -26,11 +26,11 @@ Where the PDF shows a very static as synthesized structure, despite annealing, t
 For the pre-annealed samples both the $I(Q)$ and PDF data show peak changes.
 Interestingly, the PDFs of the as synthesized and pre-annealed samples show very similar local structure at operating temperatures.
 
-Despite all the work presented here, there is of course much more to be done.
+Despite all the work presented here there is, of course, more to be done.
 Implementing new ensembles, like Parallel Tempering, and faster Grand Canonical Monte Carlo, may help to find solutions faster and with less user based parameter tuning.
-Building the mathematics and software to quickly compute the data from other atomistic experiments, including EXAFS, STEM, and neutron scattering, could help to produce structures which more fully describe all the available experimental data.
-Implementing the existing codebase in a more general High Performance Computing context would allow for the solution of much larger particles, and extended solids.
+Building the mathematics and software to quickly compute the data from other atomistic experiments including, EXAFS, STEM, and neutron scattering, could help to produce structures which more fully describe the available experimental data.
+Implementing the existing codebase in a more general High Performance Computing context would allow for the solution of much larger particles and extended solids.
 Further benchmarking will help to probe the robustness of the algorithm with other systems, including systems with periodic boundary conditions.
 Faster scattering data processing will enable a quicker total turn around time from taking experimental images to producing atomic structures.
 
-It is expected that this work will become a standard method for solving atomic structures from x-ray total scattering experiments, having presented one of the most complete end to end x-ray processing and analysis systems.
+It is expected that this work will become a standard method for solving atomic structures from x-ray total scattering experiments, having presented one of the most complete x-ray processing and analysis systems.
