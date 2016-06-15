@@ -50,7 +50,7 @@ if __name__ == '__main__':
                     fig = plt.figure()
                     ax1 = fig.add_subplot(111)
                     names = ['As-Synthesized', '25 hr', '50 hr',
-                                                      '100 hr', '200 hr']
+                             '100 hr', '200 hr']
                     for i, (j, lab) in enumerate(zip(ns,
                                                      names)):
                         print(j)
@@ -92,18 +92,30 @@ if __name__ == '__main__':
                     else:
                         ax1.set_xlabel(r"$Q (\AA^{-1})$")
                         ax1.set_ylabel(r"$I (Q)$")
-                    plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
-                               ncol=2, mode="expand", borderaxespad=0.,
-                        framealpha=.1,
-                        fancybox=True)
-                    fig.tight_layout(rect=[0, 0, 1, .95], w_pad=1e-6)
-                    if save:
-                        for fmt in ['eps', 'png', 'pdf']:
-                            fig.savefig(os.path.join(
-                                dest,
-                                'S{}-{}_{}_{}_{}.{}'.format(min(ns), max(ns),
-                                                            length,
-                                                            event_name, output,
-                                                            fmt)))
-                    else:
-                        plt.show()
+                    for zz in ['', 'side']:
+                        if zz == '':
+                            plt.legend(bbox_to_anchor=(0., 1.02, 1., .102),
+                                       loc=3,
+                                       ncol=2, mode="expand", borderaxespad=0.,
+                                       framealpha=.1,
+                                       fancybox=True)
+                        else:
+                            plt.legend(bbox_to_anchor=(1.05, 1),
+                                       loc=2,
+                                       ncol=1, borderaxespad=0.,
+                                       framealpha=.1,
+                                       fancybox=True)
+                        fig.tight_layout(rect=[0, 0, 1, .95], w_pad=1e-6)
+                        if save:
+                            for fmt in ['eps', 'png', 'pdf']:
+                                fig.savefig(os.path.join(
+                                    dest,
+                                    'S{}-{}_{}_{}_{}{}.{}'.format(min(ns),
+                                                                  max(ns),
+                                                                  length,
+                                                                  event_name,
+                                                                  output,
+                                                                  zz,
+                                                                  fmt)))
+                        else:
+                            plt.show()
