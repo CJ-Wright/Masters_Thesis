@@ -24,7 +24,7 @@ The data was calibrated at each of the detector positions using a \ce{CeO2} stan
 The images were corrected for a .95 x-ray polarization.
 Masks were produced for both the foreground and background images.
 The foreground masks were produced using both a 30 pixel edge mask and a 2.5$\sigma$ automatic mask as discussed in chapter \ref{ch:dp}.
-The background masks were produced by using the fairground mask as a starting mask with a 2.5$\sigma$ automatic mask.
+The background masks were produced by using the foreground mask as a starting mask with a 2.5$\sigma$ automatic mask.
 
 The foreground and background images were then integrated using the $Q$ resolution binning discussed in chapter \ref{ch:dp}.
 The resulting $I(Q)$ data were corrected for their number of frames and $I_{00}$.
@@ -48,7 +48,7 @@ This implies that the as synthesized PNO structure is stable at least for the 1 
 \foreach \n/\o in {S1/as synthesized PNO , S2/PNO annealed at 750 $^\circ$C for 25 hours }{
     \foreach \m/\p in {0_to_40/the full PDF, 0_to_10/a close up on the short range section}{
         \begin{figure}
-            \includegraphics[width=\linewidth]{\n/\m_gr}
+            \includegraphics{\n/\m_gr}
             \caption{PDF as a function of temperature for \o showing \p}
             \label{fig:\n_\m_pdf}
         \end{figure}
@@ -66,7 +66,7 @@ Similar results were also observed for samples with longer annealing times, as s
 \foreach \n/\o in {S1/as synthesized PNO , S2/PNO annealed at 750 $^\circ$C for 25 hours }{
     \foreach \m/\p in {0_to_12/the full XRD, 0p8_to_5/a close up on the low $Q$ section}{
         \begin{figure}
-            \includegraphics[width=\linewidth]{\n/\m_chi}
+            \includegraphics{\n/\m_chi}
             \caption{$I(Q)$ as a function of temperature for \o showing \p}
             \label{fig:\n_\m_iq}
         \end{figure}
@@ -85,7 +85,7 @@ This discrepancy seems to point to some kind of disorder which changes the inter
 %    short, medium, long
     full}{
         \begin{figure}
-            \includegraphics[width=\linewidth]{S1-5_\m_\n_gr}
+            \includegraphics{S1-5_\m_\n_gr}
         \caption[Comparison of PNO sample PDFs as a function of annealing time \n]{Comparison of PNO sample PDFs as a function of annealing time \n}
         \label{fig:s1-5_\m_\n_gr}
         \end{figure}
@@ -96,7 +96,7 @@ This discrepancy seems to point to some kind of disorder which changes the inter
 \begin{landscape}
 \foreach \n in {high-temp}{
   \begin{figure}
-    \includegraphics[width=\linewidth]{S1-5_full_\n_chi}
+    \includegraphics{S1-5_full_\n_chi}
     \caption[Comparison of PNO sample $I(Q)$ as a function of annealing time \n]{Comparison of PNO sample $I(Q)$ as a function of annealing time \n}
     \label{fig:s1-5_\n_chi}
   \end{figure}

@@ -49,9 +49,10 @@ if __name__ == '__main__':
                 ]):
                     fig = plt.figure()
                     ax1 = fig.add_subplot(111)
+                    names = ['As-Synthesized', '25 hr', '50 hr',
+                                                      '100 hr', '200 hr']
                     for i, (j, lab) in enumerate(zip(ns,
-                                                     ['As-Synthesized', '25 hr', '50 hr',
-                                                      '100 hr', '200 hr'])):
+                                                     names)):
                         print(j)
                         folder = '/mnt/bulk-data/research_data/USC_beamtime/APS_March_2016/S' + str(
                             j) + '/temp_exp'
@@ -91,9 +92,9 @@ if __name__ == '__main__':
                     else:
                         ax1.set_xlabel(r"$Q (\AA^{-1})$")
                         ax1.set_ylabel(r"$I (Q)$")
-                    ax1.legend(
-                        # loc='best',
-                        fontsize=20, framealpha=.1,
+                    plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
+                               ncol=2, mode="expand", borderaxespad=0.,
+                        framealpha=.1,
                         fancybox=True)
                     fig.tight_layout(rect=[0, 0, 1, .95], w_pad=1e-6)
                     if save:

@@ -45,7 +45,7 @@ def generate_q_bins(rmax, pixel_size, distance, wavelength, rmin=0):
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 
-save_file = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
+save_file = '/mnt/bulk-data/Masters_Thesis/dp/figures/'
 
 # Run at different distances/wavelengths
 geo = Geometry(

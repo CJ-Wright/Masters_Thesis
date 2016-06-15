@@ -1,19 +1,21 @@
 \chapter{Introduction} \label{intro}
 Engineering materials and chemicals on the atomic scale has long been a goal for the chemistry, physics, materials science, and chemical engineering fields.
-Realizing this goal could lead to durable fuel cell catalysts, more bioavailable pharmaceuticals, and radiation damage resistant spacecraft shielding.
-Before we can even think of making atomistically exact structures, durable structures, or structures which change in reproducible ways, we need to know the atomic structure exactly.
-This work addresses these issues by developing a methodology for solving the structure of nanomaterials by matching experimental x-ray scattering data with simulated atomic structures.
+Realizing this goal could lead to more durable fuel cell catalysts, bioavailable pharmaceuticals, and radiation  resistant shielding.
+Before we can even think of making atomistically exact, durable, or reproducibly changing structures, we need to know the precise atomic structure.
+This work bridges the gap in structural knowledge by developing a methodology for solving the structure of materials by matching experimental x-ray total scattering data with simulated atomic structures.
 
-Chapter \ref{ch:pes_e} develops the statistical mechanical system used to match the theoretical structure.
-\S \ref{sec:pes} focuses on the development of potential energy surfaces, including potential energy and force equations, which have minima where experimental results and simulated structures agree the most.
-\S \ref{sec:ens} will discuss statistical mechanical ensembles which are used to search for minima on the potential energy surface.
+Chapter \ref{ch:pes_e} develops the statistical mechanical system used to match experimental and theoretical structures.
+\S \ref{sec:pes} focuses on potential energy surfaces, including potential energy and force equations, which have minima where experimental results and simulated structures agree the most.
+\S \ref{sec:ens} will discuss the statistical mechanical ensembles which search the potential energy surface for minima.
 
-Chapter \ref{ch:pdf} will discuss the mathematical and computational development of the atomic pair distribution function (PDF).
+Chapter \ref{ch:pdf} develops the mathematical and computational framework for the atomic pair distribution function (PDF).
 \S \ref{sec:comp} will focus on the rapid graphical processing unit based calculation of the PDF and its gradients.
 
-Chapter \ref{ch:bmk} will discuss the benchmarking of the the combined statistical mechanical optimizer and PDF calculation systems against a series of theoretical nanoparticles, focusing on understanding limitations of the method and structure reproduction.
+Chapter \ref{ch:bmk} will discuss the benchmarking of the the combined statistical mechanical optimizer and PDF calculation systems against a series of theoretical nanoparticles.
+These benchmarks will focus on understanding the limitations of the method and the relationship between goodness of fit and structure reproduction.
 
-Chapter \ref{ch:dp} will focus on the acquisition of experimental data, its management, and processing.
-\S \ref{subsec:qres}, \ref{subsec:mask}, and \ref{subsec:int} will discuss the derivation of the $Q$ resolution function, the automated masking of 2D area detectors for x-ray total scattering measurements using the previously derived $Q$ resolution, and the impact of different averaging methods and masks on azimuthal integration, respectively.
+Chapter \ref{ch:dp} will focus on the acquisition of experimental data, their management, and processing.
+\S \ref{subsec:qres}, \ref{subsec:mask}, and \ref{subsec:int} will discuss the derivation of the $Q$ resolution function, the automated masking of 2D area detectors using the previously derived $Q$ resolution, and the impact of different averaging methods and masks on azimuthal integration, respectively.
 
 Chapter \ref{ch:pno} will discuss preliminary experimental results investigating the phase changes and local structure of \ce{Pr2NiO4}, revealing the influence of thermal history on the structure.
+This chapter will also analyze thediscrepency between the reciprical space scattering and the PDF.

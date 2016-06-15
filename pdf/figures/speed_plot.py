@@ -14,17 +14,17 @@ print(pes_speed.shape)
 names = ['GPU', 'GPU', 'CPU', 'CPU']
 
 colors=['b','b', 'r', 'r']
-lines = ['o', 's'] * 2
+marker = ['o', 'v', 's', '^']
 
-for speed, calc_type, save_name in zip([pes_speed, fq_speed], [['energy', 'force'] * 2, ['F(Q)', 'Grad F(Q)']*2], ['speed_log', 'fq_log']):
+for speed, calc_type, save_name in zip([pes_speed, fq_speed], [['energy', 'force'] * 2, ['F(Q)', r'$\vec{\nabla}$ F(Q)']*2], ['speed_log', 'fq_log']):
     fig = plt.figure()
     ax1 = fig.add_subplot(111)
     ax2 = ax1.twiny()
     print(len(sizes))
-    print(len(colors), len(lines), len(names), len(calc_type))
+    print(len(colors), len(marker), len(names), len(calc_type))
     for i in range(len(names)):
         print(i)
-        ax1.semilogy(sizes, speed[i], color=colors[i], marker=lines[i], label= '{0} {1}'.format(names[i], calc_type[i]))
+        ax1.semilogy(sizes, speed[i], color=colors[i], marker=marker[i], label='{0} {1}'.format(names[i], calc_type[i]))
 
     ax1.legend(loc='best')
     ax1.set_xlabel('NP diameter in Angstrom')

@@ -14,9 +14,11 @@ from filestore.api import db_connect as fs_db_connect
 from filestore.api import retrieve
 from skbeam.diffraction import bin_edges_to_centers
 from matplotlib.colors import LogNorm
+import matplotlib as mpl
+
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 save = True
-save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
+save_stem = '/mnt/bulk-data/Masters_Thesis/dp/figures/'
 
 
 def find_nearest(array, value):
@@ -209,7 +211,7 @@ for name, mask in zip(
             0]
 
     fig1, ax = plt.subplots()
-    ax.imshow(img2, norm=LogNorm(vmax=.99*np.max(img[mask])))
+    cbim = ax.imshow(img2, norm=LogNorm(vmax=.99*np.max(img[mask])))
     plt.tight_layout()
 
     fig11, ax = plt.subplots()
@@ -249,12 +251,21 @@ for name, mask in zip(
     ax.legend()
     plt.tight_layout()
     if save:
-        for plot_name, fig in zip(['img', 'mask','ave', 'std', 'high_q_ave',
+        for end in ['png', 'pdf']:
+            for plot_name, fig in zip(['img', 'mask','ave', 'std', 'high_q_ave',
                                    'high_q_std'],
                                   [fig1, fig11, fig2, fig3, fig4, fig5]):
-            for end in ['png', 'pdf']:
                 fig.savefig(
                     save_stem + '{}_{}.{}'.format(name, plot_name, end))
+            cbfig, cbax = plt.subplots(figsize=(.5, 6))
+            cb = mpl.colorbar.ColorbarBase(cbax,
+                                           norm=mpl.colors.Normalize(
+                                               vmin=np.min(img),
+                                               vmax=np.max(img)),
+                                           format='%.0e')
+            cbfig.savefig(save_stem + '{}_cb.{}'.format(name, end),
+                          bbox_inches='tight',
+                          transparent='True')
     else:
         plt.show()
 exit()

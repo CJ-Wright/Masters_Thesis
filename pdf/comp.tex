@@ -25,7 +25,7 @@ Computing the PDF is an embarrassingly parallel problem.
 The basic procedure is to calculate the reduced structure factor $F(Q)$ for each atom pair and momentum transfer vector, sum over all the atom pairs, and Fourier transform the structure to the PDF.
 The first part of this procedure is perfectly parallelizable, as each atom pair is separate from the others.
 The summation over all the atomic reduced structure factors can be parallelized via distributed summing.
-Lastly the FFT can be parallelized using existing parallel Fast Fourier Transform (FFT) algorithms.
+Lastly the FFT can be parallelized using existing algorithms.
 
 Graphical Processing Units (GPUs) are particularly well suited to the task of computing PDFs.
 GPU chip architecture is designed to perform many task simultaneously by having potentially thousands of cores.

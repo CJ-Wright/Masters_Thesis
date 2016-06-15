@@ -6,7 +6,7 @@
 \foreach \n/\o in {S3/PNO annealed at 750 $^\circ$C for 50 hours , S4/PNO annealed at 750 $^\circ$C for 100 hours , S5/PNO annealed at 750 $^\circ$C for 200 hours }{
     \foreach \m/\p in {0_to_40/the full PDF, 0_to_10/a close up on the short range section}{
         \begin{figure}
-            \includegraphics[width=\linewidth]{\n/\m_gr}
+            \includegraphics{\n/\m_gr}
             \caption{PDF as a function of temperature for \o showing \p}
             \label{fig:\n_\m_pdf}
         \end{figure}
@@ -29,7 +29,7 @@
 \foreach \n/\nn in {initial/at room temperature, high-temp/at operating temperature, final/cooled back to room temperature}{
     \foreach \m in {short, medium, long, full}{
         \begin{figure}
-            \includegraphics[width=\linewidth]{S1-5_\m_\n_gr}
+            \includegraphics{S1-5_\m_\n_gr}
         \caption[Comparison of PNO sample PDFs as a function of annealing time \nn]{Comparison of PNO sample PDFs as a function of annealing time \nn}
         \label{fig:s1-5_\m_\n_gr}
         \end{figure}
@@ -39,7 +39,7 @@
 
 \foreach \n/\nn in {initial/at room temperature, high-temp/at operating temperature, final/cooled back to room temperature}{
   \begin{figure}
-    \includegraphics[width=\linewidth]{S1-5_full_\n_chi}
+    \includegraphics{S1-5_full_\n_chi}
     \caption[Comparison of PNO sample $I(Q)$ as a function of annealing time \nn]{Comparison of PNO sample $I(Q)$ as a function of annealing time \nn}
     \label{fig:s1-5_\n_chi}
   \end{figure}

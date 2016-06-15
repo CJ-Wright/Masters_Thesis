@@ -4,6 +4,7 @@ from pyFAI.geometry import Geometry
 from skbeam.core.utils import twotheta_to_q
 import scipy.stats as sts
 from scipy.ndimage.interpolation import rotate
+import matplotlib as mpl
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 def rbm(img, r, rsize, alpha, bins=None, mask=None):
@@ -143,7 +144,7 @@ for i in range(len(b)-1):
     t_array = (b[i] <= q) & (q < b[i+1])
     int_q[t_array] = i - 1
 
-save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
+save_stem = '/mnt/bulk-data/Masters_Thesis/dp/figures/'
 
 for trans in [10, 30, 50, 90]:
     #make some sample data
@@ -171,7 +172,7 @@ for trans in [10, 30, 50, 90]:
     fig2, ax2 = plt.subplots()
     # ax2.set_title('Masked Image')
     fixed_image = Z.copy()
-    fixed_image[~mask] = 0.0
+    fixed_image[~mask] = np.nan
     ax2.imshow(fixed_image,interpolation='none',origin='lower',
                clim=(0,255)
                )
@@ -185,11 +186,18 @@ for trans in [10, 30, 50, 90]:
                clim=(0,255)
                )
 
-    for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):
-        for end in ['png', 'pdf']:
+    for end in ['png', 'pdf']:
+        for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):
             fig.savefig(save_stem + '{}_{}.{}'.format(n, trans, end),
                          bbox_inches='tight',
                          transparent='True')
+        cbfig, cbax = plt.subplots(figsize=(.5, 5))
+        cb = mpl.colorbar.ColorbarBase(cbax, norm=mpl.colors.Normalize(
+            vmin=np.min(Z),
+            vmax=np.max(Z)))
+        cbfig.savefig(save_stem + '{}_cb.{}'.format(trans, end),
+                      bbox_inches='tight',
+                      transparent='True')
 
 trans = 50
 # make some sample data
@@ -217,7 +225,7 @@ ax1.set_ylim(0, 2048)
 fig2, ax2 = plt.subplots()
 # ax2.set_title('Masked Image')
 fixed_image = Z.copy()
-fixed_image[~mask] = 0.0
+fixed_image[~mask] = np.nan
 ax2.imshow(fixed_image, interpolation='none', origin='lower',
            # clim=(0,255)
            )
@@ -231,8 +239,14 @@ ax3.imshow(missed_pixels, interpolation='none', origin='lower',
            clim=(0,255)
            )
 
-for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):
-    for end in ['png', 'pdf']:
+for end in ['png', 'pdf']:
+    for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):
         fig.savefig(save_stem + 'rotate_{}_{}.{}'.format(n, trans, end),
                     bbox_inches='tight',
                     transparent='True')
+    cbfig, cbax = plt.subplots(figsize=(.5, 5))
+    cb = mpl.colorbar.ColorbarBase(cbax, norm=mpl.colors.Normalize(vmin=np.min(Z),
+                                                                   vmax=np.max(Z)))
+    cbfig.savefig(save_stem + 'rotate_cb.{}'.format(end),
+                  bbox_inches='tight',
+                  transparent='True')

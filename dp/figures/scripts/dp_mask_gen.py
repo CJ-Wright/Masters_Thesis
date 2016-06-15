@@ -4,6 +4,7 @@ from pyFAI.geometry import Geometry
 from skbeam.core.utils import twotheta_to_q
 import scipy.stats as sts
 from scipy.ndimage.interpolation import rotate
+import matplotlib as mpl
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 def rbm(img, r, rsize, alpha, bins=None, mask=None):
@@ -143,44 +144,52 @@ for i in range(len(b)-1):
     t_array = (b[i] <= q) & (q < b[i+1])
     int_q[t_array] = i - 1
 
-save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
-
+save_stem = '/mnt/bulk-data/Masters_Thesis/dp/figures/'
+cb_only = True
 for j in [100, 300, 500, 1000]:
     #make some sample data
     Z = 100*np.cos(50*r)**2 + 150
+    if not cb_only:
+        np.random.seed(10)
+        pixels = []
+        for i in range(0, j):
+            a, b = np.random.randint(low=0, high=2048), np.random.randint(low=0,
+                                                                          high=2048)
+            if np.random.random() > .5:
+                # Add some hot pixels
+                Z[a, b] = np.random.randint(low=200, high=255)
+            else:
+                # and dead pixels
+                Z[a, b] = np.random.randint(low=0, high=10)
+            pixels.append((a, b))
 
-    np.random.seed(10)
-    pixels = []
-    for i in range(0, j):
-        a, b = np.random.randint(low=0, high=2048), np.random.randint(low=0,
-                                                                      high=2048)
-        if np.random.random() > .5:
-            # Add some hot pixels
-            Z[a, b] = np.random.randint(low=200, high=255)
-        else:
-            # and dead pixels
-            Z[a, b] = np.random.randint(low=0, high=10)
-        pixels.append((a, b))
+        mask = ring_blur_mask(Z, q, int_q, (3., 3), bins=dq+fq)
 
-    mask = ring_blur_mask(Z, q, int_q, (3., 3), bins=dq+fq)
+        print(np.sum(~mask))
+        # print(np.sum(bs))
+        fig2, ax2 = plt.subplots()
+        for y, x in pixels:
+            ax2.plot(x, y, 'ro', mfc='none', mec='b', ms=10)
 
-    print(np.sum(~mask))
-    # print(np.sum(bs))
-    fig2, ax2 = plt.subplots()
-    for y, x in pixels:
-        ax2.plot(x, y, 'ro', mfc='none', mec='b', ms=10)
+        for y, x in zip(*np.nonzero(~mask)):
+            ax2.plot(x, y, 'bo',
+                     ms=5)
 
-    for y, x in zip(*np.nonzero(~mask)):
-        ax2.plot(x, y, 'bo',
-                 ms=5)
-
-    #Then plot it
-    # ax2.set_title('Masked Image')
-    ax2.imshow(Z, interpolation='none',origin='lower',
-               )
-    for fig, n in zip([fig2], ['masked']):
+        #Then plot it
+        # ax2.set_title('Masked Image')
+        im = ax2.imshow(Z, interpolation='none',origin='lower',
+                   )
+        for fig, n in zip([fig2], ['masked']):
+            plt.tight_layout()
+            for end in ['png', 'pdf']:
+                fig.savefig(save_stem + 'dead_pixel_{}_{}.{}'.format(n, j, end),
+                             bbox_inches='tight',
+                             transparent='True')
+    else:
+        cbfig, cbax = plt.subplots(figsize=(.5, 5))
+        cb = mpl.colorbar.ColorbarBase(cbax, norm=mpl.colors.Normalize(vmin=np.min(Z),vmax=np.max(Z)))
+        n = 'masked'
         for end in ['png', 'pdf']:
-            fig.savefig(save_stem + 'dead_pixel_{}_{}.{}'.format(n, j, end),
-                         bbox_inches='tight',
-                         transparent='True')
-
+            cbfig.savefig(save_stem + 'dead_pixel_{}_{}_cb.{}'.format(n, j, end),
+                                 bbox_inches='tight',
+                                 transparent='True')

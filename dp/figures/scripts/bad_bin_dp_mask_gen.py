@@ -145,7 +145,7 @@ for i in range(len(b)-1):
     t_array = (b[i] <= q) & (q < b[i+1])
     int_q[t_array] = i - 1
 
-save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
+save_stem = '/mnt/bulk-data/Masters_Thesis/dp/figures/'
 
 for j in [100, 300, 500, 1000]:
     #make some sample data
@@ -186,3 +186,4 @@ for j in [100, 300, 500, 1000]:
             fig.savefig(save_stem + 'bad_bin_dead_pixel_{}_{}.{}'.format(n, j, end),
                          bbox_inches='tight',
                          transparent='True')
+    print('finished mask')
