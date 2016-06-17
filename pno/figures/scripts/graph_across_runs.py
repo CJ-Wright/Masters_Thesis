@@ -16,6 +16,7 @@ from databroker import db, get_events
 from datamuxer import DataMuxer
 from sidewinder_spec.utils.handlers import *
 import logging
+from pyiid.calc import wrap_rw
 
 logger = logging.getLogger(__name__)
 
@@ -26,9 +27,10 @@ if __name__ == '__main__':
 
     plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
     save = True
+    plot = False
     print('save', save)
     dest = '../'
-    for output, offset in zip(['chi', 'gr'], [.3, 1.5]):
+    for output, offset, skip in zip(['chi', 'gr'], [.3, 1.5], [8, 0]):
         for ns in [
             [1, 2, 3, 4, 5],
             # [1, 16, 18, 20, 22]
@@ -51,6 +53,7 @@ if __name__ == '__main__':
                     ax1 = fig.add_subplot(111)
                     names = ['As-Synthesized', '25 hr', '50 hr',
                              '100 hr', '200 hr']
+                    datas = []
                     for i, (j, lab) in enumerate(zip(ns,
                                                      names)):
                         print(j)
@@ -65,13 +68,13 @@ if __name__ == '__main__':
                         else:
                             key = key_list1[event_idx]
                         data = (
-                            np.loadtxt(os.path.join(folder, key), skiprows=8)[
+                            np.loadtxt(os.path.join(folder, key), skiprows=skip)[
                             :,
                             0],
-                            np.loadtxt(os.path.join(folder, key), skiprows=8)[
+                            np.loadtxt(os.path.join(folder, key), skiprows=skip)[
                             :,
                             1])
-
+                        datas.append(data)
                         cm = plt.get_cmap('magma')
                         cNorm = colors.Normalize(vmin=0, vmax=len(ns))
                         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=cm)
@@ -117,5 +120,36 @@ if __name__ == '__main__':
                                                                   output,
                                                                   zz,
                                                                   fmt)))
-                        else:
+                        if plot:
                             plt.show()
+                        else:
+                            plt.close(fig)
+                rws = np.zeros((len(datas), len(datas)))
+                for i in range(len(datas)):
+                    for j in range(len(datas)):
+                        rws[i, j] = wrap_rw(np.nan_to_num(datas[i][1]), np.nan_to_num(datas[j][1]))[
+                                        0] * 100
+                fig, ax = plt.subplots()
+                im = ax.imshow(rws, interpolation='none', cmap='viridis',
+                               # aspect='auto',
+                               origin='lower left')
+                xtl = ['']
+                xtl.extend(names)
+                xtl.append('')
+                ax.set_xticklabels([''] * len(xtl))
+                ax.set_yticklabels(xtl)
+                cbar = fig.colorbar(im)
+                print(event_name)
+                if save:
+                    for fmt in ['eps', 'png', 'pdf']:
+                        fig.savefig(os.path.join(
+                            dest,
+                            'S{}-{}_{}_{}_rw.{}'.format(min(ns),
+                                                          max(ns),
+                                                          event_name,
+                                                          output,
+                                                          fmt)))
+                if plot:
+                    plt.show()
+                else:
+                    plt.close(fig)
