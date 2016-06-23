@@ -17,6 +17,8 @@ from datamuxer import DataMuxer
 from sidewinder_spec.utils.handlers import *
 import logging
 import matplotlib.pyplot as plt
+from pyiid.calc import wrap_rw
+from decimal import Decimal
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +42,8 @@ def plot_temp_1d_data(temps, data_list, x_lims=None, save_path=None, plot=True,
 
         # Setup the color map
         cm = plt.get_cmap('viridis')
-        cNorm = colors.Normalize(vmin=0, vmax=len(temps))
+        cm = plt.get_cmap('magma')
+        cNorm = colors.Normalize(vmin=0, vmax=len(temps)*1.2)
         scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=cm)
 
         # for each temp/data plot the temperature and data
@@ -73,8 +76,10 @@ def plot_temp_1d_data(temps, data_list, x_lims=None, save_path=None, plot=True,
 
         if save:
             for output_type in ['png', 'eps', 'pdf']:
+                safe_xmin = str(xmin).replace('.', 'p')
+                safe_xmax = str(xmax).replace('.', 'p')
                 dest = os.path.join(save_path, '{}_to_{}_{}.{}'.format(
-                    xmin, xmax, plot_type, output_type
+                    safe_xmin, safe_xmax, plot_type, output_type
                 ))
                 fig.savefig(dest)
         if plot:
@@ -93,8 +98,8 @@ if __name__ == '__main__':
     # Sample names of interest for plotting
     ns = [
         1,
-        # 2,
-        # 3, 4, 5,
+        2,
+        3, 4, 5,
     ]
     ns.sort()
 
@@ -118,11 +123,11 @@ if __name__ == '__main__':
         binned = dm.bin_on('img', interpolation={'T': 'linear'})
 
         for plot_type in [
-            # 'gr',
+            'gr',
             'chi'
         ]:
             if plot_type is 'gr':
-            # Only to the G(r)
+                # Only to the G(r)
                 key_list = [f for f in os.listdir(folder) if
                             f.endswith('.gr') and not f.startswith('d')]
                 # If we are working with G(r) files use these offset and read parameters
@@ -137,7 +142,7 @@ if __name__ == '__main__':
                             f.endswith('.chi') and not f.startswith('d')
                             and int(f.split('.')[0]) % 2 == 1]
                 skr = 8
-                offset = .02
+                offset = .05
                 xlims = [
                     (0, 12),
                     (.8, 5),
@@ -167,6 +172,7 @@ if __name__ == '__main__':
             # Specify the x limits:
             if not os.path.exists(save_folder):
                 os.makedirs(save_folder)
+            # '''
             plot_temp_1d_data(Ts, data_list=data_list, x_lims=xlims,
                               save_path=save_folder,
                               plot_type=plot_type,
@@ -174,3 +180,35 @@ if __name__ == '__main__':
                               plot=False,
                               offset=offset
                               )
+            # '''
+            # '''
+            rws = np.zeros((len(data_list), len(data_list)))
+            print(Ts.shape)
+            for i in range(len(data_list)):
+                for j in range(len(data_list)):
+                    rws[i, j] = wrap_rw(data_list[i][1], data_list[j][1])[0] * 100
+
+            fig, ax = plt.subplots()
+            im = ax.imshow(rws, interpolation='none', cmap='viridis',
+                           # aspect='auto',
+                           origin='lower left')
+            xticks = np.asarray(ax.get_xticks(), dtype=int)
+            tsxt = Ts[xticks[1:-1]]
+            tsxt = np.reshape(tsxt, len(tsxt))
+            for s in range(len(tsxt)):
+                tsxt[s] = float(Decimal(np.round(tsxt[s], 0)).quantize(Decimal('1.')))
+            xtl = ['']
+            xtl.extend(tsxt.astype(int).tolist())
+            xtl.append('')
+            ax.set_xticklabels(xtl)
+            ax.set_yticklabels(xtl)
+            ax.set_xlabel(r'Temperature $^\circ$C')
+            ax.set_ylabel(r'Temperature $^\circ$C')
+            cbar = fig.colorbar(im)
+            for output_type in ['png', 'eps', 'pdf']:
+                dest = os.path.join(save_folder, 'rw_{}.{}'.format(
+                    plot_type, output_type
+                ))
+                fig.savefig(dest)
+            plt.show()
+            # '''

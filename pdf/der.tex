@@ -12,7 +12,7 @@ Thus, the equations for a periodically bound PDF need to be developed as well, w
 Many optimization algorithms and simulations methodologies, including HMC, require not only the potential energy of a given configuration but also the forces acting on that configuration.
 These forces are described by the gradient of potential energy of the system which in turn requires the gradient of the PDF.
 As previously shown the PDF is the Fourier Transform of the Debye equation.
-Since the Fourier Transform is expressed as an integral we can exchange the order of the gradient and the integral, allowing us to calculate the analytical gradient of the Debye equation and FFT the resulting function.
+Since the Fourier Transform is expressed as an integral we can exchange the order of the gradient and the integral, allowing us to calculate the analytical gradient of the Debye equation and Fast Fourier Transform (FFT) the resulting function.
 The Debye equation, with a Debye-Waller vibrational correction is
 \begin{equation}
 F(Q) = \frac{1}{N \langle f \rangle^{2}} \sum_{j\neq i} f_i^{*}(Q)f_j(Q) \exp(-\frac{1}{2}\sigma_{ij}^{2}Q^{2}) \frac{\sin(Qr_{ij})}{r_{ij}}
@@ -30,7 +30,8 @@ where
     q_{iz} - q_{jz}
   \end{bmatrix}
 \end{eqnarray}
-where $Q$ is the scatter vector, $f_i$ is atomic scattering factor of the $i$th atom, and $r_{ij}$ is the distance between atoms $i$ and $j$ and has $q$ dependence. \cite{Jeong2002}
+where $Q$ is the scatter vector, $f_i$ is atomic scattering factor of the $i$th atom, $\vec{u_{i}}$ is the anisotropic displacement parameter (ADP) for the $i$th atom and $r_{ij}$ is the distance between atoms $i$ and $j$ and has $q$ dependence. \cite{Jeong2002}
+The ADPs measure the magnitude and direction of atomic thermal motion.
 For simplicity's sake we will break up $F(Q)$ so that
 \begin{equation}
 F(Q) = \alpha \sum_{j\neq i} \beta_{ij} \uptau_{ij} \Omega_{ij} \label{eq:abto}

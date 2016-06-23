@@ -17,7 +17,7 @@ The mask is created by comparing the pixel values against each ring's standard d
 Note that the threshold can be a function of distance from the point of incidence or $Q$.
 
 \subsection{Test Cases}
-To study the effectiveness of the masking we ran the algorithm against both simulated experimental data.
+To study the effectiveness of the masking we ran the algorithm against both simulated and experimental data.
 In the case of the simulated data four systems were created:
 1) dead/hot pixels with varying numbers of defective pixels,
 2) beamstop holder with varying beamstop holder transmittance,
@@ -35,14 +35,16 @@ The beamstop was calculated to attenuate the x-ray scattering signal at various 
 Two version of the masking algorithm were run for each test case, one using the standard even bin sizes for the integration step, and one where the bin sizes are tuned to the pixel $Q$ resolution as discussed in \ref{subsec:qres}.
 
 \subsection{Results and Discussion}
+%\begin{landscape}
 \foreach \n in {100, 300, 500, 1000}{
 \begin{figure}
   \centering
   \foreach \m in {masked}{
-    \subfloat[]{\includegraphics[width=.5\textwidth]{bad_bin_dead_pixel_\m_\n}}
-    \subfloat[]{\includegraphics[width=.5\textwidth]{dead_pixel_\m_\n}}
+    \subfloat[]{\includegraphics[width=.45\columnwidth]{bad_bin_dead_pixel_\m_\n}}
+    \subfloat[]{\includegraphics[width=.45\columnwidth]{dead_pixel_\m_\n}}
+    \subfloat{\includegraphics[width=.1\columnwidth]{dead_pixel_\m_\n_cb}}
     }
-\caption[Generated dead/hot pixel masks for a detector with $\n$ bad pixels.]{Generated dead/hot pixel masks for a detector with $\n$ bad pixels. a) the standard even bin mask and b) the $Q$ resolution binned mask. The bad pixels are noted with open circles, masked pixels are noted with closed circles.}
+\caption[Generated dead/hot pixel masks for a detector with $\n$ bad pixels.]{Generated dead/hot pixel masks for a detector with $\n$ bad pixels. a) the standard even bin mask and b) the $Q$ resolution binned mask. The bad pixels are noted with open circles, masked pixels are noted with solid circles.}
   \label{fig:dead_pixel_\n}
 \end{figure}
 }
@@ -50,21 +52,26 @@ Two version of the masking algorithm were run for each test case, one using the 
 \foreach \n in {10, 30, 50, 90}{
 \begin{figure}
   \foreach \m in {raw, masked, missed}{
-    \subfloat[]{\includegraphics[width=.3\textwidth]{\m_\n}}
+    \subfloat[]{\includegraphics[width=.3\columnwidth]{\m_\n}}
     }
-  \caption[Generated beamstop holder masks for a beamstop holder with $\n\%$ transmittance.]{Generated beamstop holder masks for a beamstop holder with $\n\%$ transmittance. a) the raw image, b) the masked image, c) and the missed pixels}
+    \subfloat{\includegraphics[width=.07\columnwidth]{masked_\n_cb}}
+  \caption[Generated beamstop holder masks for a beamstop holder with $\n\%$ transmittance.]{Generated beamstop holder masks for a beamstop holder with $\n\%$ transmittance. a) the raw image, b) the masked image, c) and the missed pixels. Note that the masked pixels in b) are white.}
   \label{fig:bs_\n}
 \end{figure}
 }
 
 \begin{figure}
         \foreach \m in {raw, masked, missed}{
-        \subfloat[]{\includegraphics[width=.3\textwidth]{rotate_\m_50}
-        }}
-    \caption{Generated beamstop holder masks which is rotated away from vertical}
+            \subfloat[]{\includegraphics[width=.3\columnwidth]{rotate_\m_50}}
+        }
+    \subfloat{\includegraphics[width=.065\columnwidth]{rotate_cb}}
+    \caption[Generated beamstop holder masks which is rotated away from vertical.]{Generated beamstop holder masks which is rotated away from vertical. Note that the masked pixels in b) are white.}
     \label{fig:rot_bs}
 \end{figure}
+%\end{landscape}
 
+Three main studies were run each examining a different aspect of the simulated or experimental studies.
+These included, masking bad pixels, masking a beamstop holder, and masking experimental data.
 Figures \ref{fig:dead_pixel_100}-\ref{fig:bs_90} show the results of the masking algorithm on simulated images.
 The dead/hot pixel masking shows the importance of using the $Q$ resolution based bin sizes as the even bin based mask have a tendency to over mask the image, removing pixels which contain valuable signal.
 This over-masking is caused by pixels being improperly associated with one another by the even bins.
@@ -80,25 +87,28 @@ Similar results were produced for beamstop holders which were rotated away from 
 
 \begin{figure}
     \foreach \m in {raw, masked}{
-        \subfloat[]{\includegraphics[width=.5\textwidth]{exp_\m}}
+        \subfloat[]{\includegraphics[width=.4\columnwidth]{exp_\m}}
     }
-    \caption[Masked experimental data.]{Masked experimental data. a) the raw image, b) the mask}
+    \subfloat{\includegraphics[width=.1\columnwidth]{exp_cb}}
+    \caption[Masked experimental data.]{Masked experimental data. a) the raw image, b) the mask.}
     \label{fig:masked_exp}
 \end{figure}
 
 \begin{figure}
     \foreach \m in {raw, masked}{
-        \subfloat[]{\includegraphics[width=.5\textwidth]{single_xtal_\m}}
+        \subfloat[]{\includegraphics[width=.4\columnwidth]{single_xtal_\m}}
     }
-    \caption[Masked experimental data with Pt single crystal signal.]{Masked experimental data with Pt single crystal signal. a) the raw image, b) the mask}
+    \subfloat{\includegraphics[width=.1\columnwidth]{single_xtal_cb}}
+    \caption[Masked experimental data with Pt single crystal signal.]{Masked experimental data with Pt single crystal signal. a) the raw image, b) the mask.}
     \label{fig:masked_single_xtal}
 \end{figure}
 
 \begin{figure}
     \foreach \m in {raw, masked}{
-        \subfloat[]{\includegraphics[width=.5\textwidth]{combined_\m}}
+        \subfloat[]{\includegraphics[width=.4\columnwidth]{combined_\m}}
     }
-    \caption[Masked experimental data with Pt single crystal signal using figure's \ref{fig:masked_exp} mask as a starting mask.]{Masked experimental data with Pt single crystal signal using figure's \ref{fig:masked_exp} mask as a starting mask. a) the raw image, b) the mask}
+    \subfloat{\includegraphics[width=.1\columnwidth]{combined_cb}}
+    \caption[Masked experimental data with Pt single crystal signal using figure's \ref{fig:masked_exp} mask as a starting mask.]{Masked experimental data with Pt single crystal signal using figure's \ref{fig:masked_exp} mask as a starting mask. a) the raw image, b) the mask.}
     \label{fig:combined}
 \end{figure}
 

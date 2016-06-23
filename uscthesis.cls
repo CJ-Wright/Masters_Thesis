@@ -91,7 +91,7 @@
                 \expandafter{\th@degreeyear}\\
                 Accepted by:\\
                 \expandafter{\th@committee}
-                \expandafter{\th@dean}, Vice Provost and Dean of Graduate Studies
+                \expandafter{\th@dean}, Senior Vice Provost and Dean of Graduate Studies
         \end{center}
        \vspace*{\fill}     %% 7/2013
 }

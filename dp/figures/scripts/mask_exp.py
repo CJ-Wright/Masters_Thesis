@@ -7,6 +7,7 @@ from pims import TiffStack
 import os
 from matplotlib.colors import LogNorm
 from skbeam.core.mask import mask_edge
+import matplotlib as mpl
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 
@@ -130,7 +131,7 @@ pixel_size = geo.pixel1
 distance = geo.dist
 wavelength = lamda
 
-save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
+save_stem = '/mnt/bulk-data/Masters_Thesis/dp/figures/'
 
 img -= np.min(img) - .1
 alpha = (2., 2.5)
@@ -162,8 +163,16 @@ ax3.imshow(Z2, interpolation='none', origin='lower',
            # norm=norm,
            # aspect='auto'
            )
-for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):
-    for end in ['png', 'pdf']:
+for end in ['png', 'pdf']:
+    for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):
         fig.savefig(save_stem + 'exp_{}.{}'.format(n, end),
                     bbox_inches='tight',
                     transparent='True')
+    cbfig, cbax = plt.subplots(figsize=(.5, 6))
+    cb = mpl.colorbar.ColorbarBase(cbax,
+                                   norm=mpl.colors.Normalize(vmin=np.min(img),
+                                                             vmax=np.max(img)),
+                                   format='%.0e')
+    cbfig.savefig(save_stem + 'exp_cb.{}'.format(end),
+                  bbox_inches='tight',
+                  transparent='True')

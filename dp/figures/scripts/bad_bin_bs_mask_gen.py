@@ -7,6 +7,7 @@ from scipy.ndimage.interpolation import rotate
 
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 
+
 def ring_blur_mask(img, r, int_r, alpha, bins=None, mask=None):
     """
     Perform a annular mask, which checks the ring statistics and masks any
@@ -62,6 +63,7 @@ def ring_blur_mask(img, r, int_r, alpha, bins=None, mask=None):
 
     mask = mask * ~too_low * ~too_hi
     return mask.astype(bool)
+
 
 def rbm(img, r, rsize, alpha, bins=None, mask=None):
     """
@@ -119,6 +121,7 @@ def rbm(img, r, rsize, alpha, bins=None, mask=None):
     mask = mask * ~too_low * ~too_hi
     return mask.astype(bool)
 
+
 geo = Geometry(
     detector='Perkin', pixel1=.0002, pixel2=.0002,
     dist=.23,
@@ -136,59 +139,59 @@ ttht = np.arctan(pixel_top / geo.dist)
 dq = twotheta_to_q(ttht, .143) - twotheta_to_q(tthb, .143)
 fq = np.linspace(0, np.max(q), len(dq))
 
-b = np.zeros(len(fq)+1)
+b = np.zeros(len(fq) + 1)
 b[1:] = dq + fq
 int_q = np.zeros(q.shape, dtype=np.int)
-for i in range(len(b)-1):
-    t_array = (b[i] <= q) & (q < b[i+1])
+for i in range(len(b) - 1):
+    t_array = (b[i] <= q) & (q < b[i + 1])
     int_q[t_array] = i - 1
 
-save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
+save_stem = '/mnt/bulk-data/Masters_Thesis/dp/figures/'
 
 for trans in [10, 30, 50, 90]:
-    #make some sample data
-    Z = 100*np.cos(50*r)**2 + 150
+    # make some sample data
+    Z = 100 * np.cos(50 * r) ** 2 + 150
 
-    middle = 2048/2.
+    middle = 2048 / 2.
     bs = np.zeros(r.shape, dtype=bool)
-    bs[0:middle, middle-30:middle+30] = True
-    bs[0:middle/4, middle - 60:middle + 60] = True
+    bs[0:middle, middle - 30:middle + 30] = True
+    bs[0:middle / 4, middle - 60:middle + 60] = True
     bs = rotate(bs, 0.0, order=0, mode='reflect').astype(np.bool)
-    Z[bs] *= trans/100.
+    Z[bs] *= trans / 100.
 
-    #mask = ring_blur_mask(Z, q, int_q, (3., 3), bins=dq+fq)
+    # mask = ring_blur_mask(Z, q, int_q, (3., 3), bins=dq+fq)
     mask = rbm(Z, r, geo.pixel1, (3., 3))
 
     print(np.sum(~mask))
     # print(np.sum(bs))
 
-    #Then plot it
+    # Then plot it
     fig1, ax1 = plt.subplots()
     # ax1.set_title('Raw data with beamstop')
-    ax1.imshow(Z,interpolation='none', clim=(0,255))
-    ax1.set_xlim(0,2048)
-    ax1.set_ylim(0,2048)
+    im1 = ax1.imshow(Z, interpolation='none', clim=(0, 255))
+    ax1.set_xlim(0, 2048)
+    ax1.set_ylim(0, 2048)
 
     fig2, ax2 = plt.subplots()
     # ax2.set_title('Masked Image')
     fixed_image = Z.copy()
     fixed_image[~mask] = 0.0
-    ax2.imshow(fixed_image,interpolation='none',origin='lower',
-               clim=(0,255)
-               )
+    im2 = ax2.imshow(fixed_image, interpolation='none', origin='lower',
+                     clim=(0, 255)
+                     )
 
     fig3, ax3 = plt.subplots()
     missed_pixels = Z.copy()
     missed_pixels[~bs] = 0.0
     missed_pixels[~mask] = 0.0
     # ax3.set_title('Missed Pixels')
-    ax3.imshow(missed_pixels, interpolation='none', origin='lower',
-               clim=(0,255)
-               )
+    im3 = ax3.imshow(missed_pixels, interpolation='none', origin='lower',
+                     clim=(0, 255)
+                     )
 
     for fig, n in zip([fig1, fig2, fig3], ['raw', 'masked', 'missed']):
+        fig.colorbar()
         for end in ['png', 'pdf']:
             fig.savefig(save_stem + 'bad_bin_{}_{}.{}'.format(n, trans, end),
-                         bbox_inches='tight',
-                         transparent='True')
-
+                        bbox_inches='tight',
+                        transparent='True')

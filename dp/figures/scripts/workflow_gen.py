@@ -14,9 +14,11 @@ from filestore.api import db_connect as fs_db_connect
 from filestore.api import retrieve
 from skbeam.diffraction import bin_edges_to_centers
 from matplotlib.colors import LogNorm
+import matplotlib as mpl
+
 plt.style.use('/mnt/bulk-data/Masters_Thesis/config/thesis.mplstyle')
 save = True
-save_stem = '/mnt/bulk-data/Masters_Thesis/pdf/figures/'
+save_stem = '/mnt/bulk-data/Masters_Thesis/dp/figures/'
 
 
 def find_nearest(array, value):
@@ -159,7 +161,11 @@ def mask_int_and_save(img, q, mask, save_stem, name):
             0]
 
     fig1, ax = plt.subplots()
+<<<<<<< HEAD
     ax.imshow(img2, norm=LogNorm(vmax=.99 * np.max(img[mask])))
+=======
+    cbim = ax.imshow(img2, norm=LogNorm(vmax=.99*np.max(img[mask])))
+>>>>>>> 7e22316f5c4d62eb9c075762392473c223b7a668
     plt.tight_layout()
 
     fig11, ax = plt.subplots()
@@ -199,12 +205,25 @@ def mask_int_and_save(img, q, mask, save_stem, name):
     ax.legend()
     plt.tight_layout()
     if save:
+<<<<<<< HEAD
         for plot_name, fig in zip(['img', 'mask', 'ave', 'std', 'high_q_ave',
+=======
+        for end in ['png', 'pdf']:
+            for plot_name, fig in zip(['img', 'mask','ave', 'std', 'high_q_ave',
+>>>>>>> 7e22316f5c4d62eb9c075762392473c223b7a668
                                    'high_q_std'],
                                   [fig1, fig11, fig2, fig3, fig4, fig5]):
-            for end in ['png', 'pdf']:
                 fig.savefig(
                     save_stem + '{}_{}.{}'.format(name, plot_name, end))
+            cbfig, cbax = plt.subplots(figsize=(.5, 6))
+            cb = mpl.colorbar.ColorbarBase(cbax,
+                                           norm=mpl.colors.Normalize(
+                                               vmin=np.min(img),
+                                               vmax=np.max(img)),
+                                           format='%.0e')
+            cbfig.savefig(save_stem + '{}_cb.{}'.format(name, end),
+                          bbox_inches='tight',
+                          transparent='True')
     else:
         plt.show()
 

@@ -10,9 +10,9 @@ To address these disparity in performance and phase degradation PDF and XRD anal
 
 \section{Experiments}
 \subsection{\ce{Pr2NiO4} Synthesis}
-\ce{Pr2NiO4} was synthesized using the standard approach, as detailed in the work by Dogdibegovic et. al. \cite{Dogdibegovic2016}
-The nickelate powder was initially aprepaired via the glycine-nitrate process.
-This was followd by thermal annealing at 1080 $^\circ$C for 10 hours in air.
+\ce{Pr2NiO4} was synthesized using the standard approach, as detailed in the work by Dogdibegovic et al. \cite{Dogdibegovic2016}
+The nickelate powder was initially prepared via the glycine-nitrate process.
+This was followed by thermal annealing at 1080 $^\circ$C for 10 hours in air.
 
 \subsection{X-ray Measurements}
 X-ray total scattering and x-ray powder diffraction experiments were performed at the APS's 11-ID-B beamline.
@@ -21,10 +21,10 @@ The detector was moved between a 20cm and a 95 cm sample to detector distance to
 Various PNO samples were annealed on the beamline during x-ray measurement.
 \section{Data Processing}
 The data was calibrated at each of the detector positions using a \ce{CeO2} standard via pyFAI. \cite{Kieffer2013}
-The images were corrected for a .95 x-ray polerization.
+The images were corrected for a .95 x-ray polarization.
 Masks were produced for both the foreground and background images.
-The forground masks were produced using both a 30 pixel edge mask and a 2.5$\sigma$ automatic mask as discussed in chapter \ref{ch:dp}.
-The background masks were produced by using the forground mask as a starting mask with a 2.5$\sigma$ automatic mask.
+The foreground masks were produced using both a 30 pixel edge mask and a 2.5$\sigma$ automatic mask as discussed in chapter \ref{ch:dp}.
+The background masks were produced by using the foreground mask as a starting mask with a 2.5$\sigma$ automatic mask.
 
 The foreground and background images were then integrated using the $Q$ resolution binning discussed in chapter \ref{ch:dp}.
 The resulting $I(Q)$ data were corrected for their number of frames and $I_{00}$.
@@ -44,63 +44,81 @@ As figures \ref{fig:S1_0_to_40_pdf} and \ref{fig:S1_0_to_10_pdf} show the as syn
 The PDF does show some broadening at around 3.5 and 8.5 \AA, but the peak shifts themselves are fairly limited.
 This implies that the as synthesized PNO structure is stable at least for the 1 hour that the sample was held at 750 $^\circ$C.
 
-The annealed samples figures, \ref{fig:S2_0_to_40_pdf} and \ref{fig:S2_0_to_10_pdf}, tell a rather different story.
-In this case the PDF shows signifigant peak shifts and broadening, especially at higher interatomic distances.
-Some peaks completely disapear, like the peak at 12 \AA.
-Similar results were also observed for samples with longer annealing times, as shown in the appendix.
-
 \begin{landscape}
+\newgeometry{left=1in,right=1in, bottom=1.25in, top=1.25in}
 \foreach \n/\o in {S1/as synthesized PNO , S2/PNO annealed at 750 $^\circ$C for 25 hours }{
     \foreach \m/\p in {0_to_40/the full PDF, 0_to_10/a close up on the short range section}{
         \begin{figure}
-            \includegraphics[width=\linewidth]{\n/\m_gr}
+            \includegraphics{\n/\m_gr}
             \caption{PDF as a function of temperature for \o showing \p}
             \label{fig:\n_\m_pdf}
         \end{figure}
     }
 }
+\restoregeometry
 \end{landscape}
 
 
 \subsubsection{$I(Q)$}
-
+The annealed samples figures, \ref{fig:S2_0_to_40_pdf} and \ref{fig:S2_0_to_10_pdf}, tell a rather different story.
+In this case the PDF shows significant peak shifts and broadening, especially at higher interatomic distances.
+Some peaks completely disappear, like the peak at 12 \AA.
+Similar results were also observed for samples with longer annealing times, as shown in the appendix.
 \begin{landscape}
+\newgeometry{left=1in,right=1in, bottom=1.25in, top=1.25in}
 \foreach \n/\o in {S1/as synthesized PNO , S2/PNO annealed at 750 $^\circ$C for 25 hours }{
-    \foreach \m/\p in {0_to_12/the full XRD, 0.8_to_5/a close up on the low $Q$ section}{
+    \foreach \m/\p in {0_to_12/the full XRD, 0p8_to_5/a close up on the low $Q$ section}{
         \begin{figure}
-            \includegraphics[width=\linewidth]{\n/\m_chi}
+            \includegraphics{\n/\m_chi}
             \caption{$I(Q)$ as a function of temperature for \o showing \p}
             \label{fig:\n_\m_iq}
         \end{figure}
     }
 }
+\restoregeometry
 \end{landscape}
 
 \subsection{Inter Sample Comparison}
+Figures \ref{fig:s1-5_high-temp_chi} and \ref{fig:s1-5_full_high-temp_gr} show a very interesting contrast.
+Figure \ref{fig:s1-5_high-temp_chi} show significant differences in the $I(Q)$ between the as-synthesized and annealed PNO, which could be associated with the more degradation present in the annealed samples.
+However, figure \ref{fig:s1-5_full_high-temp_gr} shows very little difference in the PDF between the various annealing times.
+This discrepancy seems to point to some kind of disorder which changes the interatomic distances very little but changes the symmetry enough to change the Bragg reflections.
+\begin{landscape}
+\newgeometry{left=1in,right=1in, bottom=1.25in, top=1.25in}
+\foreach \n in {high-temp}{
+    \foreach \m in {
+%    short, medium, long
+    full}{
+        \begin{figure}
+            \includegraphics{S1-5_\m_\n_gr}
+        \caption[Comparison of PNO sample PDFs as a function of annealing time \n]{Comparison of PNO sample PDFs as a function of annealing time \n}
+        \label{fig:s1-5_\m_\n_gr}
+        \end{figure}
+    }
+    }
+\restoregeometry
+\end{landscape}
 
-%\begin{landscape}
-%\foreach \n in {initial, high-temp, final}{
-%  \begin{figure}
-%    \includegraphics[width=\linewidth]{S1-5_full_\n_chi}
-%  \end{figure}
-%}
-%\end{landscape}
-%\begin{landscape}
-%\foreach \n in {initial, high-temp, final}{
-%    \foreach \m in {short, medium, long}{
-%        \begin{figure}
-%            \includegraphics[width=\linewidth]{S1-5_\m_\n}
-%        \end{figure}
-%    }
-%    }
-%\end{landscape}
+\begin{landscape}
+\newgeometry{left=1in,right=1in, bottom=1.25in, top=1.25in}
+\foreach \n in {high-temp}{
+  \begin{figure}
+    \includegraphics{S1-5_full_\n_chi}
+    \caption[Comparison of PNO sample $I(Q)$ as a function of annealing time \n]{Comparison of PNO sample $I(Q)$ as a function of annealing time \n}
+    \label{fig:s1-5_\n_chi}
+  \end{figure}
+}
+\restoregeometry
+\end{landscape}
+
+
 \section{Simulation}
 Simulations have not been run yet on these PNO samples.
 Solving the structures of these samples is expected to be more difficult than the NP benchmarks previously solved.
 The difficulty of these simulations is due to:
 \begin{enumerate}
-    \item The PDF's insensitivity to the oxygen positions, due to the poor x-ray scattering off the very electorn poor oxygens.
-    \item The large difference in mass between the oxygen and other atoms, causing the dynamics of the simulation to be governed by oxygen motion, nessecitating long simulation times to obtain movement of the other atoms.
+    \item The PDF's insensitivity to the oxygen positions, due to the poor x-ray scattering off the very electron poor oxygen.
+    \item The large difference in mass between the oxygen and other atoms, causing the dynamics of the simulation to be governed by oxygen motion, necessitating long simulation times to obtain movement of the other atoms.
     \item The large parameter space caused by potential defects and degradation products.
     Without knowing that the starting phase is pure, it is difficult to even produce starting structures, since the simulation will need to explore all the potential defect/degenerated structures.
 \end{enumerate}
@@ -113,9 +131,9 @@ In-situ studies on the beamline were performed to understand how the structure o
 The data was processed with the previously discussed $Q$ binning, masking, and integration methodology.
 The PDF results show very little change in the structure for the as synthesized sample.
 However, the PDFs show a large change in the previously annealed samples.
-These changes seem to reporduce PDFs similar to the as-synthesized PNO at operating temperatures.
-This would seem to imply that the source of the anamolus PNO phase/power density relationship may be due to the adoption of an active structure upon heating which is universal despite the amount of thermal degradation observed at room temperature.
-In contrast to the PDF results, the XRD results seem to show signifigant changes in the PNO structure, both with ex-situ and in-situ annealing.
+These changes seem to produce PDFs similar to the as-synthesized PNO at operating temperatures.
+This would seem to imply that the source of the anomalous PNO phase/power density relationship may be due to the adoption of an active structure upon heating which is universal despite the amount of thermal degradation observed at room temperature.
+In contrast to the PDF results, the XRD results seem to show significant changes in the PNO structure, both with ex-situ and in-situ annealing.
 The XRDs show the degradation of the PNO into various phases, potentially including \ce{Pr2O11}, and higher ordered Pr based phases.
-The discrepency between these two results is quite interesting as it seems that the XRD and PDF results are contradictory.
-Turbostratic diplacements betweent the layers may be a cause of the PDF/XRD disagreement, as these changes would cause very little change in the local structure observed in the PDF, while causing large changes in the XRD.
+The discrepancy between these two results is quite interesting as it seems that the XRD and PDF results are contradictory.
+Turbostratic displacements between the layers may be a cause of the PDF/XRD disagreement, as these changes would cause very little change in the local structure observed in the PDF, while causing large changes in the XRD.
