@@ -49,7 +49,8 @@ This implies that the as synthesized PNO structure is stable at least for the 1 
 \foreach \n/\o in {S1/as synthesized PNO , S2/PNO annealed at 750 $^\circ$C for 25 hours }{
     \foreach \m/\p in {0_to_40/the full PDF, 0_to_10/a close up on the short range section}{
         \begin{figure}
-            \includegraphics{\n/\m_gr}
+            \centering
+            \includegraphics[width=.9\columnwidth]{\n/\m_gr}
             \caption{PDF as a function of temperature for \o showing \p}
             \label{fig:\n_\m_pdf}
         \end{figure}
@@ -68,7 +69,8 @@ Similar results were also observed for samples with longer annealing times, as s
 \foreach \n/\o in {S1/as synthesized PNO , S2/PNO annealed at 750 $^\circ$C for 25 hours }{
     \foreach \m/\p in {0_to_12/the full XRD, 0p8_to_5/a close up on the low $Q$ section}{
         \begin{figure}
-            \includegraphics{\n/\m_chi}
+            \centering
+            \includegraphics[width=.9\columnwidth]{\n/\m_chi}
             \caption{$I(Q)$ as a function of temperature for \o showing \p}
             \label{fig:\n_\m_iq}
         \end{figure}
@@ -89,7 +91,8 @@ This discrepancy seems to point to some kind of disorder which changes the inter
 %    short, medium, long
     full}{
         \begin{figure}
-            \includegraphics{S1-5_\m_\n_gr}
+            \centering
+            \includegraphics[width=.7\columnwidth]{S1-5_\m_\n_gr}
         \caption[Comparison of PNO sample PDFs as a function of annealing time \n]{Comparison of PNO sample PDFs as a function of annealing time \n}
         \label{fig:s1-5_\m_\n_gr}
         \end{figure}
@@ -102,7 +105,8 @@ This discrepancy seems to point to some kind of disorder which changes the inter
 \begin{landscape}
 \foreach \n in {high-temp}{
   \begin{figure}
-    \includegraphics{S1-5_full_\n_chi}
+    \centering
+    \includegraphics[width=.7\columnwidth]{S1-5_full_\n_chi}
     \caption[Comparison of PNO sample $I(Q)$ as a function of annealing time \n]{Comparison of PNO sample $I(Q)$ as a function of annealing time \n}
     \label{fig:s1-5_\n_chi}
   \end{figure}
